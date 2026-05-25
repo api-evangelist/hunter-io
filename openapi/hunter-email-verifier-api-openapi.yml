@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: Hunter Email Verifier API
+  description: >
+    Verifies the deliverability of an email address by performing MX-record
+    inspection, SMTP connection checks, catch-all detection, disposable domain
+    detection, webmail detection, and Hunter's own database lookup. Returns a
+    confidence score and a normalized status (valid, invalid, accept_all, webmail,
+    disposable, unknown).
+  version: v2
+  contact:
+    name: Hunter Support
+    url: https://hunter.io/contact
+  license:
+    name: Hunter Terms of Service
+    url: https://hunter.io/terms
+servers:
+  - url: https://api.hunter.io/v2
+    description: Production
+security:
+  - ApiKeyQuery: []
+  - ApiKeyHeader: []
+  - BearerAuth: []
+tags:
+  - name: Email Verifier
+    description: Verify the deliverability of an email address.
+paths:
+  /email-verifier:
+    get:
+      summary: Hunter Verify Email
+      description: >
+        Verifies an email address against MX, SMTP, regex, gibberish, disposable,
+        webmail, accept-all, block, and Hunter database checks. Returns a status,
+        score, and supporting flags. Responds 202 while verification is still in
+        flight; retry the same call to get the final result.
+      operationId: emailVerifier
+      tags:
+        - Email Verifier
+      parameters:
+        - name: email
+          in: query
+          required: true
+          description: The email address to verify.
+          schema: { type: string, format: email, example: ada.lovelace@stripe.com }
+        - $ref: '#/components/parameters/ApiKeyQuery'
+      responses:
+        '200':
+          description: Verification result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailVerifierResponse'
+        '202':
+          description: Verification still processing; retry the same request.
+        '400':
+          $ref: '#/components/responses/Error'
+        '451':
+          description: Personal-data restriction prevents verification.
+        '429':
+          $ref: '#/components/responses/Error'
+components:
+  securitySchemes:
+    ApiKeyQuery: { type: apiKey, in: query, name: api_key }
+    ApiKeyHeader: { type: apiKey, in: header, name: X-API-KEY }
+    BearerAuth: { type: http, scheme: bearer }
+  parameters:
+    ApiKeyQuery:
+      name: api_key
+      in: query
+      required: true
+      description: Your Hunter API key.
+      schema: { type: string }
+  schemas:
+    EmailVerifierResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            status: { type: string, enum: [valid, invalid, accept_all, webmail, disposable, unknown] }
+            result: { type: string, description: 'Deprecated. Use `status`.' }
+            score: { type: integer, minimum: 0, maximum: 100 }
+            email: { type: string, format: email }
+            regexp: { type: boolean }
+            gibberish: { type: boolean }
+            disposable: { type: boolean }
+            webmail: { type: boolean }
+            mx_records: { type: boolean }
+            smtp_server: { type: boolean }
+            smtp_check: { type: boolean }
+            accept_all: { type: boolean }
+            block: { type: boolean }
+            sources:
+              type: array
+              items:
+                type: object
+                properties:
+                  domain: { type: string }
+                  uri: { type: string }
+                  extracted_on: { type: string, format: date }
+                  last_seen_on: { type: string, format: date }
+                  still_on_page: { type: boolean }
+        meta:
+          type: object
+          properties:
+            params:
+              type: object
+              additionalProperties: true
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              code: { type: integer }
+              details: { type: string }
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }

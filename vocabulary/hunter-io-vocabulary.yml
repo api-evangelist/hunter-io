@@ -1,0 +1,75 @@
+vocabulary: 0.1
+provider: Hunter
+providerId: hunter-io
+created: '2026-05-25'
+modified: '2026-05-25'
+description: Vocabulary mapping operational, contractual, and capability dimensions of the Hunter.io platform.
+tags:
+  - Email Finder
+  - Email Verifier
+  - Lead Generation
+  - Outreach
+  - Enrichment
+
+operationalConcepts:
+  - term: credit
+    definition: Unit of metered API consumption. Most operations cost 1 credit; combined enrichment costs 2;
+      email count and lead CRUD cost 0.
+  - term: confidence score
+    definition: Integer 0-100 expressing Hunter's certainty that an email exists and belongs to a person.
+  - term: pattern
+    definition: Inferred email-address pattern for a company, e.g. '{first}.{last}' or '{f}{last}'.
+  - term: department
+    definition: One of executive, it, finance, management, sales, legal, support, hr, marketing, communication,
+      education, design, health, operations.
+  - term: seniority
+    definition: One of junior, senior, executive.
+  - term: verification status
+    definition: One of valid, invalid, accept_all, webmail, disposable, unknown.
+  - term: accept-all
+    definition: A mail server that accepts any local-part for the domain; deliverability cannot be confirmed at
+      the mailbox level.
+  - term: webmail
+    definition: A consumer email provider (gmail.com, yahoo.com, outlook.com). Cannot be tied to an organization.
+  - term: disposable
+    definition: A throwaway-address provider (mailinator, 10minutemail, etc.).
+  - term: sources
+    definition: Array of web pages where Hunter previously observed the email, with extraction and last-seen
+      dates.
+
+capabilityConcepts:
+  - capability: domain-search
+    purpose: Discover all known emails for a domain or company.
+    consumes: 1 credit
+  - capability: email-finder
+    purpose: Predict and retrieve the most likely email for a named person at a company.
+    consumes: 1 credit
+  - capability: email-verifier
+    purpose: Validate deliverability of an email address.
+    consumes: 1 credit
+  - capability: email-count
+    purpose: Count indexed emails for a domain without consuming credits or authentication.
+    consumes: 0 credits
+  - capability: discover
+    purpose: Prospect companies by natural-language query or structured filters.
+    consumes: 1 credit
+  - capability: enrichment
+    purpose: Convert an email or domain into a person and/or company profile.
+    consumes: 1-2 credits
+  - capability: leads
+    purpose: CRUD operations on saved leads; powers campaigns and integrations.
+    consumes: 0 credits
+  - capability: account
+    purpose: Inspect plan, reset date, and per-meter usage counters.
+    consumes: 0 credits
+
+contractualConcepts:
+  - term: plan
+    definition: A subscription tier (Free, Starter, Growth, Scale, Enterprise) that bundles a monthly credit
+      allowance, connected-email-account limit, and feature set.
+  - term: reset_date
+    definition: The date on which the current monthly credit allowance is replenished.
+  - term: team_id
+    definition: Identifier for a workspace whose seats share a single credit pool.
+  - term: rate limit
+    definition: Per-second and per-minute throttle applied per endpoint regardless of remaining credits.

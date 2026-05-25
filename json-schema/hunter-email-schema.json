@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/hunter-io/hunter-email-schema.json",
+  "title": "Hunter Email",
+  "description": "Schema for an email object as returned by Hunter Domain Search, Email Finder, and inside Email Verifier responses.",
+  "type": "object",
+  "required": ["value"],
+  "properties": {
+    "value": { "type": "string", "format": "email", "description": "The email address." },
+    "type": { "type": "string", "enum": ["personal", "generic"], "description": "Whether this is a personal mailbox or a generic alias (e.g., info@, support@)." },
+    "confidence": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Confidence score that the email is correct." },
+    "first_name": { "type": "string" },
+    "last_name": { "type": "string" },
+    "position": { "type": "string", "description": "Job title at the company." },
+    "seniority": { "type": "string", "enum": ["junior", "senior", "executive"] },
+    "department": { "type": "string", "enum": ["executive","it","finance","management","sales","legal","support","hr","marketing","communication","education","design","health","operations"] },
+    "linkedin": { "type": "string" },
+    "twitter": { "type": "string" },
+    "phone_number": { "type": "string" },
+    "verification": {
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["valid","invalid","accept_all","webmail","disposable","unknown"] }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["uri"],
+        "properties": {
+          "domain": { "type": "string" },
+          "uri": { "type": "string", "format": "uri" },
+          "extracted_on": { "type": "string", "format": "date" },
+          "last_seen_on": { "type": "string", "format": "date" },
+          "still_on_page": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+openapi: 3.1.0
+info:
+  title: Hunter Account API
+  description: >
+    Returns information about your Hunter account: plan name and level, reset
+    date for credits, team identifier, and per-meter usage counters (searches,
+    verifications, credits).
+  version: v2
+  contact:
+    name: Hunter Support
+    url: https://hunter.io/contact
+servers:
+  - url: https://api.hunter.io/v2
+    description: Production
+security:
+  - ApiKeyQuery: []
+  - ApiKeyHeader: []
+  - BearerAuth: []
+tags:
+  - name: Account
+    description: Account metadata and usage counters.
+paths:
+  /account:
+    get:
+      summary: Hunter Get Account
+      description: >
+        Returns the authenticated account's plan, reset date, team id, and a
+        `requests` block with `used`/`available` counters for credits, searches,
+        and verifications.
+      operationId: getAccount
+      tags: [Account]
+      parameters:
+        - $ref: '#/components/parameters/ApiKeyQuery'
+      responses:
+        '200':
+          description: Account information.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AccountResponse' }
+        '401': { $ref: '#/components/responses/Error' }
+components:
+  securitySchemes:
+    ApiKeyQuery: { type: apiKey, in: query, name: api_key }
+    ApiKeyHeader: { type: apiKey, in: header, name: X-API-KEY }
+    BearerAuth: { type: http, scheme: bearer }
+  parameters:
+    ApiKeyQuery:
+      name: api_key
+      in: query
+      required: true
+      description: Your Hunter API key.
+      schema: { type: string }
+  schemas:
+    AccountResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            first_name: { type: string }
+            last_name: { type: string }
+            email: { type: string, format: email }
+            plan_name: { type: string }
+            plan_level: { type: integer }
+            reset_date: { type: string, format: date }
+            team_id: { type: integer }
+            calls:
+              type: object
+              description: 'Deprecated. Combined request counter.'
+              properties:
+                used: { type: integer }
+                available: { type: integer }
+            requests:
+              type: object
+              properties:
+                searches:
+                  type: object
+                  properties:
+                    used: { type: integer }
+                    available: { type: integer }
+                verifications:
+                  type: object
+                  properties:
+                    used: { type: integer }
+                    available: { type: integer }
+                credits:
+                  type: object
+                  properties:
+                    used: { type: integer }
+                    available: { type: integer }
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              code: { type: integer }
+              details: { type: string }
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }

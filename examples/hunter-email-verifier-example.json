@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.hunter.io/v2/email-verifier?email=patrick@stripe.com&api_key=YOUR_API_KEY"
+  },
+  "response": {
+    "data": {
+      "status": "valid",
+      "result": "deliverable",
+      "score": 99,
+      "email": "patrick@stripe.com",
+      "regexp": true,
+      "gibberish": false,
+      "disposable": false,
+      "webmail": false,
+      "mx_records": true,
+      "smtp_server": true,
+      "smtp_check": true,
+      "accept_all": false,
+      "block": false,
+      "sources": [
+        { "domain": "stripe.com", "uri": "https://stripe.com/about", "extracted_on": "2024-08-04", "last_seen_on": "2026-03-18", "still_on_page": true }
+      ]
+    },
+    "meta": { "params": { "email": "patrick@stripe.com" } }
+  }
+}

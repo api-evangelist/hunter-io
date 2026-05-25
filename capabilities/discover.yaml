@@ -1,0 +1,81 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hunter Discover API
+  description: 'Hunter Discover API. 1 operation. Lead operation: Hunter Discover Companies. Company prospecting
+    via natural language or structured filters.'
+  tags:
+  - Hunter
+  - Discover
+  - Prospecting
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    HUNTER_API_KEY: HUNTER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: discover
+    baseUri: https://api.hunter.io
+    description: Hunter Discover business capability.
+    resources:
+    - name: discover
+      path: /v2/discover
+      operations:
+      - name: discoverCompanies
+        method: POST
+        description: Hunter Discover Companies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Discover request body (query and/or filters).
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.HUNTER_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: discover-rest
+    port: 8080
+    description: REST adapter for Hunter Discover.
+    resources:
+    - path: /v1/discover
+      name: discover
+      description: REST surface for discover.
+      operations:
+      - method: POST
+        name: discoverCompanies
+        description: Hunter Discover Companies
+        call: discover.discoverCompanies
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: discover-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hunter Discover.
+    tools:
+    - name: hunter-discover-companies
+      description: Hunter Discover Companies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: discover.discoverCompanies
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

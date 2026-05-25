@@ -1,0 +1,65 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.hunter.io/v2/domain-search?domain=stripe.com&limit=2&api_key=YOUR_API_KEY"
+  },
+  "response": {
+    "data": {
+      "domain": "stripe.com",
+      "disposable": false,
+      "webmail": false,
+      "accept_all": false,
+      "pattern": "{first}",
+      "organization": "Stripe",
+      "description": "Stripe is a financial infrastructure platform for businesses.",
+      "industry": "Internet Software & Services",
+      "twitter": "stripe",
+      "linkedin": "stripe",
+      "country": "US",
+      "state": "California",
+      "city": "South San Francisco",
+      "headcount": "5001-10000",
+      "company_type": "privately_held",
+      "emails": [
+        {
+          "value": "patrick@stripe.com",
+          "type": "personal",
+          "confidence": 99,
+          "first_name": "Patrick",
+          "last_name": "Collison",
+          "position": "CEO",
+          "seniority": "executive",
+          "department": "executive",
+          "linkedin": "patrickcollison",
+          "twitter": "patrickc",
+          "phone_number": null,
+          "verification": {
+            "date": "2026-04-12T18:22:11Z",
+            "status": "valid"
+          },
+          "sources": [
+            { "domain": "stripe.com", "uri": "https://stripe.com/about", "extracted_on": "2024-08-04", "last_seen_on": "2026-03-18", "still_on_page": true }
+          ]
+        },
+        {
+          "value": "press@stripe.com",
+          "type": "generic",
+          "confidence": 95,
+          "first_name": null,
+          "last_name": null,
+          "position": null,
+          "seniority": null,
+          "department": "communication",
+          "verification": { "date": "2026-04-12T18:22:11Z", "status": "accept_all" },
+          "sources": []
+        }
+      ]
+    },
+    "meta": {
+      "results": 142,
+      "limit": 2,
+      "offset": 0,
+      "params": { "domain": "stripe.com", "type": null, "seniority": null, "department": null }
+    }
+  }
+}

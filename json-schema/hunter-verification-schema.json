@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/hunter-io/hunter-verification-schema.json",
+  "title": "Hunter Email Verification Result",
+  "description": "Schema for the Hunter Email Verifier API response data object. Includes MX, SMTP, regex, disposable, webmail, accept-all, and block flags plus a normalized status and confidence score.",
+  "type": "object",
+  "required": ["status", "email"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["valid", "invalid", "accept_all", "webmail", "disposable", "unknown"],
+      "description": "Normalized verification outcome."
+    },
+    "result": {
+      "type": "string",
+      "description": "Deprecated. Use `status`.",
+      "enum": ["deliverable", "undeliverable", "risky"]
+    },
+    "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "email": { "type": "string", "format": "email" },
+    "regexp": { "type": "boolean", "description": "The email's format passes regex validation." },
+    "gibberish": { "type": "boolean", "description": "Local-part looks like random characters." },
+    "disposable": { "type": "boolean", "description": "Domain is a known disposable-email provider." },
+    "webmail": { "type": "boolean", "description": "Domain is a free webmail provider (gmail.com, yahoo.com, etc.)." },
+    "mx_records": { "type": "boolean", "description": "Domain has MX records." },
+    "smtp_server": { "type": "boolean", "description": "Hunter could connect to an SMTP server for the domain." },
+    "smtp_check": { "type": "boolean", "description": "The mailbox accepted RCPT TO." },
+    "accept_all": { "type": "boolean", "description": "The server accepts any local-part (catch-all)." },
+    "block": { "type": "boolean", "description": "The server blocks verification attempts." },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "domain": { "type": "string" },
+          "uri": { "type": "string", "format": "uri" },
+          "extracted_on": { "type": "string", "format": "date" },
+          "last_seen_on": { "type": "string", "format": "date" },
+          "still_on_page": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

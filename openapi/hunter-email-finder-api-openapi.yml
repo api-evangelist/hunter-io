@@ -1,0 +1,148 @@
+openapi: 3.1.0
+info:
+  title: Hunter Email Finder API
+  description: >
+    Finds the most likely email address for a person at a given company, returning
+    a confidence score, position, social handles, sources where the email was
+    observed, and current verification status.
+  version: v2
+  contact:
+    name: Hunter Support
+    url: https://hunter.io/contact
+  license:
+    name: Hunter Terms of Service
+    url: https://hunter.io/terms
+servers:
+  - url: https://api.hunter.io/v2
+    description: Production
+security:
+  - ApiKeyQuery: []
+  - ApiKeyHeader: []
+  - BearerAuth: []
+tags:
+  - name: Email Finder
+    description: Find the email address of a person at a company.
+paths:
+  /email-finder:
+    get:
+      summary: Hunter Find Email
+      description: >
+        Generates or retrieves the most likely email address from a domain or
+        company name and a person's first and last name (or full name, or LinkedIn
+        handle). Returns score, sources, position, and verification metadata.
+      operationId: emailFinder
+      tags:
+        - Email Finder
+      parameters:
+        - name: domain
+          in: query
+          description: Domain name of the company.
+          schema: { type: string, example: stripe.com }
+        - name: company
+          in: query
+          description: Company name (used when domain is not provided).
+          schema: { type: string }
+        - name: first_name
+          in: query
+          description: First name of the person.
+          schema: { type: string }
+        - name: last_name
+          in: query
+          description: Last name of the person.
+          schema: { type: string }
+        - name: full_name
+          in: query
+          description: Full name of the person (alternative to first/last).
+          schema: { type: string }
+        - name: linkedin_handle
+          in: query
+          description: LinkedIn handle (e.g., the slug after `/in/`).
+          schema: { type: string }
+        - name: max_duration
+          in: query
+          description: Maximum duration of the request in seconds (3-20, default 10).
+          schema: { type: integer, default: 10, minimum: 3, maximum: 20 }
+        - $ref: '#/components/parameters/ApiKeyQuery'
+      responses:
+        '200':
+          description: The best-guess email for the person.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailFinderResponse'
+        '202':
+          description: Request still processing; retry with the same parameters.
+        '400':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+components:
+  securitySchemes:
+    ApiKeyQuery: { type: apiKey, in: query, name: api_key }
+    ApiKeyHeader: { type: apiKey, in: header, name: X-API-KEY }
+    BearerAuth: { type: http, scheme: bearer }
+  parameters:
+    ApiKeyQuery:
+      name: api_key
+      in: query
+      required: true
+      description: Your Hunter API key.
+      schema: { type: string }
+  schemas:
+    EmailFinderResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            first_name: { type: string }
+            last_name: { type: string }
+            email: { type: string, format: email }
+            score: { type: integer, minimum: 0, maximum: 100 }
+            domain: { type: string }
+            accept_all: { type: boolean }
+            position: { type: string }
+            twitter: { type: string }
+            linkedin_url: { type: string }
+            phone_number: { type: string }
+            company: { type: string }
+            sources:
+              type: array
+              items:
+                type: object
+                properties:
+                  domain: { type: string }
+                  uri: { type: string }
+                  extracted_on: { type: string, format: date }
+                  last_seen_on: { type: string, format: date }
+                  still_on_page: { type: boolean }
+            verification:
+              type: object
+              properties:
+                date: { type: string, format: date-time }
+                status: { type: string, enum: [valid, invalid, accept_all, webmail, disposable, unknown] }
+        meta:
+          type: object
+          properties:
+            params:
+              type: object
+              additionalProperties: true
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              code: { type: integer }
+              details: { type: string }
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }

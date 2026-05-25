@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.hunter.io/v2/email-finder?domain=stripe.com&first_name=Patrick&last_name=Collison&api_key=YOUR_API_KEY"
+  },
+  "response": {
+    "data": {
+      "first_name": "Patrick",
+      "last_name": "Collison",
+      "email": "patrick@stripe.com",
+      "score": 99,
+      "domain": "stripe.com",
+      "accept_all": false,
+      "position": "CEO",
+      "twitter": "patrickc",
+      "linkedin_url": "https://linkedin.com/in/patrickcollison",
+      "phone_number": null,
+      "company": "Stripe",
+      "sources": [
+        { "domain": "stripe.com", "uri": "https://stripe.com/about", "extracted_on": "2024-08-04", "last_seen_on": "2026-03-18", "still_on_page": true }
+      ],
+      "verification": { "date": "2026-04-12T18:22:11Z", "status": "valid" }
+    },
+    "meta": { "params": { "first_name": "Patrick", "last_name": "Collison", "full_name": null, "domain": "stripe.com", "company": null, "max_duration": null } }
+  }
+}

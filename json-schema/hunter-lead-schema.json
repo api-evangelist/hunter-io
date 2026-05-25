@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/hunter-io/hunter-lead-schema.json",
+  "title": "Hunter Lead",
+  "description": "Schema for a Hunter Lead resource as returned by the Leads API. A lead is a saved contact stored in your Hunter account and used by Campaigns.",
+  "type": "object",
+  "required": ["email"],
+  "properties": {
+    "id": { "type": "integer" },
+    "email": { "type": "string", "format": "email" },
+    "first_name": { "type": "string" },
+    "last_name": { "type": "string" },
+    "position": { "type": "string" },
+    "company": { "type": "string" },
+    "company_industry": { "type": "string" },
+    "company_size": { "type": "string" },
+    "confidence_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "website": { "type": "string", "format": "uri" },
+    "country_code": { "type": "string" },
+    "linkedin_url": { "type": "string", "format": "uri" },
+    "phone_number": { "type": "string" },
+    "twitter": { "type": "string" },
+    "notes": { "type": "string" },
+    "source": { "type": "string" },
+    "sync_status": { "type": "string", "enum": ["pending", "error", "success"] },
+    "sending_status": { "type": "string", "enum": ["clicked","opened","sent","pending","error","bounced","unsubscribed","replied","unset"] },
+    "verification": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["valid","invalid","accept_all","webmail","disposable","unknown","pending"] },
+        "date": { "type": "string", "format": "date-time" }
+      }
+    },
+    "leads_list": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "name": { "type": "string" }
+      }
+    },
+    "custom_attributes": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "last_activity_at": { "type": "string", "format": "date-time" },
+    "last_contacted_at": { "type": "string", "format": "date-time" }
+  }
+}

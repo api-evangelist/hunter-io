@@ -1,0 +1,248 @@
+openapi: 3.1.0
+info:
+  title: Hunter Enrichment API
+  description: >
+    Person, company, and combined enrichment. Turn an email or LinkedIn handle
+    into a rich person profile (name, role, seniority, social handles, geo), turn
+    a domain into a company profile (industry, location, technology stack, funding,
+    metrics), or combine both in a single call.
+  version: v2
+  contact:
+    name: Hunter Support
+    url: https://hunter.io/contact
+servers:
+  - url: https://api.hunter.io/v2
+    description: Production
+security:
+  - ApiKeyQuery: []
+  - ApiKeyHeader: []
+  - BearerAuth: []
+tags:
+  - name: Enrichment
+    description: Person, company, and combined enrichment.
+paths:
+  /people/find:
+    get:
+      summary: Hunter Enrich Person
+      description: >
+        Return a person profile for an email address or LinkedIn handle, including
+        name, employment, geo, time zone, social handles, and last-seen activity.
+      operationId: enrichPerson
+      tags: [Enrichment]
+      parameters:
+        - name: email
+          in: query
+          schema: { type: string, format: email }
+        - name: linkedin_handle
+          in: query
+          schema: { type: string }
+        - name: clearbit_format
+          in: query
+          description: When true, response is returned in Clearbit-compatible shape for drop-in migration.
+          schema: { type: boolean }
+        - $ref: '#/components/parameters/ApiKeyQuery'
+      responses:
+        '200':
+          description: Person profile.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PersonEnrichmentResponse' }
+        '400': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+        '429': { $ref: '#/components/responses/Error' }
+  /companies/find:
+    get:
+      summary: Hunter Enrich Company
+      description: >
+        Return a company profile for a domain, including industry, location,
+        technologies, metrics (employees, traffic rank, market cap), funding
+        rounds, and social handles.
+      operationId: enrichCompany
+      tags: [Enrichment]
+      parameters:
+        - name: domain
+          in: query
+          required: true
+          schema: { type: string, example: stripe.com }
+        - name: clearbit_format
+          in: query
+          schema: { type: boolean }
+        - $ref: '#/components/parameters/ApiKeyQuery'
+      responses:
+        '200':
+          description: Company profile.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CompanyEnrichmentResponse' }
+        '404': { $ref: '#/components/responses/Error' }
+        '429': { $ref: '#/components/responses/Error' }
+  /combined/find:
+    get:
+      summary: Hunter Enrich Person And Company
+      description: >
+        Combined enrichment. Returns both `person` and `company` blocks for an
+        email address in a single call.
+      operationId: enrichCombined
+      tags: [Enrichment]
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema: { type: string, format: email }
+        - name: clearbit_format
+          in: query
+          schema: { type: boolean }
+        - $ref: '#/components/parameters/ApiKeyQuery'
+      responses:
+        '200':
+          description: Combined person + company profile.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CombinedEnrichmentResponse' }
+        '404': { $ref: '#/components/responses/Error' }
+        '429': { $ref: '#/components/responses/Error' }
+components:
+  securitySchemes:
+    ApiKeyQuery: { type: apiKey, in: query, name: api_key }
+    ApiKeyHeader: { type: apiKey, in: header, name: X-API-KEY }
+    BearerAuth: { type: http, scheme: bearer }
+  parameters:
+    ApiKeyQuery:
+      name: api_key
+      in: query
+      required: true
+      description: Your Hunter API key.
+      schema: { type: string }
+  schemas:
+    PersonEnrichmentResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: string }
+            name:
+              type: object
+              properties:
+                fullName: { type: string }
+                givenName: { type: string }
+                familyName: { type: string }
+            email: { type: string, format: email }
+            location: { type: string }
+            timeZone: { type: string }
+            geo:
+              type: object
+              properties:
+                city: { type: string }
+                state: { type: string }
+                country: { type: string }
+                lat: { type: number }
+                lng: { type: number }
+            employment:
+              type: object
+              properties:
+                domain: { type: string }
+                name: { type: string }
+                title: { type: string }
+                role: { type: string }
+                seniority: { type: string }
+            facebook: { type: object, properties: { handle: { type: string } } }
+            github: { type: object, properties: { handle: { type: string } } }
+            twitter: { type: object, properties: { handle: { type: string } } }
+            linkedin: { type: object, properties: { handle: { type: string } } }
+            gravatar: { type: object, properties: { hash: { type: string } } }
+            emailProvider: { type: string }
+            phone: { type: string }
+            activeAt: { type: string, format: date-time }
+            inactiveAt: { type: string, format: date-time }
+    CompanyEnrichmentResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: string }
+            name: { type: string }
+            legalName: { type: string }
+            domain: { type: string }
+            domainAliases: { type: array, items: { type: string } }
+            site:
+              type: object
+              properties:
+                phoneNumbers: { type: array, items: { type: string } }
+                emailAddresses: { type: array, items: { type: string } }
+            category:
+              type: object
+              properties:
+                sector: { type: string }
+                industry: { type: string }
+                industryGroup: { type: string }
+                naicsCode: { type: string }
+                sicCode: { type: string }
+                gicsCode: { type: string }
+            tags: { type: array, items: { type: string } }
+            description: { type: string }
+            foundedYear: { type: integer }
+            location: { type: string }
+            timeZone: { type: string }
+            geo:
+              type: object
+              properties:
+                city: { type: string }
+                state: { type: string }
+                country: { type: string }
+            logo: { type: string }
+            facebook: { type: object, properties: { handle: { type: string } } }
+            linkedin: { type: object, properties: { handle: { type: string } } }
+            twitter: { type: object, properties: { handle: { type: string } } }
+            crunchbase: { type: object, properties: { handle: { type: string } } }
+            instagram: { type: object, properties: { handle: { type: string } } }
+            type: { type: string }
+            ticker: { type: string }
+            metrics:
+              type: object
+              properties:
+                alexaUsRank: { type: integer }
+                alexaGlobalRank: { type: integer }
+                trafficRank: { type: string }
+                employees: { type: integer }
+                employeesRange: { type: string }
+                marketCap: { type: integer }
+                raised: { type: integer }
+                annualRevenue: { type: integer }
+            tech: { type: array, items: { type: string } }
+            techCategories: { type: array, items: { type: string } }
+            fundingRounds:
+              type: array
+              items:
+                type: object
+                properties:
+                  amount: { type: integer }
+                  currency: { type: string }
+                  series: { type: string }
+                  announcedDate: { type: string, format: date }
+    CombinedEnrichmentResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            person: { $ref: '#/components/schemas/PersonEnrichmentResponse/properties/data' }
+            company: { $ref: '#/components/schemas/CompanyEnrichmentResponse/properties/data' }
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              code: { type: integer }
+              details: { type: string }
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }

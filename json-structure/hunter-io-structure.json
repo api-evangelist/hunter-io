@@ -1,0 +1,64 @@
+{
+  "structure": "Hunter.io API resource model",
+  "provider": "Hunter",
+  "providerId": "hunter-io",
+  "version": "v2",
+  "resources": [
+    {
+      "name": "DomainSearchResult",
+      "description": "All emails Hunter has indexed for a single domain or company, with organization metadata.",
+      "primaryKey": "domain",
+      "fields": ["domain", "organization", "pattern", "emails[]", "industry", "headcount", "country", "city"],
+      "relationships": {
+        "emails[]": "Email (composition)",
+        "organization": "Company (reference)"
+      }
+    },
+    {
+      "name": "Email",
+      "description": "An email address discovered or predicted by Hunter, with confidence and verification.",
+      "primaryKey": "value",
+      "fields": ["value", "type", "confidence", "first_name", "last_name", "position", "seniority", "department", "verification", "sources[]"],
+      "relationships": {
+        "verification": "VerificationResult (composition)",
+        "sources[]": "Source (composition)"
+      }
+    },
+    {
+      "name": "VerificationResult",
+      "description": "Outcome of running Hunter's verification pipeline against an email address.",
+      "primaryKey": "email",
+      "fields": ["email", "status", "score", "regexp", "gibberish", "disposable", "webmail", "mx_records", "smtp_server", "smtp_check", "accept_all", "block"]
+    },
+    {
+      "name": "Source",
+      "description": "A web page on which Hunter observed an email address.",
+      "primaryKey": "uri",
+      "fields": ["domain", "uri", "extracted_on", "last_seen_on", "still_on_page"]
+    },
+    {
+      "name": "Person",
+      "description": "Person profile returned by /people/find.",
+      "primaryKey": "email",
+      "fields": ["name", "email", "location", "geo", "employment", "twitter", "linkedin", "github", "phone"]
+    },
+    {
+      "name": "Company",
+      "description": "Company profile returned by /companies/find.",
+      "primaryKey": "domain",
+      "fields": ["name", "domain", "category", "tags", "foundedYear", "geo", "metrics", "tech", "fundingRounds"]
+    },
+    {
+      "name": "Lead",
+      "description": "Saved contact in your Hunter account.",
+      "primaryKey": "id",
+      "fields": ["id", "email", "first_name", "last_name", "position", "company", "leads_list", "verification", "sending_status", "custom_attributes"]
+    },
+    {
+      "name": "Account",
+      "description": "Plan and usage information for the authenticated key.",
+      "primaryKey": "team_id",
+      "fields": ["plan_name", "plan_level", "reset_date", "requests.searches", "requests.verifications", "requests.credits"]
+    }
+  ]
+}

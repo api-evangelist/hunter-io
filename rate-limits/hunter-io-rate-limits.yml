@@ -1,0 +1,82 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Hunter
+providerId: hunter-io
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Quotas
+  - Email Finder
+description: 'Reconciled rate limits for Hunter.io API v2. Two layers of throttling: monthly credit quotas (per
+  plan) and per-second / per-minute request rate limits (per endpoint). 429 indicates per-second/per-minute
+  limit; 403 plan-credit exhaustion in some flows.'
+sources:
+  - https://hunter.io/api-documentation
+  - https://hunter.io/pricing
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+algorithm: fixed-window
+spendLimits:
+  - tier: Free
+    monthlyCredits: 50
+  - tier: Starter
+    monthlyCredits: 2000
+  - tier: Growth
+    monthlyCredits: 10000
+  - tier: Scale
+    monthlyCredits: 25000
+  - tier: Enterprise
+    monthlyCredits: custom
+limits:
+  - endpoint: /v2/domain-search
+    rps: 15
+    rpm: 500
+  - endpoint: /v2/email-finder
+    rps: 15
+    rpm: 500
+  - endpoint: /v2/email-verifier
+    rps: 10
+    rpm: 300
+  - endpoint: /v2/email-count
+    rps: 15
+    rpm: null
+  - endpoint: /v2/discover
+    rps: 5
+    rpm: 50
+  - endpoint: /v2/people/find
+    rps: 15
+    rpm: 500
+  - endpoint: /v2/companies/find
+    rps: 15
+    rpm: 500
+  - endpoint: /v2/combined/find
+    rps: 15
+    rpm: 500
+creditCosts:
+  - operation: domain-search
+    credits: 1
+    notes: One credit per request regardless of how many emails are returned.
+  - operation: email-finder
+    credits: 1
+  - operation: email-verifier
+    credits: 1
+    notes: Verifications of webmail/disposable/accept-all may be deducted at sub-rate on some plans.
+  - operation: email-count
+    credits: 0
+    notes: Free, unauthenticated.
+  - operation: discover
+    credits: 1
+  - operation: people/find
+    credits: 1
+  - operation: companies/find
+    credits: 1
+  - operation: combined/find
+    credits: 2
+    notes: Counted as both a people and a companies enrichment.
+  - operation: leads (CRUD)
+    credits: 0
+    notes: Lead management does not consume credits.

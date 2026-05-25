@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hunter Email Count API
+  description: 'Hunter Email Count API. 1 operation. Lead operation: Hunter Count Emails For Domain. Free,
+    unauthenticated counting endpoint.'
+  tags:
+  - Hunter
+  - Email Count
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds: []
+capability:
+  consumes:
+  - type: http
+    namespace: email-count
+    baseUri: https://api.hunter.io
+    description: Hunter Email Count business capability.
+    resources:
+    - name: email-count
+      path: /v2/email-count
+      operations:
+      - name: countEmails
+        method: GET
+        description: Hunter Count Emails For Domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: domain
+          in: query
+          type: string
+        - name: company
+          in: query
+          type: string
+        - name: type
+          in: query
+          type: string
+  exposes:
+  - type: rest
+    namespace: email-count-rest
+    port: 8080
+    description: REST adapter for Hunter Email Count.
+    resources:
+    - path: /v1/email-count
+      name: email-count
+      description: REST surface for email count.
+      operations:
+      - method: GET
+        name: countEmails
+        description: Hunter Count Emails For Domain
+        call: email-count.countEmails
+        with:
+          domain: rest.query.domain
+          company: rest.query.company
+          type: rest.query.type
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: email-count-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hunter Email Count.
+    tools:
+    - name: hunter-count-emails
+      description: Hunter Count Emails For Domain
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: email-count.countEmails
+      with:
+        domain: tools.domain
+        company: tools.company
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.

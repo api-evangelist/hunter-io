@@ -1,0 +1,78 @@
+extends:
+  - spectral:oas
+rules:
+  hunter-operation-summary-required:
+    description: All operations must have a summary.
+    severity: error
+    given: '$.paths[*][get,post,put,patch,delete]'
+    then:
+      field: summary
+      function: truthy
+  hunter-operation-summary-title-case:
+    description: Operation summaries must use Title Case starting with 'Hunter'.
+    severity: warn
+    given: '$.paths[*][get,post,put,patch,delete].summary'
+    then:
+      function: pattern
+      functionOptions:
+        match: '^Hunter [A-Z]'
+  hunter-operation-description-required:
+    description: All operations must have a description.
+    severity: error
+    given: '$.paths[*][get,post,put,patch,delete]'
+    then:
+      field: description
+      function: truthy
+  hunter-operation-id-camelcase:
+    description: operationId must be camelCase.
+    severity: error
+    given: '$.paths[*][get,post,put,patch,delete].operationId'
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-zA-Z0-9]+$'
+  hunter-tags-required:
+    description: Every operation must have at least one tag.
+    severity: error
+    given: '$.paths[*][get,post,put,patch,delete]'
+    then:
+      field: tags
+      function: truthy
+  hunter-security-defined:
+    description: Authenticated endpoints must declare a security scheme.
+    severity: warn
+    given: '$.paths[*][get,post,put,patch,delete]'
+    then:
+      field: security
+      function: defined
+  hunter-server-https:
+    description: Servers must use HTTPS.
+    severity: error
+    given: '$.servers[*].url'
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://'
+  hunter-base-path-v2:
+    description: All Hunter servers should target the v2 base path.
+    severity: warn
+    given: '$.servers[*].url'
+    then:
+      function: pattern
+      functionOptions:
+        match: 'api\\.hunter\\.io/v2$'
+  hunter-error-schema-defined:
+    description: An Error schema must be defined.
+    severity: warn
+    given: '$.components.schemas'
+    then:
+      field: Error
+      function: truthy
+  hunter-snake-case-params:
+    description: Hunter query parameters use snake_case.
+    severity: info
+    given: '$.paths[*][*].parameters[?(@.in == ''query'')].name'
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-z0-9_]*$'

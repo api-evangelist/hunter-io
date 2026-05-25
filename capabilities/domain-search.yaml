@@ -1,0 +1,116 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hunter Domain Search API
+  description: 'Hunter Domain Search API. 1 operation. Lead operation: Hunter Search Domain Emails. Self-contained
+    Naftiko capability covering one Hunter business surface.'
+  tags:
+  - Hunter
+  - Domain Search
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    HUNTER_API_KEY: HUNTER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: domain-search
+    baseUri: https://api.hunter.io
+    description: Hunter Domain Search business capability. Self-contained, no shared references.
+    resources:
+    - name: domain-search
+      path: /v2/domain-search
+      operations:
+      - name: searchDomain
+        method: GET
+        description: Hunter Search Domain Emails
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: domain
+          in: query
+          type: string
+          description: Domain name to search.
+        - name: company
+          in: query
+          type: string
+          description: Company name to search.
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of emails returned.
+        - name: offset
+          in: query
+          type: integer
+          description: Number of emails to skip.
+        - name: type
+          in: query
+          type: string
+          description: personal or generic.
+        - name: department
+          in: query
+          type: string
+          description: Comma-separated departments.
+        - name: seniority
+          in: query
+          type: string
+          description: Comma-separated seniority levels.
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.HUNTER_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: domain-search-rest
+    port: 8080
+    description: REST adapter for Hunter Domain Search. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/domain-search
+      name: domain-search
+      description: REST surface for domain search.
+      operations:
+      - method: GET
+        name: searchDomain
+        description: Hunter Search Domain Emails
+        call: domain-search.searchDomain
+        with:
+          domain: rest.query.domain
+          company: rest.query.company
+          limit: rest.query.limit
+          offset: rest.query.offset
+          type: rest.query.type
+          department: rest.query.department
+          seniority: rest.query.seniority
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: domain-search-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hunter Domain Search.
+    tools:
+    - name: hunter-search-domain
+      description: Hunter Search Domain Emails
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: domain-search.searchDomain
+      with:
+        domain: tools.domain
+        company: tools.company
+        limit: tools.limit
+        offset: tools.offset
+        type: tools.type
+        department: tools.department
+        seniority: tools.seniority
+      outputParameters:
+      - type: object
+        mapping: $.

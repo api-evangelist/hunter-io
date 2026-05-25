@@ -1,0 +1,88 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Hunter
+providerId: hunter-io
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - FinOps
+  - Cost Management
+  - FOCUS
+  - Lead Generation
+description: FOCUS-aligned FinOps definition for Hunter.io. Credit-based metering with plan-bundled monthly
+  allowances and overage-protected fixed seats.
+sources:
+  - https://hunter.io/pricing
+  - https://hunter.io/api-documentation
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Hunter
+serviceCategory: Marketing and Sales
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Purchase
+    - Tax
+    - Credit
+  primaryUnit: credit
+  secondaryUnits:
+    - email_account
+    - sequence_recipient
+focusColumns:
+  ServiceName: Hunter API
+  ServiceCategory: Marketing and Sales
+  ProviderName: Hunter
+  PublisherName: Hunter
+  InvoiceIssuerName: Hunter
+  PricingCategory: Subscription
+  PricingUnit: credit
+  BillingCurrency: USD
+meters:
+  - name: credits_used
+    unit: credit
+    aggregation: sum
+    dimensions:
+      - operation
+      - plan
+      - team_id
+  - name: searches_used
+    unit: request
+    aggregation: sum
+    dimensions:
+      - operation
+  - name: verifications_used
+    unit: request
+    aggregation: sum
+    dimensions:
+      - status
+  - name: connected_email_accounts
+    unit: account
+    aggregation: gauge
+    dimensions:
+      - plan
+  - name: sequence_recipients
+    unit: recipient
+    aggregation: sum
+    dimensions:
+      - campaign_id
+allocationDimensions:
+  - team_id
+  - plan
+  - operation
+costReports:
+  - name: account-usage
+    endpoint: /v2/account
+    description: Returns plan, reset date, and used/available counters for credits, searches, and verifications.
+budgets:
+  - basis: monthly_credit_allowance
+    description: Each plan has a fixed monthly credit allowance that resets on the account's reset_date. Excess
+      requests return 429 once the allowance is exhausted; Hunter does not auto-overage on standard plans.
