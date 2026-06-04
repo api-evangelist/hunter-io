@@ -1,0 +1,132 @@
+arazzo: 1.0.1
+info:
+  title: Hunter Find Verify Create Lead
+  summary: Find a person's email, verify it, and create a lead only when the address is deliverable.
+  description: >-
+    Turns a name and company domain into a qualified lead. The Email Finder
+    resolves the most likely address, the Email Verifier confirms deliverability,
+    and the flow branches on the verification status: a valid address is written
+    into Hunter as a new lead carrying the discovered confidence score and
+    position, while a non-valid address ends the workflow without creating a lead
+    so unverified contacts never enter the pipeline. Each request, including the
+    api_key query parameter, is inlined for direct execution.
+  version: 1.0.0
+sourceDescriptions:
+- name: emailFinderApi
+  url: ../openapi/hunter-email-finder-api-openapi.yml
+  type: openapi
+- name: emailVerifierApi
+  url: ../openapi/hunter-email-verifier-api-openapi.yml
+  type: openapi
+- name: leadsApi
+  url: ../openapi/hunter-leads-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: find-verify-create-lead
+  summary: Find an email, verify it, and create a lead when the address is valid.
+  description: >-
+    Finds the most likely email for a named person at a domain, verifies it, and
+    creates a lead in Hunter only when the verification status is valid.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - domain
+    - firstName
+    - lastName
+    properties:
+      apiKey:
+        type: string
+        description: Your Hunter API key, passed as the api_key query parameter.
+      domain:
+        type: string
+        description: The company domain to find the email at (e.g. stripe.com).
+      firstName:
+        type: string
+        description: The first name of the person.
+      lastName:
+        type: string
+        description: The last name of the person.
+      company:
+        type: string
+        description: Optional company name to store on the created lead.
+  steps:
+  - stepId: findEmail
+    description: >-
+      Find the most likely email address for the named person at the domain.
+    operationId: emailFinder
+    parameters:
+    - name: domain
+      in: query
+      value: $inputs.domain
+    - name: first_name
+      in: query
+      value: $inputs.firstName
+    - name: last_name
+      in: query
+      value: $inputs.lastName
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      email: $response.body#/data/email
+      score: $response.body#/data/score
+      position: $response.body#/data/position
+  - stepId: verifyEmail
+    description: >-
+      Verify deliverability of the found email and branch to lead creation only
+      when the status is valid.
+    operationId: emailVerifier
+    parameters:
+    - name: email
+      in: query
+      value: $steps.findEmail.outputs.email
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/status
+    onSuccess:
+    - name: valid
+      type: goto
+      stepId: createLead
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "valid"
+        type: jsonpath
+    - name: notValid
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.status != "valid"
+        type: jsonpath
+  - stepId: createLead
+    description: >-
+      Create a new lead in Hunter from the verified email, carrying the person's
+      name, position, and discovered confidence score.
+    operationId: createLead
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $steps.findEmail.outputs.email
+        first_name: $inputs.firstName
+        last_name: $inputs.lastName
+        position: $steps.findEmail.outputs.position
+        company: $inputs.company
+        confidence_score: $steps.findEmail.outputs.score
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      leadId: $response.body#/data/id
+  outputs:
+    email: $steps.findEmail.outputs.email
+    verificationStatus: $steps.verifyEmail.outputs.status
+    leadId: $steps.createLead.outputs.leadId

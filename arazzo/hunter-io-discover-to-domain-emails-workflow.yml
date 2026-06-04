@@ -1,0 +1,88 @@
+arazzo: 1.0.1
+info:
+  title: Hunter Discover To Domain Emails
+  summary: Discover companies matching a target profile, then pull the email list for the top match's domain.
+  description: >-
+    A prospecting flow that turns a target customer profile into concrete
+    contacts. The Discover API finds companies matching a natural-language query
+    along with email-count summaries, and the Domain Search then pulls the
+    discovered emails for the first matching company's domain. This lets a seller
+    go from an ideal-customer description straight to a contact list in two calls.
+    The Discover request body and the Domain Search api_key query parameter are
+    both inlined for direct execution.
+  version: 1.0.0
+sourceDescriptions:
+- name: discoverApi
+  url: ../openapi/hunter-discover-api-openapi.yml
+  type: openapi
+- name: domainSearchApi
+  url: ../openapi/hunter-domain-search-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: discover-to-domain-emails
+  summary: Discover target companies and pull emails for the top match.
+  description: >-
+    Runs a Discover query to find matching companies, then runs Domain Search on
+    the first match's domain to retrieve its emails and pattern.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - query
+    properties:
+      apiKey:
+        type: string
+        description: Your Hunter API key, passed as the api_key query parameter.
+      query:
+        type: string
+        description: Natural-language description of the target company set.
+      limit:
+        type: integer
+        description: Maximum number of companies to discover (default 10).
+        default: 10
+  steps:
+  - stepId: discoverCompanies
+    description: >-
+      Search Hunter's company database with a natural-language query and return
+      matching companies with their email-count summaries.
+    operationId: discoverCompanies
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    requestBody:
+      contentType: application/json
+      payload:
+        query: $inputs.query
+        limit: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      topDomain: $response.body#/data/0/domain
+      topOrganization: $response.body#/data/0/organization
+      results: $response.body#/meta/results
+  - stepId: searchTopDomain
+    description: >-
+      Pull the email addresses and discovered pattern for the top discovered
+      company's domain.
+    operationId: domainSearch
+    parameters:
+    - name: domain
+      in: query
+      value: $steps.discoverCompanies.outputs.topDomain
+    - name: limit
+      in: query
+      value: 25
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      pattern: $response.body#/data/pattern
+      organization: $response.body#/data/organization
+      emails: $response.body#/data/emails
+  outputs:
+    topDomain: $steps.discoverCompanies.outputs.topDomain
+    pattern: $steps.searchTopDomain.outputs.pattern
+    emails: $steps.searchTopDomain.outputs.emails

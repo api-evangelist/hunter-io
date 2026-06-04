@@ -1,0 +1,123 @@
+arazzo: 1.0.1
+info:
+  title: Hunter Author Finder
+  summary: Resolve an author's email from their name and publication domain, verify it, then enrich their profile.
+  description: >-
+    Hunter has no dedicated author-finder endpoint, so this workflow adapts the
+    theme by chaining the operations the specs do support: the Email Finder
+    resolves the most likely address for a named author at a publication or
+    company domain, the Email Verifier confirms deliverability, and the
+    Enrichment People Find endpoint turns the verified address into a rich
+    person profile (employment, seniority, social handles, geo). The flow
+    branches on verification so enrichment only runs for deliverable addresses.
+    Every request inlines the api_key query parameter for direct execution.
+  version: 1.0.0
+sourceDescriptions:
+- name: emailFinderApi
+  url: ../openapi/hunter-email-finder-api-openapi.yml
+  type: openapi
+- name: emailVerifierApi
+  url: ../openapi/hunter-email-verifier-api-openapi.yml
+  type: openapi
+- name: enrichmentApi
+  url: ../openapi/hunter-enrichment-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: author-finder
+  summary: Find, verify, and enrich an author by name and publication domain.
+  description: >-
+    Finds an author's email at a domain, verifies it, and enriches the verified
+    address into a full person profile, branching so enrichment runs only when
+    the address is valid.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - domain
+    - fullName
+    properties:
+      apiKey:
+        type: string
+        description: Your Hunter API key, passed as the api_key query parameter.
+      domain:
+        type: string
+        description: The publication or company domain the author writes for.
+      fullName:
+        type: string
+        description: The author's full name.
+  steps:
+  - stepId: findAuthorEmail
+    description: >-
+      Find the most likely email address for the author at the publication
+      domain using their full name.
+    operationId: emailFinder
+    parameters:
+    - name: domain
+      in: query
+      value: $inputs.domain
+    - name: full_name
+      in: query
+      value: $inputs.fullName
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      email: $response.body#/data/email
+      score: $response.body#/data/score
+      linkedinUrl: $response.body#/data/linkedin_url
+  - stepId: verifyAuthorEmail
+    description: >-
+      Verify deliverability of the author's email and branch to enrichment only
+      when the status is valid.
+    operationId: emailVerifier
+    parameters:
+    - name: email
+      in: query
+      value: $steps.findAuthorEmail.outputs.email
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/status
+    onSuccess:
+    - name: valid
+      type: goto
+      stepId: enrichAuthor
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "valid"
+        type: jsonpath
+    - name: notValid
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.status != "valid"
+        type: jsonpath
+  - stepId: enrichAuthor
+    description: >-
+      Enrich the verified author email into a full person profile including
+      employment, role, seniority, and social handles.
+    operationId: enrichPerson
+    parameters:
+    - name: email
+      in: query
+      value: $steps.findAuthorEmail.outputs.email
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      fullName: $response.body#/data/name/fullName
+      title: $response.body#/data/employment/title
+      seniority: $response.body#/data/employment/seniority
+      twitterHandle: $response.body#/data/twitter/handle
+  outputs:
+    email: $steps.findAuthorEmail.outputs.email
+    verificationStatus: $steps.verifyAuthorEmail.outputs.status
+    title: $steps.enrichAuthor.outputs.title
+    seniority: $steps.enrichAuthor.outputs.seniority

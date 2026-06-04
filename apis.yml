@@ -167,6 +167,42 @@ kind: contract
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/hunter-io-add-verified-lead-to-list-workflow.yml
+    name: Hunter Add Verified Lead To List
+    summary: Verify an email, upsert it as a lead, then assign the lead to a target leads list.
+  - url: arazzo/hunter-io-author-finder-workflow.yml
+    name: Hunter Author Finder
+    summary: Resolve an author's email from their name and publication domain, verify it, then enrich their profile.
+  - url: arazzo/hunter-io-campaign-lead-builder-workflow.yml
+    name: Hunter Campaign Lead Builder
+    summary: Find a contact, verify it, and seed a campaign by creating a verified lead in a target list.
+  - url: arazzo/hunter-io-count-gated-domain-search-workflow.yml
+    name: Hunter Count Gated Domain Search
+    summary: Use the free Email Count to confirm coverage before spending a credit on Domain Search.
+  - url: arazzo/hunter-io-credit-guarded-domain-search-workflow.yml
+    name: Hunter Credit Guarded Domain Search
+    summary: Check account search credits first and run a Domain Search only when credits remain.
+  - url: arazzo/hunter-io-discover-to-domain-emails-workflow.yml
+    name: Hunter Discover To Domain Emails
+    summary: Discover companies matching a target profile, then pull the email list for the top match's domain.
+  - url: arazzo/hunter-io-domain-to-verified-email-workflow.yml
+    name: Hunter Domain To Verified Email
+    summary: Discover a domain's email pattern, find a specific person's email, then verify its deliverability.
+  - url: arazzo/hunter-io-enrich-email-to-lead-workflow.yml
+    name: Hunter Enrich Email To Lead
+    summary: Combined-enrich an email into person and company data, then upsert a fully populated lead.
+  - url: arazzo/hunter-io-find-verify-create-lead-workflow.yml
+    name: Hunter Find Verify Create Lead
+    summary: Find a person's email, verify it, and create a lead only when the address is deliverable.
+  - url: arazzo/hunter-io-reverify-lead-workflow.yml
+    name: Hunter Reverify Lead
+    summary: Retrieve a stored lead, re-verify its email, and update or delete it based on the result.
+  - url: arazzo/hunter-io-verify-existing-email-workflow.yml
+    name: Hunter Verify Existing Email
+    summary: Verify a known email and upsert it into Hunter as a lead with its verification status.
 - type: Portal
   url: https://hunter.io
 - type: Documentation

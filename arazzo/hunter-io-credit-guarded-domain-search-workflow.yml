@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Hunter Credit Guarded Domain Search
+  summary: Check account search credits first and run a Domain Search only when credits remain.
+  description: >-
+    A guarded prospecting flow that protects against burning through a plan's
+    quota. It first reads the account to inspect the available searches counter,
+    then branches: when searches remain it runs a Domain Search for the requested
+    domain, and when the searches counter is exhausted it ends the workflow
+    without spending a call. This keeps automated prospecting from failing on
+    rate limits or silently consuming the last credits. Each request inlines the
+    api_key query parameter.
+  version: 1.0.0
+sourceDescriptions:
+- name: accountApi
+  url: ../openapi/hunter-account-api-openapi.yml
+  type: openapi
+- name: domainSearchApi
+  url: ../openapi/hunter-domain-search-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: credit-guarded-domain-search
+  summary: Run a Domain Search only when account search credits remain.
+  description: >-
+    Reads the account's available searches and runs a Domain Search only when
+    the counter is greater than zero.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - domain
+    properties:
+      apiKey:
+        type: string
+        description: Your Hunter API key, passed as the api_key query parameter.
+      domain:
+        type: string
+        description: The domain to search once credits are confirmed.
+  steps:
+  - stepId: checkAccount
+    description: >-
+      Read the account and inspect the available searches counter to decide
+      whether a Domain Search can be spent.
+    operationId: getAccount
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      searchesAvailable: $response.body#/data/requests/searches/available
+      searchesUsed: $response.body#/data/requests/searches/used
+      planName: $response.body#/data/plan_name
+    onSuccess:
+    - name: hasCredits
+      type: goto
+      stepId: searchDomain
+      criteria:
+      - context: $response.body
+        condition: $.data.requests.searches.available > 0
+        type: jsonpath
+    - name: noCredits
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.requests.searches.available == 0
+        type: jsonpath
+  - stepId: searchDomain
+    description: >-
+      Run the Domain Search now that available search credits have been
+      confirmed.
+    operationId: domainSearch
+    parameters:
+    - name: domain
+      in: query
+      value: $inputs.domain
+    - name: limit
+      in: query
+      value: 25
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      pattern: $response.body#/data/pattern
+      organization: $response.body#/data/organization
+      emails: $response.body#/data/emails
+  outputs:
+    planName: $steps.checkAccount.outputs.planName
+    searchesAvailable: $steps.checkAccount.outputs.searchesAvailable
+    pattern: $steps.searchDomain.outputs.pattern
+    emails: $steps.searchDomain.outputs.emails

@@ -1,0 +1,133 @@
+arazzo: 1.0.1
+info:
+  title: Hunter Domain To Verified Email
+  summary: Discover a domain's email pattern, find a specific person's email, then verify its deliverability.
+  description: >-
+    The flagship Hunter prospecting chain. It first runs a Domain Search to learn
+    the organization's email pattern and confirm Hunter has coverage for the
+    domain, then uses the Email Finder to resolve the most likely address for a
+    named person at that domain, and finally runs the Email Verifier to confirm
+    deliverability. The flow branches on the verifier's status so a valid address
+    ends the workflow cleanly while a non-valid address is surfaced for review.
+    Every step spells out its request inline, including the api_key query
+    parameter, so the flow can be read and executed without opening the
+    underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: domainSearchApi
+  url: ../openapi/hunter-domain-search-api-openapi.yml
+  type: openapi
+- name: emailFinderApi
+  url: ../openapi/hunter-email-finder-api-openapi.yml
+  type: openapi
+- name: emailVerifierApi
+  url: ../openapi/hunter-email-verifier-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: domain-to-verified-email
+  summary: Resolve and verify one person's email at a company from the company domain.
+  description: >-
+    Searches the domain for its email pattern and coverage, finds the named
+    person's most likely email at that domain, and verifies the result, branching
+    on whether the verification status is valid.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - domain
+    - firstName
+    - lastName
+    properties:
+      apiKey:
+        type: string
+        description: Your Hunter API key, passed as the api_key query parameter.
+      domain:
+        type: string
+        description: The company domain to search and find an email at (e.g. stripe.com).
+      firstName:
+        type: string
+        description: The first name of the person whose email you want to find.
+      lastName:
+        type: string
+        description: The last name of the person whose email you want to find.
+  steps:
+  - stepId: searchDomain
+    description: >-
+      Run a Domain Search to confirm Hunter has coverage for the domain and to
+      retrieve the organization's discovered email pattern.
+    operationId: domainSearch
+    parameters:
+    - name: domain
+      in: query
+      value: $inputs.domain
+    - name: limit
+      in: query
+      value: 10
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      pattern: $response.body#/data/pattern
+      organization: $response.body#/data/organization
+      acceptAll: $response.body#/data/accept_all
+  - stepId: findEmail
+    description: >-
+      Find the most likely email address for the named person at the domain,
+      returning a confidence score and verification metadata.
+    operationId: emailFinder
+    parameters:
+    - name: domain
+      in: query
+      value: $inputs.domain
+    - name: first_name
+      in: query
+      value: $inputs.firstName
+    - name: last_name
+      in: query
+      value: $inputs.lastName
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      email: $response.body#/data/email
+      score: $response.body#/data/score
+      position: $response.body#/data/position
+  - stepId: verifyEmail
+    description: >-
+      Verify the deliverability of the found email and branch on whether the
+      returned status is valid.
+    operationId: emailVerifier
+    parameters:
+    - name: email
+      in: query
+      value: $steps.findEmail.outputs.email
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/status
+      verifyScore: $response.body#/data/score
+    onSuccess:
+    - name: emailValid
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "valid"
+        type: jsonpath
+    - name: emailNotValid
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.status != "valid"
+        type: jsonpath
+  outputs:
+    pattern: $steps.searchDomain.outputs.pattern
+    email: $steps.findEmail.outputs.email
+    findScore: $steps.findEmail.outputs.score
+    verificationStatus: $steps.verifyEmail.outputs.status

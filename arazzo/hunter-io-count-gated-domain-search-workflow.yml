@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Hunter Count Gated Domain Search
+  summary: Use the free Email Count to confirm coverage before spending a credit on Domain Search.
+  description: >-
+    A cost-aware discovery flow. The Email Count endpoint is free and consumes no
+    credits, so it is used first to confirm Hunter actually has emails indexed for
+    the domain. The flow branches on the returned total: when emails exist it runs
+    a paid Domain Search to pull the actual addresses and pattern, and when the
+    count is zero it ends the workflow without spending a credit on a domain that
+    would return nothing. The free Email Count call carries no api_key, while the
+    Domain Search inlines the api_key query parameter.
+  version: 1.0.0
+sourceDescriptions:
+- name: emailCountApi
+  url: ../openapi/hunter-email-count-api-openapi.yml
+  type: openapi
+- name: domainSearchApi
+  url: ../openapi/hunter-domain-search-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: count-gated-domain-search
+  summary: Confirm email coverage for free, then run a paid Domain Search only if any exist.
+  description: >-
+    Counts indexed emails for a domain with the free endpoint and runs Domain
+    Search only when the total is greater than zero.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - domain
+    properties:
+      apiKey:
+        type: string
+        description: Your Hunter API key, used only on the paid Domain Search step.
+      domain:
+        type: string
+        description: The domain to count and then search emails for.
+  steps:
+  - stepId: countEmails
+    description: >-
+      Use the free Email Count endpoint to confirm how many emails Hunter has
+      indexed for the domain before spending a credit.
+    operationId: emailCount
+    parameters:
+    - name: domain
+      in: query
+      value: $inputs.domain
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      total: $response.body#/data/total
+      personal: $response.body#/data/personal_emails
+      generic: $response.body#/data/generic_emails
+    onSuccess:
+    - name: hasEmails
+      type: goto
+      stepId: searchDomain
+      criteria:
+      - context: $response.body
+        condition: $.data.total > 0
+        type: jsonpath
+    - name: noEmails
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.total == 0
+        type: jsonpath
+  - stepId: searchDomain
+    description: >-
+      Run the paid Domain Search now that the free count has confirmed coverage
+      exists for the domain.
+    operationId: domainSearch
+    parameters:
+    - name: domain
+      in: query
+      value: $inputs.domain
+    - name: limit
+      in: query
+      value: 25
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      pattern: $response.body#/data/pattern
+      organization: $response.body#/data/organization
+      emails: $response.body#/data/emails
+  outputs:
+    total: $steps.countEmails.outputs.total
+    pattern: $steps.searchDomain.outputs.pattern
+    emails: $steps.searchDomain.outputs.emails

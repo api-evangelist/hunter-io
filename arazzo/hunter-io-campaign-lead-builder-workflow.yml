@@ -1,0 +1,137 @@
+arazzo: 1.0.1
+info:
+  title: Hunter Campaign Lead Builder
+  summary: Find a contact, verify it, and seed a campaign by creating a verified lead in a target list.
+  description: >-
+    Hunter campaigns in these specs are driven entirely by leads assigned to a
+    leads list, so this workflow adapts the campaign theme by building a single
+    campaign-ready lead end to end. The Email Finder resolves the contact, the
+    Email Verifier confirms deliverability, and the flow branches so only valid
+    addresses are written as a lead directly into the supplied campaign list via
+    leads_list_id. The result is a verified contact ready to be enrolled in a
+    Hunter campaign. Every request inlines the api_key query parameter.
+  version: 1.0.0
+sourceDescriptions:
+- name: emailFinderApi
+  url: ../openapi/hunter-email-finder-api-openapi.yml
+  type: openapi
+- name: emailVerifierApi
+  url: ../openapi/hunter-email-verifier-api-openapi.yml
+  type: openapi
+- name: leadsApi
+  url: ../openapi/hunter-leads-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: campaign-lead-builder
+  summary: Build a verified, list-assigned lead ready for a Hunter campaign.
+  description: >-
+    Finds a contact's email, verifies it, and creates a lead directly in the
+    target campaign list when the address is valid.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - domain
+    - firstName
+    - lastName
+    - leadsListId
+    properties:
+      apiKey:
+        type: string
+        description: Your Hunter API key, passed as the api_key query parameter.
+      domain:
+        type: string
+        description: The company domain to find the contact at.
+      firstName:
+        type: string
+        description: The contact's first name.
+      lastName:
+        type: string
+        description: The contact's last name.
+      leadsListId:
+        type: integer
+        description: The id of the campaign leads list to add the lead to.
+  steps:
+  - stepId: findContact
+    description: >-
+      Find the most likely email for the named contact at the domain.
+    operationId: emailFinder
+    parameters:
+    - name: domain
+      in: query
+      value: $inputs.domain
+    - name: first_name
+      in: query
+      value: $inputs.firstName
+    - name: last_name
+      in: query
+      value: $inputs.lastName
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      email: $response.body#/data/email
+      score: $response.body#/data/score
+      position: $response.body#/data/position
+      company: $response.body#/data/company
+  - stepId: verifyContact
+    description: >-
+      Verify the contact's email and branch to lead creation only when the
+      status is valid.
+    operationId: emailVerifier
+    parameters:
+    - name: email
+      in: query
+      value: $steps.findContact.outputs.email
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/status
+    onSuccess:
+    - name: valid
+      type: goto
+      stepId: createCampaignLead
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "valid"
+        type: jsonpath
+    - name: notValid
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.status != "valid"
+        type: jsonpath
+  - stepId: createCampaignLead
+    description: >-
+      Create the verified contact as a lead directly inside the campaign leads
+      list so it is ready for enrollment.
+    operationId: createLead
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $steps.findContact.outputs.email
+        first_name: $inputs.firstName
+        last_name: $inputs.lastName
+        position: $steps.findContact.outputs.position
+        company: $steps.findContact.outputs.company
+        confidence_score: $steps.findContact.outputs.score
+        leads_list_id: $inputs.leadsListId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      leadId: $response.body#/data/id
+      leadsListName: $response.body#/data/leads_list/name
+  outputs:
+    email: $steps.findContact.outputs.email
+    verificationStatus: $steps.verifyContact.outputs.status
+    leadId: $steps.createCampaignLead.outputs.leadId
+    leadsListName: $steps.createCampaignLead.outputs.leadsListName

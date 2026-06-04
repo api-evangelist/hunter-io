@@ -1,0 +1,126 @@
+arazzo: 1.0.1
+info:
+  title: Hunter Add Verified Lead To List
+  summary: Verify an email, upsert it as a lead, then assign the lead to a target leads list.
+  description: >-
+    Hunter has no standalone leads-list resource in these specs, so the
+    "lead list" theme is adapted through the leads_list_id attribute that every
+    lead carries. The flow verifies a supplied email, branches on deliverability,
+    upserts the deliverable address as a lead, and then patches that lead to
+    assign it to the supplied target list so it is ready to be enrolled in a
+    campaign. Re-running upserts by email match so the same contact is not
+    duplicated. Each request inlines the api_key query parameter.
+  version: 1.0.0
+sourceDescriptions:
+- name: emailVerifierApi
+  url: ../openapi/hunter-email-verifier-api-openapi.yml
+  type: openapi
+- name: leadsApi
+  url: ../openapi/hunter-leads-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: add-verified-lead-to-list
+  summary: Verify an email, upsert a lead, and assign it to a leads list.
+  description: >-
+    Verifies a supplied email, upserts a lead when deliverable, then assigns
+    that lead to the target leads list via its leads_list_id.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - email
+    - leadsListId
+    properties:
+      apiKey:
+        type: string
+        description: Your Hunter API key, passed as the api_key query parameter.
+      email:
+        type: string
+        description: The email address to verify and add to the list.
+      leadsListId:
+        type: integer
+        description: The id of the leads list to assign the lead to.
+      firstName:
+        type: string
+        description: Optional first name for the lead.
+      lastName:
+        type: string
+        description: Optional last name for the lead.
+  steps:
+  - stepId: verifyEmail
+    description: >-
+      Verify deliverability of the supplied email and branch so only deliverable
+      addresses are upserted and listed.
+    operationId: emailVerifier
+    parameters:
+    - name: email
+      in: query
+      value: $inputs.email
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/status
+      score: $response.body#/data/score
+    onSuccess:
+    - name: deliverable
+      type: goto
+      stepId: upsertLead
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "valid" || $.data.status == "accept_all"
+        type: jsonpath
+    - name: undeliverable
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.status != "valid" && $.data.status != "accept_all"
+        type: jsonpath
+  - stepId: upsertLead
+    description: >-
+      Upsert the deliverable email as a lead by email match, recording the
+      verification score.
+    operationId: upsertLead
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+        first_name: $inputs.firstName
+        last_name: $inputs.lastName
+        confidence_score: $steps.verifyEmail.outputs.score
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      leadId: $response.body#/data/id
+  - stepId: assignToList
+    description: >-
+      Patch the lead to assign it to the target leads list via its
+      leads_list_id so it is ready for campaign enrollment.
+    operationId: updateLead
+    parameters:
+    - name: id
+      in: path
+      value: $steps.upsertLead.outputs.leadId
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+        leads_list_id: $inputs.leadsListId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      leadId: $response.body#/data/id
+      leadsListName: $response.body#/data/leads_list/name
+  outputs:
+    leadId: $steps.upsertLead.outputs.leadId
+    verificationStatus: $steps.verifyEmail.outputs.status
+    leadsListName: $steps.assignToList.outputs.leadsListName

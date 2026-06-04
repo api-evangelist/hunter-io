@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: Hunter Enrich Email To Lead
+  summary: Combined-enrich an email into person and company data, then upsert a fully populated lead.
+  description: >-
+    Turns a bare email address into a rich, list-ready lead. The Combined
+    Enrichment endpoint returns both the person block (name, role, seniority,
+    social handles) and the company block (industry, location, metrics) for the
+    address, and the flow then upserts a lead populated from that enrichment so
+    the record carries position, company, industry, and LinkedIn URL rather than
+    just an email. Upserting by email match keeps re-runs idempotent. Every
+    request inlines the api_key query parameter.
+  version: 1.0.0
+sourceDescriptions:
+- name: enrichmentApi
+  url: ../openapi/hunter-enrichment-api-openapi.yml
+  type: openapi
+- name: leadsApi
+  url: ../openapi/hunter-leads-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: enrich-email-to-lead
+  summary: Enrich an email into person and company data and upsert a populated lead.
+  description: >-
+    Runs combined enrichment on an email then upserts a lead populated with the
+    returned person and company fields.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - email
+    properties:
+      apiKey:
+        type: string
+        description: Your Hunter API key, passed as the api_key query parameter.
+      email:
+        type: string
+        description: The email address to enrich and turn into a lead.
+  steps:
+  - stepId: enrichCombined
+    description: >-
+      Return both person and company enrichment blocks for the email in a single
+      call.
+    operationId: enrichCombined
+    parameters:
+    - name: email
+      in: query
+      value: $inputs.email
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstName: $response.body#/data/person/name/givenName
+      lastName: $response.body#/data/person/name/familyName
+      title: $response.body#/data/person/employment/title
+      linkedinHandle: $response.body#/data/person/linkedin/handle
+      companyName: $response.body#/data/company/name
+      companyDomain: $response.body#/data/company/domain
+      industry: $response.body#/data/company/category/industry
+  - stepId: upsertLead
+    description: >-
+      Upsert a lead by email match, populated with the enriched person and
+      company fields.
+    operationId: upsertLead
+    parameters:
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+        first_name: $steps.enrichCombined.outputs.firstName
+        last_name: $steps.enrichCombined.outputs.lastName
+        position: $steps.enrichCombined.outputs.title
+        company: $steps.enrichCombined.outputs.companyName
+        company_industry: $steps.enrichCombined.outputs.industry
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      leadId: $response.body#/data/id
+  outputs:
+    companyName: $steps.enrichCombined.outputs.companyName
+    industry: $steps.enrichCombined.outputs.industry
+    leadId: $steps.upsertLead.outputs.leadId

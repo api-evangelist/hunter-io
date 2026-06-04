@@ -1,0 +1,128 @@
+arazzo: 1.0.1
+info:
+  title: Hunter Reverify Lead
+  summary: Retrieve a stored lead, re-verify its email, and update or delete it based on the result.
+  description: >-
+    A list-hygiene flow for keeping a lead database deliverable. It fetches a
+    lead by id, re-runs the Email Verifier on the stored address, and branches on
+    the fresh status: a still-valid address has its confidence score refreshed via
+    an update, while an address that has gone invalid is deleted from the account
+    so dead contacts do not pollute future campaigns. Running this across a list
+    keeps bounce rates low. Each request inlines the api_key query parameter.
+  version: 1.0.0
+sourceDescriptions:
+- name: leadsApi
+  url: ../openapi/hunter-leads-api-openapi.yml
+  type: openapi
+- name: emailVerifierApi
+  url: ../openapi/hunter-email-verifier-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: reverify-lead
+  summary: Re-verify a stored lead and update it if valid or delete it if invalid.
+  description: >-
+    Fetches a lead, re-verifies its email, and branches to refresh the lead when
+    still valid or delete it when it has become invalid.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - leadId
+    properties:
+      apiKey:
+        type: string
+        description: Your Hunter API key, passed as the api_key query parameter.
+      leadId:
+        type: integer
+        description: The id of the lead to re-verify.
+  steps:
+  - stepId: getLead
+    description: >-
+      Retrieve the stored lead by id to read its current email address.
+    operationId: getLead
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.leadId
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      email: $response.body#/data/email
+      firstName: $response.body#/data/first_name
+      lastName: $response.body#/data/last_name
+  - stepId: reverifyEmail
+    description: >-
+      Re-verify the stored email and branch to refresh the lead when valid or
+      delete it when invalid.
+    operationId: emailVerifier
+    parameters:
+    - name: email
+      in: query
+      value: $steps.getLead.outputs.email
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/status
+      score: $response.body#/data/score
+    onSuccess:
+    - name: stillValid
+      type: goto
+      stepId: refreshLead
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "valid"
+        type: jsonpath
+    - name: nowInvalid
+      type: goto
+      stepId: deleteLead
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "invalid"
+        type: jsonpath
+  - stepId: refreshLead
+    description: >-
+      Update the still-valid lead with its refreshed confidence score from the
+      latest verification.
+    operationId: updateLead
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.leadId
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $steps.getLead.outputs.email
+        confidence_score: $steps.reverifyEmail.outputs.score
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      leadId: $response.body#/data/id
+    onSuccess:
+    - name: refreshed
+      type: end
+  - stepId: deleteLead
+    description: >-
+      Delete the lead whose email has gone invalid so it no longer pollutes
+      future campaigns.
+    operationId: deleteLead
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.leadId
+    - name: api_key
+      in: query
+      value: $inputs.apiKey
+    successCriteria:
+    - condition: $statusCode == 204
+  outputs:
+    verificationStatus: $steps.reverifyEmail.outputs.status
+    refreshedLeadId: $steps.refreshLead.outputs.leadId
