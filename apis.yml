@@ -19,11 +19,12 @@ apis:
     type: JSONLD
   - url: examples/hunter-domain-search-example.json
     type: Examples
-  - type: NaftikoCapability
-    url: capabilities/domain-search.yaml
-  description: Search for all email addresses associated with a domain name or company. Returns the inferred email
-    pattern, organization metadata, and a list of emails with confidence scores, departments, seniority,
-    verification status, and observed sources. Costs 1 credit per request.
+  - url: graphql/hunter-io-graphql.md
+    type: GraphQL
+  description: Search for all email addresses associated with a domain name or company.
+    Returns the inferred email pattern, organization metadata, and a list of emails
+    with confidence scores, departments, seniority, verification status, and observed
+    sources. Costs 1 credit per request.
 - aid: hunter-io:hunter-email-finder-api
   name: Hunter Email Finder API
   tags:
@@ -39,11 +40,10 @@ apis:
     type: JSONSchema
   - url: examples/hunter-email-finder-example.json
     type: Examples
-  - type: NaftikoCapability
-    url: capabilities/email-finder.yaml
-  description: Generate or retrieve the most likely email address for a named person at a company. Accepts
-    first/last name, full name, or LinkedIn handle alongside a domain or company. Returns confidence score,
-    position, social handles, sources, and verification status. Costs 1 credit per request.
+  description: Generate or retrieve the most likely email address for a named person
+    at a company. Accepts first/last name, full name, or LinkedIn handle alongside
+    a domain or company. Returns confidence score, position, social handles, sources,
+    and verification status. Costs 1 credit per request.
 - aid: hunter-io:hunter-email-verifier-api
   name: Hunter Email Verifier API
   tags:
@@ -59,12 +59,11 @@ apis:
     type: JSONSchema
   - url: examples/hunter-email-verifier-example.json
     type: Examples
-  - type: NaftikoCapability
-    url: capabilities/email-verifier.yaml
-  description: Verify the deliverability of an email address through MX-record inspection, SMTP connection checks,
-    catch-all detection, disposable-domain detection, webmail detection, and Hunter's own database lookup.
-    Returns a normalized status (valid, invalid, accept_all, webmail, disposable, unknown) plus a 0-100 confidence
-    score. May return 202 while verification is in flight.
+  description: Verify the deliverability of an email address through MX-record inspection,
+    SMTP connection checks, catch-all detection, disposable-domain detection, webmail
+    detection, and Hunter's own database lookup. Returns a normalized status (valid,
+    invalid, accept_all, webmail, disposable, unknown) plus a 0-100 confidence score.
+    May return 202 while verification is in flight.
 - aid: hunter-io:hunter-email-count-api
   name: Hunter Email Count API
   tags:
@@ -76,10 +75,9 @@ apis:
     type: Documentation
   - url: openapi/hunter-email-count-api-openapi.yml
     type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/email-count.yaml
-  description: Free, unauthenticated endpoint returning the total number of email addresses Hunter has indexed for
-    a domain or company, broken down by personal/generic, department, and seniority. Does not consume credits.
+  description: Free, unauthenticated endpoint returning the total number of email
+    addresses Hunter has indexed for a domain or company, broken down by personal/generic,
+    department, and seniority. Does not consume credits.
 - aid: hunter-io:hunter-discover-api
   name: Hunter Discover API
   tags:
@@ -92,12 +90,11 @@ apis:
     type: Documentation
   - url: openapi/hunter-discover-api-openapi.yml
     type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/discover.yaml
-  description: Find companies matching a target customer profile using a natural-language query or structured
-    filters across industry, headcount, location, technology stack, funding, and keywords. Powers Hunter's
-    prospecting workflows and feeds Domain Search and Email Finder. Premium filters (similar_to, technology,
-    funding, year_founded) require a higher plan.
+  description: Find companies matching a target customer profile using a natural-language
+    query or structured filters across industry, headcount, location, technology stack,
+    funding, and keywords. Powers Hunter's prospecting workflows and feeds Domain
+    Search and Email Finder. Premium filters (similar_to, technology, funding, year_founded)
+    require a higher plan.
 - aid: hunter-io:hunter-enrichment-api
   name: Hunter Enrichment API
   tags:
@@ -110,12 +107,11 @@ apis:
     type: Documentation
   - url: openapi/hunter-enrichment-api-openapi.yml
     type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/enrichment.yaml
-  description: Person, company, and combined enrichment. Turn an email or LinkedIn handle into a rich person
-    profile (name, role, seniority, social handles, geo), turn a domain into a company profile (industry,
-    location, technology stack, funding, metrics), or combine both in a single call. Supports a
-    `clearbit_format=true` flag for drop-in Clearbit migration.
+  description: Person, company, and combined enrichment. Turn an email or LinkedIn
+    handle into a rich person profile (name, role, seniority, social handles, geo),
+    turn a domain into a company profile (industry, location, technology stack, funding,
+    metrics), or combine both in a single call. Supports a `clearbit_format=true`
+    flag for drop-in Clearbit migration.
 - aid: hunter-io:hunter-account-api
   name: Hunter Account API
   tags:
@@ -128,11 +124,10 @@ apis:
     type: Documentation
   - url: openapi/hunter-account-api-openapi.yml
     type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/account.yaml
-  description: Returns information about the authenticated Hunter account, including plan name and level, credit
-    reset date, team id, and per-meter usage counters (searches, verifications, credits) with used/available
-    splits. Useful for FinOps and pre-flight quota checks.
+  description: Returns information about the authenticated Hunter account, including
+    plan name and level, credit reset date, team id, and per-meter usage counters
+    (searches, verifications, credits) with used/available splits. Useful for FinOps
+    and pre-flight quota checks.
 - aid: hunter-io:hunter-leads-api
   name: Hunter Leads API
   tags:
@@ -147,12 +142,11 @@ apis:
     type: OpenAPI
   - url: json-schema/hunter-lead-schema.json
     type: JSONSchema
-  - type: NaftikoCapability
-    url: capabilities/leads.yaml
-  description: Manage leads saved in your Hunter account. Full CRUD plus upsert and filtered list, with
-    pagination, query search, leads-list scoping, verification and sending-status filters, and custom attributes.
-    Leads power Hunter's Campaigns surface and integrate with Hunter Discover and Email Finder. Lead operations
-    do not consume credits.
+  description: Manage leads saved in your Hunter account. Full CRUD plus upsert and
+    filtered list, with pagination, query search, leads-list scoping, verification
+    and sending-status filters, and custom attributes. Leads power Hunter's Campaigns
+    surface and integrate with Hunter Discover and Email Finder. Lead operations do
+    not consume credits.
 name: Hunter
 tags:
 - Email Finder
@@ -167,42 +161,55 @@ kind: contract
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/hunter/overview
 - type: ArazzoWorkflows
   url: arazzo/
   workflows:
   - url: arazzo/hunter-io-add-verified-lead-to-list-workflow.yml
     name: Hunter Add Verified Lead To List
-    summary: Verify an email, upsert it as a lead, then assign the lead to a target leads list.
+    summary: Verify an email, upsert it as a lead, then assign the lead to a target
+      leads list.
   - url: arazzo/hunter-io-author-finder-workflow.yml
     name: Hunter Author Finder
-    summary: Resolve an author's email from their name and publication domain, verify it, then enrich their profile.
+    summary: Resolve an author's email from their name and publication domain, verify
+      it, then enrich their profile.
   - url: arazzo/hunter-io-campaign-lead-builder-workflow.yml
     name: Hunter Campaign Lead Builder
-    summary: Find a contact, verify it, and seed a campaign by creating a verified lead in a target list.
+    summary: Find a contact, verify it, and seed a campaign by creating a verified
+      lead in a target list.
   - url: arazzo/hunter-io-count-gated-domain-search-workflow.yml
     name: Hunter Count Gated Domain Search
-    summary: Use the free Email Count to confirm coverage before spending a credit on Domain Search.
+    summary: Use the free Email Count to confirm coverage before spending a credit
+      on Domain Search.
   - url: arazzo/hunter-io-credit-guarded-domain-search-workflow.yml
     name: Hunter Credit Guarded Domain Search
-    summary: Check account search credits first and run a Domain Search only when credits remain.
+    summary: Check account search credits first and run a Domain Search only when
+      credits remain.
   - url: arazzo/hunter-io-discover-to-domain-emails-workflow.yml
     name: Hunter Discover To Domain Emails
-    summary: Discover companies matching a target profile, then pull the email list for the top match's domain.
+    summary: Discover companies matching a target profile, then pull the email list
+      for the top match's domain.
   - url: arazzo/hunter-io-domain-to-verified-email-workflow.yml
     name: Hunter Domain To Verified Email
-    summary: Discover a domain's email pattern, find a specific person's email, then verify its deliverability.
+    summary: Discover a domain's email pattern, find a specific person's email, then
+      verify its deliverability.
   - url: arazzo/hunter-io-enrich-email-to-lead-workflow.yml
     name: Hunter Enrich Email To Lead
-    summary: Combined-enrich an email into person and company data, then upsert a fully populated lead.
+    summary: Combined-enrich an email into person and company data, then upsert a
+      fully populated lead.
   - url: arazzo/hunter-io-find-verify-create-lead-workflow.yml
     name: Hunter Find Verify Create Lead
-    summary: Find a person's email, verify it, and create a lead only when the address is deliverable.
+    summary: Find a person's email, verify it, and create a lead only when the address
+      is deliverable.
   - url: arazzo/hunter-io-reverify-lead-workflow.yml
     name: Hunter Reverify Lead
-    summary: Retrieve a stored lead, re-verify its email, and update or delete it based on the result.
+    summary: Retrieve a stored lead, re-verify its email, and update or delete it
+      based on the result.
   - url: arazzo/hunter-io-verify-existing-email-workflow.yml
     name: Hunter Verify Existing Email
-    summary: Verify a known email and upsert it into Hunter as a lead with its verification status.
+    summary: Verify a known email and upsert it into Hunter as a lead with its verification
+      status.
 - type: Portal
   url: https://hunter.io
 - type: Documentation
@@ -307,20 +314,28 @@ common:
   type: JSONStructure
 - type: Features
   data:
-  - Domain Search returns all emails for a domain with sources, confidence, department, and seniority
-  - Email Finder predicts the most likely address for a person at a company with 0-100 confidence
-  - Email Verifier runs MX, SMTP, regex, disposable, webmail, accept-all, and block checks plus database lookup
-  - Email Count is free and unauthenticated for pre-flight sizing of a domain's email footprint
+  - Domain Search returns all emails for a domain with sources, confidence, department,
+    and seniority
+  - Email Finder predicts the most likely address for a person at a company with 0-100
+    confidence
+  - Email Verifier runs MX, SMTP, regex, disposable, webmail, accept-all, and block
+    checks plus database lookup
+  - Email Count is free and unauthenticated for pre-flight sizing of a domain's email
+    footprint
   - Discover API for company prospecting via natural language or structured filters
-  - Person, company, and combined enrichment with optional Clearbit-shape response for drop-in migration
+  - Person, company, and combined enrichment with optional Clearbit-shape response
+    for drop-in migration
   - Leads API with CRUD, upsert, filtered list, custom attributes, and lead-list scoping
-  - Campaigns API for outbound sequences, recipients, opens, clicks, replies, and unsubscribes
+  - Campaigns API for outbound sequences, recipients, opens, clicks, replies, and
+    unsubscribes
   - Account API returns plan, reset date, and per-meter usage counters for FinOps
   - Three auth modes: api_key query, X-API-KEY header, or Authorization Bearer
-  - Token-bucket-style per-endpoint rate limits with 429 responses (5-15 rps, 50-500 rpm)
+  - Token-bucket-style per-endpoint rate limits with 429 responses (5-15 rps, 50-500
+    rpm)
   - Monthly credit allowances per plan with reset_date semantics
   - Chrome and Firefox browser extensions, Google Sheets add-on, and Bulk Tasks UI
-  - Native integrations with Salesforce, HubSpot, Zapier, Pipedrive, Zoho CRM, and many outbound tools
+  - Native integrations with Salesforce, HubSpot, Zapier, Pipedrive, Zoho CRM, and
+    many outbound tools
   - Hunter MCP server and ChatGPT MCP server for agentic email-finder workflows
   - Hunter Claude Plugin for find, verify, and enrich workflows inside Claude
   - GDPR-aligned data handling with 451 responses on restricted personal data
@@ -333,11 +348,12 @@ common:
 created: '2026-05-25T00:00:00.000Z'
 modified: '2026-05-25'
 position: Consuming
-description: Hunter.io is an email-intelligence and outbound platform that finds, verifies, and enriches
-  professional email addresses at scale. Its public APIs cover Domain Search, Email Finder, Email Verifier, Email
-  Count, Discover (company prospecting), Person/Company/Combined Enrichment, Leads management, and Account/usage
-  inspection. Credit-based metering, plan-tiered monthly allowances, and per-endpoint rate limits make it a
-  reference example of a usage-based B2B data API.
+description: Hunter.io is an email-intelligence and outbound platform that finds,
+  verifies, and enriches professional email addresses at scale. Its public APIs cover
+  Domain Search, Email Finder, Email Verifier, Email Count, Discover (company prospecting),
+  Person/Company/Combined Enrichment, Leads management, and Account/usage inspection.
+  Credit-based metering, plan-tiered monthly allowances, and per-endpoint rate limits
+  make it a reference example of a usage-based B2B data API.
 maintainers:
 - FN: Kin Lane
   email: info@apievangelist.com

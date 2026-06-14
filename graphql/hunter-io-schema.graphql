@@ -1,0 +1,747 @@
+# Hunter.io GraphQL Schema
+# Conceptual schema derived from the Hunter.io REST API (https://hunter.io/api-documentation/v2)
+# Covers Domain Search, Email Finder, Email Verifier, Email Count, Discover,
+# Enrichment, Leads, Campaigns, and Account endpoints.
+
+scalar DateTime
+scalar URL
+scalar JSONObject
+
+# ─── Enumerations ────────────────────────────────────────────────────────────
+
+enum EmailType {
+  PERSONAL
+  GENERIC
+}
+
+enum EmailConfidence {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum VerificationStatus {
+  VALID
+  INVALID
+  ACCEPT_ALL
+  WEBMAIL
+  DISPOSABLE
+  UNKNOWN
+}
+
+enum SourceType {
+  WEB
+  EMAIL
+  LINKEDIN
+  OTHER
+}
+
+enum Seniority {
+  JUNIOR
+  SENIOR
+  EXECUTIVE
+}
+
+enum Department {
+  EXECUTIVE
+  IT
+  FINANCE
+  MANAGEMENT
+  SALES
+  LEGAL
+  SUPPORT
+  HR
+  MARKETING
+  COMMUNICATION
+  EDUCATION
+  DESIGN
+  HEALTH
+  OPERATIONS
+}
+
+enum EnrichmentLevel {
+  BASIC
+  STANDARD
+  ENHANCED
+}
+
+enum BulkTaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+}
+
+# ─── Scalar-like value objects ────────────────────────────────────────────────
+
+type FirstName {
+  value: String!
+}
+
+type LastName {
+  value: String!
+}
+
+type FullName {
+  value: String!
+  first: FirstName
+  last: LastName
+}
+
+type Twitter {
+  handle: String
+  url: URL
+}
+
+type LinkedIn {
+  handle: String
+  url: LinkedInURL
+}
+
+type Phone {
+  number: String
+  type: String
+}
+
+type LinkedInURL {
+  raw: String!
+  normalized: URL
+}
+
+type RegexPattern {
+  expression: String!
+  example: String
+}
+
+type Format {
+  pattern: String!
+  regex: RegexPattern
+  description: String
+}
+
+# ─── URL and source tracking ──────────────────────────────────────────────────
+
+type Source {
+  domain: String
+  uri: URL
+  extracted_on: DateTime
+  last_seen_on: DateTime
+  still_on_page: Boolean
+  type: SourceType
+}
+
+# ─── Email pattern ────────────────────────────────────────────────────────────
+
+type EmailPattern {
+  pattern: String!
+  format: Format
+  regex: RegexPattern
+  confidence: Int
+  example: String
+}
+
+# ─── Email and contact detail types ──────────────────────────────────────────
+
+type PositionInfo {
+  title: String
+  seniority: Seniority
+  department: Department
+}
+
+type EmailDetails {
+  value: String!
+  type: EmailType
+  confidence: Int
+  verification: VerificationResult
+  sources: [Source!]
+  first_name: String
+  last_name: String
+  position: PositionInfo
+  linkedin: LinkedIn
+  twitter: Twitter
+  phone_number: String
+}
+
+type Email {
+  value: String!
+  type: EmailType
+  confidence: Int
+  first_name: String
+  last_name: String
+  position: String
+  seniority: Seniority
+  department: Department
+  linkedin: String
+  twitter: String
+  phone_number: String
+  verification: VerificationStatus
+  sources: [Source!]
+}
+
+# ─── Domain-level types ───────────────────────────────────────────────────────
+
+type Domain {
+  domain: String!
+  disposable: Boolean
+  webmail: Boolean
+  accept_all: Boolean
+  pattern: String
+  organization: String
+  description: String
+  industry: String
+  twitter: String
+  facebook: String
+  linkedin: String
+  instagram: String
+  youtube: String
+  technologies: [String!]
+  country: String
+  state: String
+  city: String
+  postal_code: String
+  street: String
+  headcount: String
+  company_type: String
+}
+
+type DomainSearchResult {
+  domain: String!
+  disposable: Boolean
+  webmail: Boolean
+  accept_all: Boolean
+  pattern: String
+  organization: String
+  country: String
+  state: String
+  city: String
+  postal_code: String
+  street: String
+  headcount: String
+  company_type: String
+  emails: [Email!]
+  linked_domains: [String!]
+}
+
+type DomainSearch {
+  domain: String!
+  result: DomainSearchResult
+  meta: SearchMeta
+}
+
+type DomainContacts {
+  domain: String!
+  emails: [Email!]!
+  pattern: EmailPattern
+  organization: String
+  total: Int
+}
+
+type ContactResult {
+  email: String!
+  domain: String!
+  first_name: String
+  last_name: String
+  position: String
+  confidence: Int
+  sources: [Source!]
+  verification: VerificationResult
+}
+
+# ─── Email Count ──────────────────────────────────────────────────────────────
+
+type EmailCount {
+  domain: String!
+  total: Int!
+  personal_emails: Int
+  generic_emails: Int
+  department: JSONObject
+  seniority: JSONObject
+}
+
+# ─── Verification types ───────────────────────────────────────────────────────
+
+type Deliverable {
+  status: VerificationStatus!
+  score: Int
+}
+
+type AcceptAll {
+  value: Boolean!
+}
+
+type Disposable {
+  value: Boolean!
+}
+
+type Webmail {
+  value: Boolean!
+}
+
+type Pattern {
+  value: Boolean
+  format: String
+}
+
+type VerificationResult {
+  status: VerificationStatus!
+  score: Int
+  regexp: Boolean
+  gibberish: Boolean
+  disposable: Boolean
+  webmail: Boolean
+  mx_records: Boolean
+  smtp_server: Boolean
+  smtp_check: Boolean
+  accept_all: Boolean
+  block: Boolean
+  sources: [Source!]
+}
+
+type EmailVerification {
+  email: String!
+  result: VerificationResult!
+  deliverability: Deliverable
+}
+
+# ─── Email Finder / Person Search ────────────────────────────────────────────
+
+type PersonEmail {
+  email: String!
+  score: Int
+  domain: String
+  accept_all: Boolean
+  position: String
+  company: String
+  sources: [Source!]
+  verification: VerificationResult
+  first_name: String
+  last_name: String
+  linkedin_url: String
+  twitter: String
+  phone_number: String
+}
+
+type EmailFinder {
+  first_name: String
+  last_name: String
+  email: String!
+  score: Int
+  domain: String
+  position: String
+  company: String
+  seniority: Seniority
+  department: Department
+  linkedin: String
+  twitter: String
+  phone_number: String
+  verification: VerificationResult
+  sources: [Source!]
+}
+
+type PersonSearch {
+  query: String!
+  results: [PersonEmail!]
+  total: Int
+}
+
+# ─── Bulk task types ──────────────────────────────────────────────────────────
+
+type BulkEmail {
+  email: String!
+  status: VerificationStatus
+  result: VerificationResult
+}
+
+type BulkDomain {
+  domain: String!
+  emails: [Email!]
+  status: BulkTaskStatus
+}
+
+type BulkTask {
+  id: String!
+  type: String!
+  status: BulkTaskStatus!
+  created_at: DateTime
+  started_at: DateTime
+  ended_at: DateTime
+  emails: [BulkEmail!]
+  domains: [BulkDomain!]
+  total: Int
+  processed: Int
+  failed: Int
+}
+
+# ─── Leads and Prospects ──────────────────────────────────────────────────────
+
+type ProspectEntry {
+  id: Int!
+  email: String!
+  first_name: String
+  last_name: String
+  position: String
+  company: String
+  company_industry: String
+  company_size: String
+  confidence_score: Int
+  website: String
+  country_code: String
+  linkedin_url: String
+  phone_number: String
+  notes: String
+  sending_status: String
+  verification_status: VerificationStatus
+  leads_list_id: Int
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+type ProspectsList {
+  id: Int!
+  name: String!
+  leads_count: Int
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+type EmailLead {
+  id: Int!
+  email: String!
+  verification_status: VerificationStatus
+  sending_status: String
+  first_name: String
+  last_name: String
+  domain: String
+  confidence: Int
+}
+
+type Lead {
+  id: Int!
+  email: String!
+  first_name: String
+  last_name: String
+  position: String
+  company: String
+  company_industry: String
+  company_size: String
+  confidence_score: Int
+  website: String
+  country_code: String
+  linkedin_url: String
+  phone_number: String
+  notes: String
+  sending_status: String
+  verification_status: VerificationStatus
+  leads_list: ProspectsList
+  created_at: DateTime
+  updated_at: DateTime
+  custom_attributes: JSONObject
+}
+
+# ─── Campaigns ────────────────────────────────────────────────────────────────
+
+type CampaignContact {
+  id: Int!
+  email: String!
+  first_name: String
+  last_name: String
+  status: String
+  opens: Int
+  clicks: Int
+  replies: Int
+  unsubscribed: Boolean
+  bounced: Boolean
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+type Campaign {
+  id: Int!
+  name: String!
+  status: String
+  sending_account: String
+  created_at: DateTime
+  updated_at: DateTime
+  contacts: [CampaignContact!]
+  opens: Int
+  clicks: Int
+  replies: Int
+  unsubscribes: Int
+  bounces: Int
+}
+
+# ─── Account / Usage / Rate Limits ───────────────────────────────────────────
+
+type UsageStat {
+  used: Int!
+  available: Int!
+  reset_date: DateTime
+}
+
+type RateLimit {
+  endpoint: String!
+  requests_per_second: Int
+  requests_per_minute: Int
+  requests_per_hour: Int
+}
+
+type RequestCredit {
+  used: Int!
+  available: Int!
+  reset_date: DateTime
+}
+
+type PlanLimit {
+  searches: UsageStat
+  verifications: UsageStat
+  credits: RequestCredit
+  rate_limits: [RateLimit!]
+}
+
+type APIKey {
+  key: String!
+  created_at: DateTime
+  last_used_at: DateTime
+  permissions: [String!]
+}
+
+type AccountInfo {
+  id: Int!
+  first_name: String
+  last_name: String
+  email: String!
+  plan_name: String
+  plan_level: Int
+  reset_date: DateTime
+  team_id: Int
+  searches: UsageStat
+  verifications: UsageStat
+  credits: RequestCredit
+}
+
+# ─── Enrichment types ─────────────────────────────────────────────────────────
+
+type PersonEnrichment {
+  email: String
+  first_name: String
+  last_name: String
+  full_name: FullName
+  position: PositionInfo
+  seniority: Seniority
+  department: Department
+  linkedin: LinkedIn
+  twitter: Twitter
+  phone: Phone
+  location: String
+  city: String
+  state: String
+  country: String
+  confidence: Int
+  enrichment_level: EnrichmentLevel
+}
+
+type CompanyEnrichment {
+  domain: String!
+  name: String
+  description: String
+  industry: String
+  employee_count: Int
+  headcount_range: String
+  founded_year: Int
+  location: String
+  city: String
+  state: String
+  country: String
+  linkedin: String
+  twitter: String
+  facebook: String
+  crunchbase: String
+  technologies: [String!]
+  funding_total: Float
+  funding_currency: String
+  funding_rounds: Int
+  last_funding_date: DateTime
+  last_funding_type: String
+  company_type: String
+  annual_revenue: Float
+  revenue_range: String
+  enrichment_level: EnrichmentLevel
+}
+
+type CombinedEnrichment {
+  person: PersonEnrichment
+  company: CompanyEnrichment
+}
+
+# ─── Discover / Prospecting ───────────────────────────────────────────────────
+
+type DiscoverResult {
+  domain: String!
+  name: String
+  description: String
+  industry: String
+  headcount: String
+  country: String
+  city: String
+  technologies: [String!]
+  funding_total: Float
+  score: Float
+}
+
+type DiscoverSearch {
+  query: String
+  results: [DiscoverResult!]!
+  total: Int!
+  page: Int
+  per_page: Int
+}
+
+# ─── Meta / Pagination ───────────────────────────────────────────────────────
+
+type SearchMeta {
+  results: Int
+  limit: Int
+  offset: Int
+  params: JSONObject
+}
+
+# ─── Queries ──────────────────────────────────────────────────────────────────
+
+type Query {
+  # Domain Search — find all emails for a domain
+  domainSearch(
+    domain: String!
+    company: String
+    limit: Int
+    offset: Int
+    type: EmailType
+    seniority: [Seniority!]
+    department: [Department!]
+  ): DomainSearch
+
+  # Email Finder — find the most likely email for a person at a company
+  emailFinder(
+    domain: String
+    company: String
+    first_name: String
+    last_name: String
+    full_name: String
+    linkedin_url: String
+    max_duration: Int
+  ): EmailFinder
+
+  # Email Verifier — verify deliverability of an address
+  emailVerifier(email: String!): EmailVerification
+
+  # Email Count — free unauthenticated count for a domain
+  emailCount(domain: String, company: String): EmailCount
+
+  # Discover — company prospecting with structured filters
+  discover(
+    query: String
+    industry: String
+    employee_count: String
+    country: String
+    city: String
+    technology: String
+    funding: String
+    year_founded: String
+    similar_to: String
+    limit: Int
+    offset: Int
+  ): DiscoverSearch
+
+  # Enrichment endpoints
+  personEnrichment(email: String, linkedin_url: String): PersonEnrichment
+  companyEnrichment(domain: String!, clearbit_format: Boolean): CompanyEnrichment
+  combinedEnrichment(email: String!, clearbit_format: Boolean): CombinedEnrichment
+
+  # Leads
+  leads(
+    limit: Int
+    offset: Int
+    leads_list_id: Int
+    verification_status: VerificationStatus
+    sending_status: String
+    query: String
+  ): [Lead!]
+  lead(id: Int!): Lead
+
+  # Prospects lists
+  prospectsLists: [ProspectsList!]
+  prospectsList(id: Int!): ProspectsList
+
+  # Campaigns
+  campaigns: [Campaign!]
+  campaign(id: Int!): Campaign
+
+  # Account
+  account: AccountInfo
+
+  # Bulk tasks
+  bulkTask(id: String!): BulkTask
+  bulkTasks: [BulkTask!]
+}
+
+# ─── Mutations ───────────────────────────────────────────────────────────────
+
+type Mutation {
+  # Lead management
+  createLead(
+    email: String!
+    first_name: String
+    last_name: String
+    position: String
+    company: String
+    company_industry: String
+    company_size: String
+    website: String
+    country_code: String
+    linkedin_url: String
+    phone_number: String
+    notes: String
+    leads_list_id: Int
+    custom_attributes: JSONObject
+  ): Lead
+
+  updateLead(
+    id: Int!
+    first_name: String
+    last_name: String
+    position: String
+    company: String
+    company_industry: String
+    company_size: String
+    website: String
+    country_code: String
+    linkedin_url: String
+    phone_number: String
+    notes: String
+    leads_list_id: Int
+    custom_attributes: JSONObject
+  ): Lead
+
+  deleteLead(id: Int!): Boolean
+
+  # Prospects list management
+  createProspectsList(name: String!): ProspectsList
+  updateProspectsList(id: Int!, name: String!): ProspectsList
+  deleteProspectsList(id: Int!): Boolean
+
+  # Bulk task creation
+  createBulkEmailVerificationTask(emails: [String!]!): BulkTask
+  createBulkDomainSearchTask(domains: [String!]!): BulkTask
+  createBulkEmailFinderTask(
+    leads: [BulkEmailFinderInput!]!
+  ): BulkTask
+}
+
+# ─── Input types ─────────────────────────────────────────────────────────────
+
+input BulkEmailFinderInput {
+  domain: String
+  company: String
+  first_name: String
+  last_name: String
+  full_name: String
+}
