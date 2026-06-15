@@ -1,0 +1,315 @@
+{
+  "info": {
+    "_postman_id": "6b6483c4-26fa-4c53-82ec-7e66213f6449",
+    "name": "Hunter Email Verifier API",
+    "description": "Verifies the deliverability of an email address by performing MX-record inspection, SMTP connection checks, catch-all detection, disposable domain detection, webmail detection, and Hunter's own database lookup. Returns a confidence score and a normalized status (valid, invalid, accept_all, webmail, disposable, unknown).\n\n\nContact Support:\n Name: Hunter Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:09:46.000Z",
+    "updatedAt": "2026-06-05T15:09:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6b6483c4-26fa-4c53-82ec-7e66213f6449"
+  },
+  "item": [
+    {
+      "name": "email-verifier",
+      "item": [
+        {
+          "name": "Hunter Verify Email",
+          "id": "71644cc7-bfa5-47e8-8662-2bc7549d3495",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/email-verifier?email=<email>&api_key=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "email-verifier"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The email address to verify.",
+                  "key": "email",
+                  "value": "<email>"
+                },
+                {
+                  "description": "(Required) Your Hunter API key.",
+                  "key": "api_key",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Verifies an email address against MX, SMTP, regex, gibberish, disposable, webmail, accept-all, block, and Hunter database checks. Returns a status, score, and supporting flags. Responds 202 while verification is still in flight; retry the same call to get the final result.\n"
+          },
+          "response": [
+            {
+              "id": "0c0c1056-55cb-40bf-ae3b-a9932865f9f0",
+              "name": "Verification result.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/email-verifier?email=<email>&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-verifier"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The email address to verify.",
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"status\": \"invalid\",\n    \"result\": \"<string>\",\n    \"score\": \"<integer>\",\n    \"email\": \"<email>\",\n    \"regexp\": \"<boolean>\",\n    \"gibberish\": \"<boolean>\",\n    \"disposable\": \"<boolean>\",\n    \"webmail\": \"<boolean>\",\n    \"mx_records\": \"<boolean>\",\n    \"smtp_server\": \"<boolean>\",\n    \"smtp_check\": \"<boolean>\",\n    \"accept_all\": \"<boolean>\",\n    \"block\": \"<boolean>\",\n    \"sources\": [\n      {\n        \"domain\": \"<string>\",\n        \"uri\": \"<string>\",\n        \"extracted_on\": \"<date>\",\n        \"last_seen_on\": \"<date>\",\n        \"still_on_page\": \"<boolean>\"\n      },\n      {\n        \"domain\": \"<string>\",\n        \"uri\": \"<string>\",\n        \"extracted_on\": \"<date>\",\n        \"last_seen_on\": \"<date>\",\n        \"still_on_page\": \"<boolean>\"\n      }\n    ]\n  },\n  \"meta\": {\n    \"params\": {\n      \"aute_2\": 60661428\n    }\n  }\n}",
+              "createdAt": "2026-06-05T15:09:46.000Z",
+              "updatedAt": "2026-06-05T15:09:46.000Z",
+              "uid": "35240-0c0c1056-55cb-40bf-ae3b-a9932865f9f0"
+            },
+            {
+              "id": "d1119f77-fed8-46dd-ba4e-a5ae2bdadb47",
+              "name": "Verification still processing; retry the same request.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/email-verifier?email=<email>&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-verifier"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The email address to verify.",
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:09:46.000Z",
+              "updatedAt": "2026-06-05T15:09:46.000Z",
+              "uid": "35240-d1119f77-fed8-46dd-ba4e-a5ae2bdadb47"
+            },
+            {
+              "id": "58160a28-3922-4483-b75b-64f138334982",
+              "name": "Error response.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/email-verifier?email=<email>&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-verifier"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The email address to verify.",
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:46.000Z",
+              "updatedAt": "2026-06-05T15:09:46.000Z",
+              "uid": "35240-58160a28-3922-4483-b75b-64f138334982"
+            },
+            {
+              "id": "f73592e3-aa50-4639-8977-08fdef723194",
+              "name": "Error response.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/email-verifier?email=<email>&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-verifier"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The email address to verify.",
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:46.000Z",
+              "updatedAt": "2026-06-05T15:09:46.000Z",
+              "uid": "35240-f73592e3-aa50-4639-8977-08fdef723194"
+            },
+            {
+              "id": "7f710cf2-2086-421b-bead-048cea3ce29f",
+              "name": "Personal-data restriction prevents verification.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/email-verifier?email=<email>&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-verifier"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The email address to verify.",
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:09:46.000Z",
+              "updatedAt": "2026-06-05T15:09:46.000Z",
+              "uid": "35240-7f710cf2-2086-421b-bead-048cea3ce29f"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:46.000Z",
+          "updatedAt": "2026-06-05T15:09:46.000Z",
+          "uid": "35240-71644cc7-bfa5-47e8-8662-2bc7549d3495"
+        }
+      ],
+      "id": "d9bbae7b-3cee-4596-bd9d-32c8768213dc",
+      "createdAt": "2026-06-05T15:09:46.000Z",
+      "updatedAt": "2026-06-05T15:09:46.000Z",
+      "uid": "35240-d9bbae7b-3cee-4596-bd9d-32c8768213dc"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.hunter.io/v2"
+    }
+  ]
+}

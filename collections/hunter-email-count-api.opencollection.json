@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hunter Email Count API",
+    "version": "v2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Email Count",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Hunter Count Emails For Domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hunter.io/v2/email-count",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Domain name to count emails for."
+              },
+              {
+                "name": "company",
+                "value": "",
+                "type": "query",
+                "description": "Company name (used when domain not provided)."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Limit to personal or generic emails."
+              }
+            ]
+          },
+          "docs": "Returns the total number of email addresses found by Hunter for a domain or a company, with breakdowns by department and seniority. No API key required; no credit consumed.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

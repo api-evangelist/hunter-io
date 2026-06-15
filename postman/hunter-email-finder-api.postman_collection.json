@@ -1,0 +1,507 @@
+{
+  "info": {
+    "_postman_id": "196c4971-17a8-4a38-9a2a-0e05986b4f12",
+    "name": "Hunter Email Finder API",
+    "description": "Finds the most likely email address for a person at a given company, returning a confidence score, position, social handles, sources where the email was observed, and current verification status.\n\n\nContact Support:\n Name: Hunter Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:09:45.000Z",
+    "updatedAt": "2026-06-05T15:09:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-196c4971-17a8-4a38-9a2a-0e05986b4f12"
+  },
+  "item": [
+    {
+      "name": "email-finder",
+      "item": [
+        {
+          "name": "Hunter Find Email",
+          "id": "69732a76-36b9-4906-83dd-efa0a91227c4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/email-finder?domain=<string>&company=<string>&first_name=<string>&last_name=<string>&full_name=<string>&linkedin_handle=<string>&max_duration=10&api_key=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "email-finder"
+              ],
+              "query": [
+                {
+                  "description": "Domain name of the company.",
+                  "key": "domain",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Company name (used when domain is not provided).",
+                  "key": "company",
+                  "value": "<string>"
+                },
+                {
+                  "description": "First name of the person.",
+                  "key": "first_name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Last name of the person.",
+                  "key": "last_name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Full name of the person (alternative to first/last).",
+                  "key": "full_name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "LinkedIn handle (e.g., the slug after `/in/`).",
+                  "key": "linkedin_handle",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum duration of the request in seconds (3-20, default 10).",
+                  "key": "max_duration",
+                  "value": "10"
+                },
+                {
+                  "description": "(Required) Your Hunter API key.",
+                  "key": "api_key",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Generates or retrieves the most likely email address from a domain or company name and a person's first and last name (or full name, or LinkedIn handle). Returns score, sources, position, and verification metadata.\n"
+          },
+          "response": [
+            {
+              "id": "0c700055-a535-4340-aa4f-1bec7ea928de",
+              "name": "The best-guess email for the person.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/email-finder?domain=<string>&company=<string>&first_name=<string>&last_name=<string>&full_name=<string>&linkedin_handle=<string>&max_duration=10&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-finder"
+                  ],
+                  "query": [
+                    {
+                      "description": "Domain name of the company.",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Company name (used when domain is not provided).",
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "First name of the person.",
+                      "key": "first_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Last name of the person.",
+                      "key": "last_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Full name of the person (alternative to first/last).",
+                      "key": "full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "LinkedIn handle (e.g., the slug after `/in/`).",
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum duration of the request in seconds (3-20, default 10).",
+                      "key": "max_duration",
+                      "value": "10"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<email>\",\n    \"score\": \"<integer>\",\n    \"domain\": \"<string>\",\n    \"accept_all\": \"<boolean>\",\n    \"position\": \"<string>\",\n    \"twitter\": \"<string>\",\n    \"linkedin_url\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"company\": \"<string>\",\n    \"sources\": [\n      {\n        \"domain\": \"<string>\",\n        \"uri\": \"<string>\",\n        \"extracted_on\": \"<date>\",\n        \"last_seen_on\": \"<date>\",\n        \"still_on_page\": \"<boolean>\"\n      },\n      {\n        \"domain\": \"<string>\",\n        \"uri\": \"<string>\",\n        \"extracted_on\": \"<date>\",\n        \"last_seen_on\": \"<date>\",\n        \"still_on_page\": \"<boolean>\"\n      }\n    ],\n    \"verification\": {\n      \"date\": \"<dateTime>\",\n      \"status\": \"disposable\"\n    }\n  },\n  \"meta\": {\n    \"params\": {\n      \"nulla6d\": -38958392,\n      \"pariatur_a8\": -78426687\n    }\n  }\n}",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-0c700055-a535-4340-aa4f-1bec7ea928de"
+            },
+            {
+              "id": "3b424b52-ff09-4339-a9df-d0ab6447c201",
+              "name": "Request still processing; retry with the same parameters.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/email-finder?domain=<string>&company=<string>&first_name=<string>&last_name=<string>&full_name=<string>&linkedin_handle=<string>&max_duration=10&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-finder"
+                  ],
+                  "query": [
+                    {
+                      "description": "Domain name of the company.",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Company name (used when domain is not provided).",
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "First name of the person.",
+                      "key": "first_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Last name of the person.",
+                      "key": "last_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Full name of the person (alternative to first/last).",
+                      "key": "full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "LinkedIn handle (e.g., the slug after `/in/`).",
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum duration of the request in seconds (3-20, default 10).",
+                      "key": "max_duration",
+                      "value": "10"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-3b424b52-ff09-4339-a9df-d0ab6447c201"
+            },
+            {
+              "id": "ea867222-c744-4fd5-bf79-61d42aaab191",
+              "name": "Error response.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/email-finder?domain=<string>&company=<string>&first_name=<string>&last_name=<string>&full_name=<string>&linkedin_handle=<string>&max_duration=10&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-finder"
+                  ],
+                  "query": [
+                    {
+                      "description": "Domain name of the company.",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Company name (used when domain is not provided).",
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "First name of the person.",
+                      "key": "first_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Last name of the person.",
+                      "key": "last_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Full name of the person (alternative to first/last).",
+                      "key": "full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "LinkedIn handle (e.g., the slug after `/in/`).",
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum duration of the request in seconds (3-20, default 10).",
+                      "key": "max_duration",
+                      "value": "10"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-ea867222-c744-4fd5-bf79-61d42aaab191"
+            },
+            {
+              "id": "387d098d-8cdc-45a0-853f-e7d439109caa",
+              "name": "Error response.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/email-finder?domain=<string>&company=<string>&first_name=<string>&last_name=<string>&full_name=<string>&linkedin_handle=<string>&max_duration=10&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-finder"
+                  ],
+                  "query": [
+                    {
+                      "description": "Domain name of the company.",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Company name (used when domain is not provided).",
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "First name of the person.",
+                      "key": "first_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Last name of the person.",
+                      "key": "last_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Full name of the person (alternative to first/last).",
+                      "key": "full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "LinkedIn handle (e.g., the slug after `/in/`).",
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum duration of the request in seconds (3-20, default 10).",
+                      "key": "max_duration",
+                      "value": "10"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-387d098d-8cdc-45a0-853f-e7d439109caa"
+            },
+            {
+              "id": "7e7946ef-f511-4ce0-93bf-dfebb02aa4f1",
+              "name": "Error response.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/email-finder?domain=<string>&company=<string>&first_name=<string>&last_name=<string>&full_name=<string>&linkedin_handle=<string>&max_duration=10&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-finder"
+                  ],
+                  "query": [
+                    {
+                      "description": "Domain name of the company.",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Company name (used when domain is not provided).",
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "First name of the person.",
+                      "key": "first_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Last name of the person.",
+                      "key": "last_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Full name of the person (alternative to first/last).",
+                      "key": "full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "LinkedIn handle (e.g., the slug after `/in/`).",
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum duration of the request in seconds (3-20, default 10).",
+                      "key": "max_duration",
+                      "value": "10"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-7e7946ef-f511-4ce0-93bf-dfebb02aa4f1"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-69732a76-36b9-4906-83dd-efa0a91227c4"
+        }
+      ],
+      "id": "82ba82e3-de26-4d65-a5eb-ce821dfb564d",
+      "createdAt": "2026-06-05T15:09:45.000Z",
+      "updatedAt": "2026-06-05T15:09:45.000Z",
+      "uid": "35240-82ba82e3-de26-4d65-a5eb-ce821dfb564d"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.hunter.io/v2"
+    }
+  ]
+}

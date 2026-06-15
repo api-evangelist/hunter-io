@@ -1,0 +1,185 @@
+{
+  "info": {
+    "_postman_id": "72cf3d8c-acfc-4b06-a88b-5e1ea3b163e4",
+    "name": "Hunter Email Count API",
+    "description": "Returns the total number of email addresses Hunter has indexed for a given domain or company, broken down by personal/generic, department, and seniority. This endpoint is free and does not consume Hunter credits.\n\n\nContact Support:\n Name: Hunter Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:09:47.000Z",
+    "updatedAt": "2026-06-05T15:09:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-72cf3d8c-acfc-4b06-a88b-5e1ea3b163e4"
+  },
+  "item": [
+    {
+      "name": "email-count",
+      "item": [
+        {
+          "name": "Hunter Count Emails For Domain",
+          "id": "d301ef95-333f-4adc-b819-b8a47faf1a8c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/email-count?domain=<string>&company=<string>&type=generic",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "email-count"
+              ],
+              "query": [
+                {
+                  "description": "Domain name to count emails for.",
+                  "key": "domain",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Company name (used when domain not provided).",
+                  "key": "company",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Limit to personal or generic emails.",
+                  "key": "type",
+                  "value": "generic"
+                }
+              ]
+            },
+            "description": "Returns the total number of email addresses found by Hunter for a domain or a company, with breakdowns by department and seniority. No API key required; no credit consumed.\n"
+          },
+          "response": [
+            {
+              "id": "ab0ca0dd-dc83-4d89-a06c-182353302a4e",
+              "name": "Email count.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/email-count?domain=<string>&company=<string>&type=generic",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-count"
+                  ],
+                  "query": [
+                    {
+                      "description": "Domain name to count emails for.",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Company name (used when domain not provided).",
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limit to personal or generic emails.",
+                      "key": "type",
+                      "value": "generic"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"total\": \"<integer>\",\n    \"personal_emails\": \"<integer>\",\n    \"generic_emails\": \"<integer>\",\n    \"department\": {\n      \"Excepteur_fdb\": \"<integer>\"\n    },\n    \"seniority\": {\n      \"sunt_de8\": \"<integer>\",\n      \"consequat_\": \"<integer>\",\n      \"ullamco_c77\": \"<integer>\"\n    }\n  },\n  \"meta\": {\n    \"params\": {\n      \"pariatur_c_4\": \"esse sint do\"\n    }\n  }\n}",
+              "createdAt": "2026-06-05T15:09:48.000Z",
+              "updatedAt": "2026-06-05T15:09:48.000Z",
+              "uid": "35240-ab0ca0dd-dc83-4d89-a06c-182353302a4e"
+            },
+            {
+              "id": "2327f907-446f-4d9b-8b36-89ba31ee6efc",
+              "name": "Error response.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/email-count?domain=<string>&company=<string>&type=generic",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email-count"
+                  ],
+                  "query": [
+                    {
+                      "description": "Domain name to count emails for.",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Company name (used when domain not provided).",
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Limit to personal or generic emails.",
+                      "key": "type",
+                      "value": "generic"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:48.000Z",
+              "updatedAt": "2026-06-05T15:09:48.000Z",
+              "uid": "35240-2327f907-446f-4d9b-8b36-89ba31ee6efc"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:48.000Z",
+          "updatedAt": "2026-06-05T15:09:48.000Z",
+          "uid": "35240-d301ef95-333f-4adc-b819-b8a47faf1a8c"
+        }
+      ],
+      "id": "f9843e16-a985-4067-981d-4ea1bd5df088",
+      "createdAt": "2026-06-05T15:09:48.000Z",
+      "updatedAt": "2026-06-05T15:09:48.000Z",
+      "uid": "35240-f9843e16-a985-4067-981d-4ea1bd5df088"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.hunter.io/v2"
+    }
+  ]
+}

@@ -1,0 +1,463 @@
+{
+  "info": {
+    "_postman_id": "c673fc99-688e-4aab-a06a-b3072f821647",
+    "name": "Hunter Domain Search API",
+    "description": "Returns all email addresses found on the internet using a given domain name or company name, along with sources for each, confidence scores, departments, seniority levels, and verification status. The Domain Search is Hunter's flagship endpoint and powers the public domain search tool on hunter.io.\n\n\nContact Support:\n Name: Hunter Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:09:44.000Z",
+    "updatedAt": "2026-06-05T15:09:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c673fc99-688e-4aab-a06a-b3072f821647"
+  },
+  "item": [
+    {
+      "name": "domain-search",
+      "item": [
+        {
+          "name": "Hunter Search Domain Emails",
+          "id": "59ed711d-6684-4b5e-9cc5-40131b01a828",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/domain-search?domain=<string>&company=<string>&limit=10&offset=0&type=generic&seniority=<string>&department=<string>&required_field=<string>&api_key=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "domain-search"
+              ],
+              "query": [
+                {
+                  "description": "The domain name from which you want to find email addresses.",
+                  "key": "domain",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The company name from which you want to find email addresses.",
+                  "key": "company",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of email addresses returned (1-100, default 10).",
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "description": "The number of email addresses to skip.",
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "description": "Restrict to personal or generic email addresses.",
+                  "key": "type",
+                  "value": "generic"
+                },
+                {
+                  "description": "Comma-separated seniority levels (junior, senior, executive).",
+                  "key": "seniority",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated departments (executive, it, finance, management, sales, legal, support, hr, marketing, communication, education, design, health, operations).",
+                  "key": "department",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of fields that must be present in each returned email.",
+                  "key": "required_field",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Your Hunter API key.",
+                  "key": "api_key",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Search for all email addresses corresponding to a given domain or company, including the discovered email pattern, organization metadata, and per-email confidence scores and verification status.\n"
+          },
+          "response": [
+            {
+              "id": "7838e191-4b33-461d-add7-d9a615fec63d",
+              "name": "A list of emails for the domain.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/domain-search?domain=<string>&company=<string>&limit=10&offset=0&type=generic&seniority=<string>&department=<string>&required_field=<string>&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "domain-search"
+                  ],
+                  "query": [
+                    {
+                      "description": "The domain name from which you want to find email addresses.",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The company name from which you want to find email addresses.",
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of email addresses returned (1-100, default 10).",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "The number of email addresses to skip.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Restrict to personal or generic email addresses.",
+                      "key": "type",
+                      "value": "generic"
+                    },
+                    {
+                      "description": "Comma-separated seniority levels (junior, senior, executive).",
+                      "key": "seniority",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated departments (executive, it, finance, management, sales, legal, support, hr, marketing, communication, education, design, health, operations).",
+                      "key": "department",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of fields that must be present in each returned email.",
+                      "key": "required_field",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"domain\": \"<string>\",\n    \"disposable\": \"<boolean>\",\n    \"webmail\": \"<boolean>\",\n    \"accept_all\": \"<boolean>\",\n    \"pattern\": \"<string>\",\n    \"organization\": \"<string>\",\n    \"description\": \"<string>\",\n    \"industry\": \"<string>\",\n    \"twitter\": \"<string>\",\n    \"facebook\": \"<string>\",\n    \"linkedin\": \"<string>\",\n    \"instagram\": \"<string>\",\n    \"youtube\": \"<string>\",\n    \"technologies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"country\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"street\": \"<string>\",\n    \"headcount\": \"<string>\",\n    \"company_type\": \"<string>\",\n    \"emails\": [\n      {\n        \"value\": \"<email>\",\n        \"type\": \"personal\",\n        \"confidence\": \"<integer>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"position\": \"<string>\",\n        \"seniority\": \"<string>\",\n        \"department\": \"<string>\",\n        \"linkedin\": \"<string>\",\n        \"twitter\": \"<string>\",\n        \"phone_number\": \"<string>\",\n        \"verification\": {\n          \"date\": \"<dateTime>\",\n          \"status\": \"webmail\"\n        },\n        \"sources\": [\n          {\n            \"domain\": \"<string>\",\n            \"uri\": \"<string>\",\n            \"extracted_on\": \"<date>\",\n            \"last_seen_on\": \"<date>\",\n            \"still_on_page\": \"<boolean>\"\n          },\n          {\n            \"domain\": \"<string>\",\n            \"uri\": \"<string>\",\n            \"extracted_on\": \"<date>\",\n            \"last_seen_on\": \"<date>\",\n            \"still_on_page\": \"<boolean>\"\n          }\n        ]\n      },\n      {\n        \"value\": \"<email>\",\n        \"type\": \"personal\",\n        \"confidence\": \"<integer>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"position\": \"<string>\",\n        \"seniority\": \"<string>\",\n        \"department\": \"<string>\",\n        \"linkedin\": \"<string>\",\n        \"twitter\": \"<string>\",\n        \"phone_number\": \"<string>\",\n        \"verification\": {\n          \"date\": \"<dateTime>\",\n          \"status\": \"disposable\"\n        },\n        \"sources\": [\n          {\n            \"domain\": \"<string>\",\n            \"uri\": \"<string>\",\n            \"extracted_on\": \"<date>\",\n            \"last_seen_on\": \"<date>\",\n            \"still_on_page\": \"<boolean>\"\n          },\n          {\n            \"domain\": \"<string>\",\n            \"uri\": \"<string>\",\n            \"extracted_on\": \"<date>\",\n            \"last_seen_on\": \"<date>\",\n            \"still_on_page\": \"<boolean>\"\n          }\n        ]\n      }\n    ]\n  },\n  \"meta\": {\n    \"results\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"offset\": \"<integer>\",\n    \"params\": {\n      \"proident96f\": \"minim\",\n      \"aliqua77\": -9292953.905262098,\n      \"consectetur_1\": \"aliqua\",\n      \"irure_afa\": 13298384.507899731\n    }\n  }\n}",
+              "createdAt": "2026-06-05T15:09:44.000Z",
+              "updatedAt": "2026-06-05T15:09:44.000Z",
+              "uid": "35240-7838e191-4b33-461d-add7-d9a615fec63d"
+            },
+            {
+              "id": "4d3b9801-da5e-483a-a03b-8077d4b48951",
+              "name": "Error response.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/domain-search?domain=<string>&company=<string>&limit=10&offset=0&type=generic&seniority=<string>&department=<string>&required_field=<string>&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "domain-search"
+                  ],
+                  "query": [
+                    {
+                      "description": "The domain name from which you want to find email addresses.",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The company name from which you want to find email addresses.",
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of email addresses returned (1-100, default 10).",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "The number of email addresses to skip.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Restrict to personal or generic email addresses.",
+                      "key": "type",
+                      "value": "generic"
+                    },
+                    {
+                      "description": "Comma-separated seniority levels (junior, senior, executive).",
+                      "key": "seniority",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated departments (executive, it, finance, management, sales, legal, support, hr, marketing, communication, education, design, health, operations).",
+                      "key": "department",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of fields that must be present in each returned email.",
+                      "key": "required_field",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:44.000Z",
+              "updatedAt": "2026-06-05T15:09:44.000Z",
+              "uid": "35240-4d3b9801-da5e-483a-a03b-8077d4b48951"
+            },
+            {
+              "id": "2ec3a5d3-aa7a-44e7-b95f-fb56bfd62fd9",
+              "name": "Error response.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/domain-search?domain=<string>&company=<string>&limit=10&offset=0&type=generic&seniority=<string>&department=<string>&required_field=<string>&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "domain-search"
+                  ],
+                  "query": [
+                    {
+                      "description": "The domain name from which you want to find email addresses.",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The company name from which you want to find email addresses.",
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of email addresses returned (1-100, default 10).",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "The number of email addresses to skip.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Restrict to personal or generic email addresses.",
+                      "key": "type",
+                      "value": "generic"
+                    },
+                    {
+                      "description": "Comma-separated seniority levels (junior, senior, executive).",
+                      "key": "seniority",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated departments (executive, it, finance, management, sales, legal, support, hr, marketing, communication, education, design, health, operations).",
+                      "key": "department",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of fields that must be present in each returned email.",
+                      "key": "required_field",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:44.000Z",
+              "updatedAt": "2026-06-05T15:09:44.000Z",
+              "uid": "35240-2ec3a5d3-aa7a-44e7-b95f-fb56bfd62fd9"
+            },
+            {
+              "id": "04e11a67-974b-45f5-8167-9e6085035397",
+              "name": "Error response.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/domain-search?domain=<string>&company=<string>&limit=10&offset=0&type=generic&seniority=<string>&department=<string>&required_field=<string>&api_key=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "domain-search"
+                  ],
+                  "query": [
+                    {
+                      "description": "The domain name from which you want to find email addresses.",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The company name from which you want to find email addresses.",
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of email addresses returned (1-100, default 10).",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "The number of email addresses to skip.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Restrict to personal or generic email addresses.",
+                      "key": "type",
+                      "value": "generic"
+                    },
+                    {
+                      "description": "Comma-separated seniority levels (junior, senior, executive).",
+                      "key": "seniority",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated departments (executive, it, finance, management, sales, legal, support, hr, marketing, communication, education, design, health, operations).",
+                      "key": "department",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of fields that must be present in each returned email.",
+                      "key": "required_field",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:44.000Z",
+              "updatedAt": "2026-06-05T15:09:44.000Z",
+              "uid": "35240-04e11a67-974b-45f5-8167-9e6085035397"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:44.000Z",
+          "updatedAt": "2026-06-05T15:09:44.000Z",
+          "uid": "35240-59ed711d-6684-4b5e-9cc5-40131b01a828"
+        }
+      ],
+      "id": "8ba69a64-646c-45e9-99c4-a362c98ab425",
+      "createdAt": "2026-06-05T15:09:44.000Z",
+      "updatedAt": "2026-06-05T15:09:44.000Z",
+      "uid": "35240-8ba69a64-646c-45e9-99c4-a362c98ab425"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.hunter.io/v2"
+    }
+  ]
+}

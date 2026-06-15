@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hunter Enrichment API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enrichment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Hunter Enrich Person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hunter.io/v2/people/find",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "linkedin_handle",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "clearbit_format",
+                "value": "",
+                "type": "query",
+                "description": "When true, response is returned in Clearbit-compatible shape for drop-in migration."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "Your Hunter API key."
+              }
+            ]
+          },
+          "docs": "Return a person profile for an email address or LinkedIn handle, including name, employment, geo, time zone, social handles, and last-seen activity.\n"
+        },
+        {
+          "info": {
+            "name": "Hunter Enrich Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hunter.io/v2/companies/find",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "clearbit_format",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "Your Hunter API key."
+              }
+            ]
+          },
+          "docs": "Return a company profile for a domain, including industry, location, technologies, metrics (employees, traffic rank, market cap), funding rounds, and social handles.\n"
+        },
+        {
+          "info": {
+            "name": "Hunter Enrich Person And Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hunter.io/v2/combined/find",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "clearbit_format",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "Your Hunter API key."
+              }
+            ]
+          },
+          "docs": "Combined enrichment. Returns both `person` and `company` blocks for an email address in a single call.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

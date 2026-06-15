@@ -1,0 +1,443 @@
+{
+  "item": [
+    {
+      "id": "6a5418e6-94c2-4a47-a4ed-75236660c826",
+      "name": "Domain Search",
+      "description": {
+        "content": "Discover all emails for a domain or company.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3b54e5c1-b683-42ef-8e0c-a86bfac2af3e",
+          "name": "Hunter Search Domain Emails",
+          "request": {
+            "name": "Hunter Search Domain Emails",
+            "description": {
+              "content": "Search for all email addresses corresponding to a given domain or company, including the discovered email pattern, organization metadata, and per-email confidence scores and verification status.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain-search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "The domain name from which you want to find email addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "company",
+                  "value": "<string>",
+                  "description": "The company name from which you want to find email addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Maximum number of email addresses returned (1-100, default 10)."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of email addresses to skip."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Restrict to personal or generic email addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "seniority",
+                  "value": "<string>",
+                  "description": "Comma-separated seniority levels (junior, senior, executive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "department",
+                  "value": "<string>",
+                  "description": "Comma-separated departments (executive, it, finance, management, sales, legal, support, hr, marketing, communication, education, design, health, operations)."
+                },
+                {
+                  "disabled": false,
+                  "key": "required_field",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields that must be present in each returned email."
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b47e2ddc-448e-4ee1-aa4a-55ea768af1f6",
+              "name": "A list of emails for the domain.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "seniority",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "department",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "required_field",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"domain\": \"string\",\n    \"disposable\": false,\n    \"webmail\": true,\n    \"accept_all\": true,\n    \"pattern\": \"{first}.{last}\",\n    \"organization\": \"string\",\n    \"description\": \"string\",\n    \"industry\": \"string\",\n    \"twitter\": \"string\",\n    \"facebook\": \"string\",\n    \"linkedin\": \"string\",\n    \"instagram\": \"string\",\n    \"youtube\": \"string\",\n    \"technologies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"country\": \"string\",\n    \"state\": \"string\",\n    \"city\": \"string\",\n    \"postal_code\": \"string\",\n    \"street\": \"string\",\n    \"headcount\": \"string\",\n    \"company_type\": \"string\",\n    \"emails\": [\n      {\n        \"value\": \"Rlt5HxA5h7yDHHY@nDgDZbiYeBEKYQ.nr\",\n        \"type\": \"generic\",\n        \"confidence\": 79,\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"position\": \"string\",\n        \"seniority\": \"string\",\n        \"department\": \"string\",\n        \"linkedin\": \"string\",\n        \"twitter\": \"string\",\n        \"phone_number\": \"string\",\n        \"verification\": {\n          \"date\": \"2019-04-16T06:11:07.807Z\",\n          \"status\": \"webmail\"\n        },\n        \"sources\": [\n          {\n            \"domain\": \"string\",\n            \"uri\": \"string\",\n            \"extracted_on\": \"1966-09-20\",\n            \"last_seen_on\": \"1975-03-30\",\n            \"still_on_page\": false\n          },\n          {\n            \"domain\": \"string\",\n            \"uri\": \"string\",\n            \"extracted_on\": \"1983-07-02\",\n            \"last_seen_on\": \"1962-07-03\",\n            \"still_on_page\": false\n          }\n        ]\n      },\n      {\n        \"value\": \"hzC25G0Beo7c6g8@nIRfzYPHPWAHTlCKCfigOC.dp\",\n        \"type\": \"personal\",\n        \"confidence\": 0,\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"position\": \"string\",\n        \"seniority\": \"string\",\n        \"department\": \"string\",\n        \"linkedin\": \"string\",\n        \"twitter\": \"string\",\n        \"phone_number\": \"string\",\n        \"verification\": {\n          \"date\": \"1977-08-24T07:51:14.872Z\",\n          \"status\": \"unknown\"\n        },\n        \"sources\": [\n          {\n            \"domain\": \"string\",\n            \"uri\": \"string\",\n            \"extracted_on\": \"1947-01-18\",\n            \"last_seen_on\": \"1952-06-11\",\n            \"still_on_page\": true\n          },\n          {\n            \"domain\": \"string\",\n            \"uri\": \"string\",\n            \"extracted_on\": \"1980-12-07\",\n            \"last_seen_on\": \"1968-04-11\",\n            \"still_on_page\": false\n          }\n        ]\n      }\n    ]\n  },\n  \"meta\": {\n    \"results\": 6943,\n    \"limit\": 750,\n    \"offset\": 1596,\n    \"params\": {\n      \"key_0\": false,\n      \"key_1\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0112c0a2-0ed6-4d7b-8130-cbfa49a41a4b",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "seniority",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "department",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "required_field",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 3715,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 3672,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e5da968-ed95-4d54-82e1-74f393d33fac",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "seniority",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "department",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "required_field",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 1724,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 256,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9523c8d1-5cb8-4099-9e12-b09d7055109d",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "seniority",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "department",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "required_field",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 1724,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 256,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hunter.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "eed0cd97-7d75-4950-a169-a1348348203c",
+    "name": "Hunter Domain Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Returns all email addresses found on the internet using a given domain name or company name, along with sources for each, confidence scores, departments, seniority levels, and verification status. The Domain Search is Hunter's flagship endpoint and powers the public domain search tool on hunter.io.\n\n\nContact Support:\n Name: Hunter Support",
+      "type": "text/plain"
+    }
+  }
+}

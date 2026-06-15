@@ -1,0 +1,798 @@
+{
+  "info": {
+    "_postman_id": "621b1640-b7e2-4f7d-a3e3-144043fa2515",
+    "name": "Hunter Enrichment API",
+    "description": "Person, company, and combined enrichment. Turn an email or LinkedIn handle into a rich person profile (name, role, seniority, social handles, geo), turn a domain into a company profile (industry, location, technology stack, funding, metrics), or combine both in a single call.\n\n\nContact Support:\n Name: Hunter Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:09:49.000Z",
+    "updatedAt": "2026-06-05T15:09:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-621b1640-b7e2-4f7d-a3e3-144043fa2515"
+  },
+  "item": [
+    {
+      "name": "people",
+      "item": [
+        {
+          "name": "find",
+          "item": [
+            {
+              "name": "Hunter Enrich Person",
+              "id": "a8465ba2-7b4d-47d1-a15c-bdf47358d20c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/people/find?email=<email>&linkedin_handle=<string>&clearbit_format=<boolean>&api_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "people",
+                    "find"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, response is returned in Clearbit-compatible shape for drop-in migration.",
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Return a person profile for an email address or LinkedIn handle, including name, employment, geo, time zone, social handles, and last-seen activity.\n"
+              },
+              "response": [
+                {
+                  "id": "dede92cf-af8f-41b1-a2d1-3cafde6a50f6",
+                  "name": "Person profile.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/people/find?email=<email>&linkedin_handle=<string>&clearbit_format=<boolean>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "people",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "key": "email",
+                          "value": "<email>"
+                        },
+                        {
+                          "key": "linkedin_handle",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "When true, response is returned in Clearbit-compatible shape for drop-in migration.",
+                          "key": "clearbit_format",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) Your Hunter API key.",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"name\": {\n      \"fullName\": \"<string>\",\n      \"givenName\": \"<string>\",\n      \"familyName\": \"<string>\"\n    },\n    \"email\": \"<email>\",\n    \"location\": \"<string>\",\n    \"timeZone\": \"<string>\",\n    \"geo\": {\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\",\n      \"lat\": \"<number>\",\n      \"lng\": \"<number>\"\n    },\n    \"employment\": {\n      \"domain\": \"<string>\",\n      \"name\": \"<string>\",\n      \"title\": \"<string>\",\n      \"role\": \"<string>\",\n      \"seniority\": \"<string>\"\n    },\n    \"facebook\": {\n      \"handle\": \"<string>\"\n    },\n    \"github\": {\n      \"handle\": \"<string>\"\n    },\n    \"twitter\": {\n      \"handle\": \"<string>\"\n    },\n    \"linkedin\": {\n      \"handle\": \"<string>\"\n    },\n    \"gravatar\": {\n      \"hash\": \"<string>\"\n    },\n    \"emailProvider\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"activeAt\": \"<dateTime>\",\n    \"inactiveAt\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:09:50.000Z",
+                  "updatedAt": "2026-06-05T15:09:50.000Z",
+                  "uid": "35240-dede92cf-af8f-41b1-a2d1-3cafde6a50f6"
+                },
+                {
+                  "id": "93e1dac6-3e9f-4d18-a32f-cec91e057d2b",
+                  "name": "Error response.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/people/find?email=<email>&linkedin_handle=<string>&clearbit_format=<boolean>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "people",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "key": "email",
+                          "value": "<email>"
+                        },
+                        {
+                          "key": "linkedin_handle",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "When true, response is returned in Clearbit-compatible shape for drop-in migration.",
+                          "key": "clearbit_format",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) Your Hunter API key.",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:09:50.000Z",
+                  "updatedAt": "2026-06-05T15:09:50.000Z",
+                  "uid": "35240-93e1dac6-3e9f-4d18-a32f-cec91e057d2b"
+                },
+                {
+                  "id": "43a7bc11-cfde-4f13-9807-8564cc3867bd",
+                  "name": "Error response.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/people/find?email=<email>&linkedin_handle=<string>&clearbit_format=<boolean>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "people",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "key": "email",
+                          "value": "<email>"
+                        },
+                        {
+                          "key": "linkedin_handle",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "When true, response is returned in Clearbit-compatible shape for drop-in migration.",
+                          "key": "clearbit_format",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) Your Hunter API key.",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:09:50.000Z",
+                  "updatedAt": "2026-06-05T15:09:50.000Z",
+                  "uid": "35240-43a7bc11-cfde-4f13-9807-8564cc3867bd"
+                },
+                {
+                  "id": "b36880fc-2057-4e65-b844-943d37f47e8a",
+                  "name": "Error response.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/people/find?email=<email>&linkedin_handle=<string>&clearbit_format=<boolean>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "people",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "key": "email",
+                          "value": "<email>"
+                        },
+                        {
+                          "key": "linkedin_handle",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "When true, response is returned in Clearbit-compatible shape for drop-in migration.",
+                          "key": "clearbit_format",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) Your Hunter API key.",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:09:50.000Z",
+                  "updatedAt": "2026-06-05T15:09:50.000Z",
+                  "uid": "35240-b36880fc-2057-4e65-b844-943d37f47e8a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-a8465ba2-7b4d-47d1-a15c-bdf47358d20c"
+            }
+          ],
+          "id": "ecc47b05-2ee5-419c-83bb-ecf9bdda1267",
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-ecc47b05-2ee5-419c-83bb-ecf9bdda1267"
+        }
+      ],
+      "id": "5437f683-38dc-4165-a3c2-f3d7f7602378",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-5437f683-38dc-4165-a3c2-f3d7f7602378"
+    },
+    {
+      "name": "companies",
+      "item": [
+        {
+          "name": "find",
+          "item": [
+            {
+              "name": "Hunter Enrich Company",
+              "id": "cc197eac-49cb-47a1-a86e-4c561ad2b391",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/companies/find?domain=<string>&clearbit_format=<boolean>&api_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "companies",
+                    "find"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Return a company profile for a domain, including industry, location, technologies, metrics (employees, traffic rank, market cap), funding rounds, and social handles.\n"
+              },
+              "response": [
+                {
+                  "id": "6dad9dd4-a354-4158-8b07-0ec3132aa352",
+                  "name": "Company profile.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/companies/find?domain=<string>&clearbit_format=<boolean>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "companies",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "domain",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "clearbit_format",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) Your Hunter API key.",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"legalName\": \"<string>\",\n    \"domain\": \"<string>\",\n    \"domainAliases\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"site\": {\n      \"phoneNumbers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"emailAddresses\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"category\": {\n      \"sector\": \"<string>\",\n      \"industry\": \"<string>\",\n      \"industryGroup\": \"<string>\",\n      \"naicsCode\": \"<string>\",\n      \"sicCode\": \"<string>\",\n      \"gicsCode\": \"<string>\"\n    },\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"description\": \"<string>\",\n    \"foundedYear\": \"<integer>\",\n    \"location\": \"<string>\",\n    \"timeZone\": \"<string>\",\n    \"geo\": {\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"logo\": \"<string>\",\n    \"facebook\": {\n      \"handle\": \"<string>\"\n    },\n    \"linkedin\": {\n      \"handle\": \"<string>\"\n    },\n    \"twitter\": {\n      \"handle\": \"<string>\"\n    },\n    \"crunchbase\": {\n      \"handle\": \"<string>\"\n    },\n    \"instagram\": {\n      \"handle\": \"<string>\"\n    },\n    \"type\": \"<string>\",\n    \"ticker\": \"<string>\",\n    \"metrics\": {\n      \"alexaUsRank\": \"<integer>\",\n      \"alexaGlobalRank\": \"<integer>\",\n      \"trafficRank\": \"<string>\",\n      \"employees\": \"<integer>\",\n      \"employeesRange\": \"<string>\",\n      \"marketCap\": \"<integer>\",\n      \"raised\": \"<integer>\",\n      \"annualRevenue\": \"<integer>\"\n    },\n    \"tech\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"techCategories\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"fundingRounds\": [\n      {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\",\n        \"series\": \"<string>\",\n        \"announcedDate\": \"<date>\"\n      },\n      {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\",\n        \"series\": \"<string>\",\n        \"announcedDate\": \"<date>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-06-05T15:09:50.000Z",
+                  "updatedAt": "2026-06-05T15:09:50.000Z",
+                  "uid": "35240-6dad9dd4-a354-4158-8b07-0ec3132aa352"
+                },
+                {
+                  "id": "84f15492-c3a8-4b1f-9498-c1c88946eee0",
+                  "name": "Error response.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/companies/find?domain=<string>&clearbit_format=<boolean>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "companies",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "domain",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "clearbit_format",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) Your Hunter API key.",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:09:50.000Z",
+                  "updatedAt": "2026-06-05T15:09:50.000Z",
+                  "uid": "35240-84f15492-c3a8-4b1f-9498-c1c88946eee0"
+                },
+                {
+                  "id": "ded58ae9-cec3-4fce-b302-70d98b1f93ce",
+                  "name": "Error response.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/companies/find?domain=<string>&clearbit_format=<boolean>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "companies",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "domain",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "clearbit_format",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) Your Hunter API key.",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:09:50.000Z",
+                  "updatedAt": "2026-06-05T15:09:50.000Z",
+                  "uid": "35240-ded58ae9-cec3-4fce-b302-70d98b1f93ce"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-cc197eac-49cb-47a1-a86e-4c561ad2b391"
+            }
+          ],
+          "id": "e9077e58-de46-4f2e-966b-0c763a01b11d",
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-e9077e58-de46-4f2e-966b-0c763a01b11d"
+        }
+      ],
+      "id": "c717174c-0363-4a1f-bbe1-97250ecb3901",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-c717174c-0363-4a1f-bbe1-97250ecb3901"
+    },
+    {
+      "name": "combined",
+      "item": [
+        {
+          "name": "find",
+          "item": [
+            {
+              "name": "Hunter Enrich Person And Company",
+              "id": "59225315-46e3-44fe-89c1-e356d0ea45a0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/combined/find?email=<email>&clearbit_format=<boolean>&api_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "combined",
+                    "find"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "(Required) Your Hunter API key.",
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Combined enrichment. Returns both `person` and `company` blocks for an email address in a single call.\n"
+              },
+              "response": [
+                {
+                  "id": "ed6e853c-2c01-4c98-a218-7d59b8829596",
+                  "name": "Combined person + company profile.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/combined/find?email=<email>&clearbit_format=<boolean>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "combined",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "email",
+                          "value": "<email>"
+                        },
+                        {
+                          "key": "clearbit_format",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) Your Hunter API key.",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"person\": {\n      \"id\": \"<string>\",\n      \"name\": {\n        \"fullName\": \"<string>\",\n        \"givenName\": \"<string>\",\n        \"familyName\": \"<string>\"\n      },\n      \"email\": \"<email>\",\n      \"location\": \"<string>\",\n      \"timeZone\": \"<string>\",\n      \"geo\": {\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"country\": \"<string>\",\n        \"lat\": \"<number>\",\n        \"lng\": \"<number>\"\n      },\n      \"employment\": {\n        \"domain\": \"<string>\",\n        \"name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"role\": \"<string>\",\n        \"seniority\": \"<string>\"\n      },\n      \"facebook\": {\n        \"handle\": \"<string>\"\n      },\n      \"github\": {\n        \"handle\": \"<string>\"\n      },\n      \"twitter\": {\n        \"handle\": \"<string>\"\n      },\n      \"linkedin\": {\n        \"handle\": \"<string>\"\n      },\n      \"gravatar\": {\n        \"hash\": \"<string>\"\n      },\n      \"emailProvider\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"activeAt\": \"<dateTime>\",\n      \"inactiveAt\": \"<dateTime>\"\n    },\n    \"company\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"legalName\": \"<string>\",\n      \"domain\": \"<string>\",\n      \"domainAliases\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"site\": {\n        \"phoneNumbers\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"emailAddresses\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"category\": {\n        \"sector\": \"<string>\",\n        \"industry\": \"<string>\",\n        \"industryGroup\": \"<string>\",\n        \"naicsCode\": \"<string>\",\n        \"sicCode\": \"<string>\",\n        \"gicsCode\": \"<string>\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"foundedYear\": \"<integer>\",\n      \"location\": \"<string>\",\n      \"timeZone\": \"<string>\",\n      \"geo\": {\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"country\": \"<string>\"\n      },\n      \"logo\": \"<string>\",\n      \"facebook\": {\n        \"handle\": \"<string>\"\n      },\n      \"linkedin\": {\n        \"handle\": \"<string>\"\n      },\n      \"twitter\": {\n        \"handle\": \"<string>\"\n      },\n      \"crunchbase\": {\n        \"handle\": \"<string>\"\n      },\n      \"instagram\": {\n        \"handle\": \"<string>\"\n      },\n      \"type\": \"<string>\",\n      \"ticker\": \"<string>\",\n      \"metrics\": {\n        \"alexaUsRank\": \"<integer>\",\n        \"alexaGlobalRank\": \"<integer>\",\n        \"trafficRank\": \"<string>\",\n        \"employees\": \"<integer>\",\n        \"employeesRange\": \"<string>\",\n        \"marketCap\": \"<integer>\",\n        \"raised\": \"<integer>\",\n        \"annualRevenue\": \"<integer>\"\n      },\n      \"tech\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"techCategories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fundingRounds\": [\n        {\n          \"amount\": \"<integer>\",\n          \"currency\": \"<string>\",\n          \"series\": \"<string>\",\n          \"announcedDate\": \"<date>\"\n        },\n        {\n          \"amount\": \"<integer>\",\n          \"currency\": \"<string>\",\n          \"series\": \"<string>\",\n          \"announcedDate\": \"<date>\"\n        }\n      ]\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T15:09:50.000Z",
+                  "updatedAt": "2026-06-05T15:09:50.000Z",
+                  "uid": "35240-ed6e853c-2c01-4c98-a218-7d59b8829596"
+                },
+                {
+                  "id": "4e56db21-45bb-448f-9afa-a5be18b41b44",
+                  "name": "Error response.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/combined/find?email=<email>&clearbit_format=<boolean>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "combined",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "email",
+                          "value": "<email>"
+                        },
+                        {
+                          "key": "clearbit_format",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) Your Hunter API key.",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:09:50.000Z",
+                  "updatedAt": "2026-06-05T15:09:50.000Z",
+                  "uid": "35240-4e56db21-45bb-448f-9afa-a5be18b41b44"
+                },
+                {
+                  "id": "3a1f9ef2-83b8-4829-9759-d64af923222c",
+                  "name": "Error response.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/combined/find?email=<email>&clearbit_format=<boolean>&api_key=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "combined",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "email",
+                          "value": "<email>"
+                        },
+                        {
+                          "key": "clearbit_format",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "(Required) Your Hunter API key.",
+                          "key": "api_key",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errors\": [\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"code\": \"<integer>\",\n      \"details\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:09:50.000Z",
+                  "updatedAt": "2026-06-05T15:09:50.000Z",
+                  "uid": "35240-3a1f9ef2-83b8-4829-9759-d64af923222c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-59225315-46e3-44fe-89c1-e356d0ea45a0"
+            }
+          ],
+          "id": "279ab293-098e-46cd-9adf-6f553ca9edeb",
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-279ab293-098e-46cd-9adf-6f553ca9edeb"
+        }
+      ],
+      "id": "a89f80da-9357-4d98-befe-25695af6629e",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-a89f80da-9357-4d98-befe-25695af6629e"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.hunter.io/v2"
+    }
+  ]
+}

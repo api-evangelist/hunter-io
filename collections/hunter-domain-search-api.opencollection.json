@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hunter Domain Search API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domain Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Hunter Search Domain Emails",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hunter.io/v2/domain-search",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "The domain name from which you want to find email addresses."
+              },
+              {
+                "name": "company",
+                "value": "",
+                "type": "query",
+                "description": "The company name from which you want to find email addresses."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of email addresses returned (1-100, default 10)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of email addresses to skip."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Restrict to personal or generic email addresses."
+              },
+              {
+                "name": "seniority",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated seniority levels (junior, senior, executive)."
+              },
+              {
+                "name": "department",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated departments (executive, it, finance, management, sales, legal, support, hr, marketing, communication, education, design, health, operations)."
+              },
+              {
+                "name": "required_field",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields that must be present in each returned email."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "Your Hunter API key."
+              }
+            ]
+          },
+          "docs": "Search for all email addresses corresponding to a given domain or company, including the discovered email pattern, organization metadata, and per-email confidence scores and verification status.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

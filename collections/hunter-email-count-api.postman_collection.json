@@ -1,0 +1,182 @@
+{
+  "item": [
+    {
+      "id": "fccd8358-65c9-44eb-b217-d0621ba45527",
+      "name": "Email Count",
+      "description": {
+        "content": "Count emails for a domain.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "28aae9c2-735f-41ff-8797-fba28eaea834",
+          "name": "Hunter Count Emails For Domain",
+          "request": {
+            "name": "Hunter Count Emails For Domain",
+            "description": {
+              "content": "Returns the total number of email addresses found by Hunter for a domain or a company, with breakdowns by department and seniority. No API key required; no credit consumed.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "email-count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "Domain name to count emails for."
+                },
+                {
+                  "disabled": false,
+                  "key": "company",
+                  "value": "<string>",
+                  "description": "Company name (used when domain not provided)."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Limit to personal or generic emails."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1b793b4-bdcf-4715-80c7-facf9fc66bd6",
+              "name": "Email count.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"total\": 1217,\n    \"personal_emails\": 5269,\n    \"generic_emails\": 2284,\n    \"department\": {\n      \"key_0\": 9302,\n      \"key_1\": 9903\n    },\n    \"seniority\": {\n      \"key_0\": 4257\n    }\n  },\n  \"meta\": {\n    \"params\": {\n      \"key_0\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2105bd4c-c9e1-4713-a1a5-03e8b32b6c2b",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 5589,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 5288,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hunter.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "576a06fc-8615-4c96-a5fb-99fd44bc6e0e",
+    "name": "Hunter Email Count API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Returns the total number of email addresses Hunter has indexed for a given domain or company, broken down by personal/generic, department, and seniority. This endpoint is free and does not consume Hunter credits.\n\n\nContact Support:\n Name: Hunter Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hunter Email Finder API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Email Finder",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Hunter Find Email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hunter.io/v2/email-finder",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Domain name of the company."
+              },
+              {
+                "name": "company",
+                "value": "",
+                "type": "query",
+                "description": "Company name (used when domain is not provided)."
+              },
+              {
+                "name": "first_name",
+                "value": "",
+                "type": "query",
+                "description": "First name of the person."
+              },
+              {
+                "name": "last_name",
+                "value": "",
+                "type": "query",
+                "description": "Last name of the person."
+              },
+              {
+                "name": "full_name",
+                "value": "",
+                "type": "query",
+                "description": "Full name of the person (alternative to first/last)."
+              },
+              {
+                "name": "linkedin_handle",
+                "value": "",
+                "type": "query",
+                "description": "LinkedIn handle (e.g., the slug after `/in/`)."
+              },
+              {
+                "name": "max_duration",
+                "value": "",
+                "type": "query",
+                "description": "Maximum duration of the request in seconds (3-20, default 10)."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "Your Hunter API key."
+              }
+            ]
+          },
+          "docs": "Generates or retrieves the most likely email address from a domain or company name and a person's first and last name (or full name, or LinkedIn handle). Returns score, sources, position, and verification metadata.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
