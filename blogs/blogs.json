@@ -2,11 +2,11 @@
   "repo": "hunter-io",
   "feeds": [
     {
-      "source": "https://hunter.io/blog",
+      "source": "https://hunter.io/blog/rss/",
       "feed_url": "https://hunter.io/blog/rss/",
       "title": "",
-      "saved": 4,
-      "method": "discovered"
+      "saved": 2,
+      "method": "feed"
     },
     {
       "source": "https://hunter.io/api-documentation/v2#changelog",
@@ -16,6 +16,6 @@
       "method": "none"
     }
   ],
-  "post_count": 6,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 9,
+  "fetched": "2026-06-27T12:03:07Z"
 }

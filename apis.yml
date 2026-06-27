@@ -163,53 +163,39 @@ access: 3rd-Party
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/hunter/overview
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/hunter-io-add-verified-lead-to-list-workflow.yml
-    name: Hunter Add Verified Lead To List
-    summary: Verify an email, upsert it as a lead, then assign the lead to a target
-      leads list.
-  - url: arazzo/hunter-io-author-finder-workflow.yml
-    name: Hunter Author Finder
-    summary: Resolve an author's email from their name and publication domain, verify
-      it, then enrich their profile.
-  - url: arazzo/hunter-io-campaign-lead-builder-workflow.yml
-    name: Hunter Campaign Lead Builder
-    summary: Find a contact, verify it, and seed a campaign by creating a verified
-      lead in a target list.
-  - url: arazzo/hunter-io-count-gated-domain-search-workflow.yml
-    name: Hunter Count Gated Domain Search
-    summary: Use the free Email Count to confirm coverage before spending a credit
-      on Domain Search.
-  - url: arazzo/hunter-io-credit-guarded-domain-search-workflow.yml
-    name: Hunter Credit Guarded Domain Search
-    summary: Check account search credits first and run a Domain Search only when
-      credits remain.
-  - url: arazzo/hunter-io-discover-to-domain-emails-workflow.yml
-    name: Hunter Discover To Domain Emails
-    summary: Discover companies matching a target profile, then pull the email list
-      for the top match's domain.
-  - url: arazzo/hunter-io-domain-to-verified-email-workflow.yml
-    name: Hunter Domain To Verified Email
-    summary: Discover a domain's email pattern, find a specific person's email, then
-      verify its deliverability.
-  - url: arazzo/hunter-io-enrich-email-to-lead-workflow.yml
-    name: Hunter Enrich Email To Lead
-    summary: Combined-enrich an email into person and company data, then upsert a
-      fully populated lead.
-  - url: arazzo/hunter-io-find-verify-create-lead-workflow.yml
-    name: Hunter Find Verify Create Lead
-    summary: Find a person's email, verify it, and create a lead only when the address
-      is deliverable.
-  - url: arazzo/hunter-io-reverify-lead-workflow.yml
-    name: Hunter Reverify Lead
-    summary: Retrieve a stored lead, re-verify its email, and update or delete it
-      based on the result.
-  - url: arazzo/hunter-io-verify-existing-email-workflow.yml
-    name: Hunter Verify Existing Email
-    summary: Verify a known email and upsert it into Hunter as a lead with its verification
-      status.
+- type: Arazzo
+  url: arazzo/hunter-io-add-verified-lead-to-list-workflow.yml
+  name: Hunter Add Verified Lead To List
+- type: Arazzo
+  url: arazzo/hunter-io-author-finder-workflow.yml
+  name: Hunter Author Finder
+- type: Arazzo
+  url: arazzo/hunter-io-campaign-lead-builder-workflow.yml
+  name: Hunter Campaign Lead Builder
+- type: Arazzo
+  url: arazzo/hunter-io-count-gated-domain-search-workflow.yml
+  name: Hunter Count Gated Domain Search
+- type: Arazzo
+  url: arazzo/hunter-io-credit-guarded-domain-search-workflow.yml
+  name: Hunter Credit Guarded Domain Search
+- type: Arazzo
+  url: arazzo/hunter-io-discover-to-domain-emails-workflow.yml
+  name: Hunter Discover To Domain Emails
+- type: Arazzo
+  url: arazzo/hunter-io-domain-to-verified-email-workflow.yml
+  name: Hunter Domain To Verified Email
+- type: Arazzo
+  url: arazzo/hunter-io-enrich-email-to-lead-workflow.yml
+  name: Hunter Enrich Email To Lead
+- type: Arazzo
+  url: arazzo/hunter-io-find-verify-create-lead-workflow.yml
+  name: Hunter Find Verify Create Lead
+- type: Arazzo
+  url: arazzo/hunter-io-reverify-lead-workflow.yml
+  name: Hunter Reverify Lead
+- type: Arazzo
+  url: arazzo/hunter-io-verify-existing-email-workflow.yml
+  name: Hunter Verify Existing Email
 - type: Portal
   url: https://hunter.io
 - type: Documentation
@@ -222,13 +208,13 @@ common:
   url: https://hunter.io/api-documentation/v2#authentication
 - type: RateLimits
   url: https://hunter.io/api-documentation/v2#rate-limiting
-- type: Errors
+- type: ErrorCodes
   url: https://hunter.io/api-documentation/v2#errors
 - type: ChangeLog
   url: https://hunter.io/api-documentation/v2#changelog
 - type: Blog
   url: https://hunter.io/blog
-- type: SignUp
+- type: Signup
   url: https://hunter.io/users/sign_up
 - type: PrivacyPolicy
   url: https://hunter.io/privacy
@@ -248,34 +234,34 @@ common:
   type: Plugin
 - url: https://hunter.io/integrations/salesforce
   name: Salesforce Integration
-  type: Integration
+  type: Integrations
 - url: https://hunter.io/integrations/hubspot
   name: HubSpot Integration
-  type: Integration
+  type: Integrations
 - url: https://hunter.io/integrations/zapier
   name: Zapier Integration
-  type: Integration
+  type: Integrations
 - url: https://hunter.io/integrations/pipedrive
   name: Pipedrive Integration
-  type: Integration
+  type: Integrations
 - url: https://hunter.io/integrations/zoho
   name: Zoho CRM Integration
-  type: Integration
+  type: Integrations
 - url: https://hunter.io/email-pattern
   name: Email Pattern Finder
-  type: Tool
+  type: Tools
 - url: https://hunter.io/email-verifier
   name: Email Verifier Tool
-  type: Tool
+  type: Tools
 - url: https://hunter.io/email-finder
   name: Email Finder Tool
-  type: Tool
+  type: Tools
 - url: https://hunter.io/bulks
   name: Bulk Tasks
-  type: Tool
+  type: Tools
 - url: https://hunter.io/companies
   name: Hunter Companies Directory
-  type: Tool
+  type: Tools
 - url: https://hunter.io/templates
   name: Cold Email Templates
   type: Resource
@@ -287,19 +273,19 @@ common:
   type: Plugin
 - url: https://github.com/hunter-io/chatgpt-mcp
   name: Hunter MCP Server for ChatGPT
-  type: Tool
+  type: Tools
 - url: https://github.com/hunter-io/hunter-mcp
   name: Hunter MCP Integration (archived)
-  type: Tool
+  type: Tools
 - url: https://github.com/hunter-io/mcp-oauth-proxy
   name: MCP OAuth Proxy
-  type: Tool
+  type: Tools
 - url: https://github.com/hunter-io/baseimage-ruby
   name: Hunter Ruby Base Image
-  type: Tool
+  type: Tools
 - url: https://github.com/hunter-io/sentry-ruby
   name: Sentry Ruby (Hunter fork)
-  type: SDK
+  type: SDKs
 - url: plans/hunter-io-plans-pricing.yml
   type: Plans
 - url: rate-limits/hunter-io-rate-limits.yml
