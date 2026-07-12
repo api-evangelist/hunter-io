@@ -1,0 +1,48 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/hunter-account-api-openapi.yml, openapi/hunter-discover-api-openapi.yml, openapi/hunter-domain-search-api-openapi.yml,
+  openapi/hunter-email-finder-api-openapi.yml, openapi/hunter-email-verifier-api-openapi.yml,
+  openapi/hunter-enrichment-api-openapi.yml, openapi/hunter-leads-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+  - query
+schemes:
+- name: ApiKeyQuery
+  type: apiKey
+  in: query
+  parameter: api_key
+  sources:
+  - openapi/hunter-account-api-openapi.yml
+  - openapi/hunter-discover-api-openapi.yml
+  - openapi/hunter-domain-search-api-openapi.yml
+  - openapi/hunter-email-finder-api-openapi.yml
+  - openapi/hunter-email-verifier-api-openapi.yml
+  - openapi/hunter-enrichment-api-openapi.yml
+  - openapi/hunter-leads-api-openapi.yml
+- name: ApiKeyHeader
+  type: apiKey
+  in: header
+  parameter: X-API-KEY
+  sources:
+  - openapi/hunter-account-api-openapi.yml
+  - openapi/hunter-discover-api-openapi.yml
+  - openapi/hunter-domain-search-api-openapi.yml
+  - openapi/hunter-email-finder-api-openapi.yml
+  - openapi/hunter-email-verifier-api-openapi.yml
+  - openapi/hunter-enrichment-api-openapi.yml
+  - openapi/hunter-leads-api-openapi.yml
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/hunter-account-api-openapi.yml
+  - openapi/hunter-discover-api-openapi.yml
+  - openapi/hunter-domain-search-api-openapi.yml
+  - openapi/hunter-email-finder-api-openapi.yml
+  - openapi/hunter-email-verifier-api-openapi.yml
+  - openapi/hunter-enrichment-api-openapi.yml
+  - openapi/hunter-leads-api-openapi.yml
