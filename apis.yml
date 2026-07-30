@@ -1,152 +1,334 @@
 aid: hunter-io
 url: https://raw.githubusercontent.com/api-evangelist/hunter-io/refs/heads/main/apis.yml
 apis:
-- aid: hunter-io:hunter-domain-search-api
-  name: Hunter Domain Search API
-  tags:
-  - Email Finder
-  - Lead Generation
-  - Domain Search
-  humanURL: https://hunter.io/api-documentation/v2#domain-search
-  properties:
-  - url: https://hunter.io/api-documentation/v2#domain-search
-    type: Documentation
-  - url: openapi/hunter-domain-search-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/hunter-email-schema.json
-    type: JSONSchema
-  - url: json-ld/hunter-io-context.jsonld
-    type: JSONLD
-  - url: examples/hunter-domain-search-example.json
-    type: Examples
-  - url: graphql/hunter-io-graphql.md
-    type: GraphQL
-  description: Search for all email addresses associated with a domain name or company.
-    Returns the inferred email pattern, organization metadata, and a list of emails
-    with confidence scores, departments, seniority, verification status, and observed
-    sources. Costs 1 credit per request.
-- aid: hunter-io:hunter-email-finder-api
-  name: Hunter Email Finder API
-  tags:
-  - Email Finder
-  - Lead Generation
-  humanURL: https://hunter.io/api-documentation/v2#email-finder
-  properties:
-  - url: https://hunter.io/api-documentation/v2#email-finder
-    type: Documentation
-  - url: openapi/hunter-email-finder-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/hunter-email-schema.json
-    type: JSONSchema
-  - url: examples/hunter-email-finder-example.json
-    type: Examples
-  description: Generate or retrieve the most likely email address for a named person
-    at a company. Accepts first/last name, full name, or LinkedIn handle alongside
-    a domain or company. Returns confidence score, position, social handles, sources,
-    and verification status. Costs 1 credit per request.
-- aid: hunter-io:hunter-email-verifier-api
-  name: Hunter Email Verifier API
-  tags:
-  - Email Verifier
-  - Deliverability
-  humanURL: https://hunter.io/api-documentation/v2#email-verifier
-  properties:
-  - url: https://hunter.io/api-documentation/v2#email-verifier
-    type: Documentation
-  - url: openapi/hunter-email-verifier-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/hunter-verification-schema.json
-    type: JSONSchema
-  - url: examples/hunter-email-verifier-example.json
-    type: Examples
-  description: Verify the deliverability of an email address through MX-record inspection,
-    SMTP connection checks, catch-all detection, disposable-domain detection, webmail
-    detection, and Hunter's own database lookup. Returns a normalized status (valid,
-    invalid, accept_all, webmail, disposable, unknown) plus a 0-100 confidence score.
-    May return 202 while verification is in flight.
-- aid: hunter-io:hunter-email-count-api
-  name: Hunter Email Count API
-  tags:
-  - Email Finder
-  - Counts
-  humanURL: https://hunter.io/api-documentation/v2#email-count
-  properties:
-  - url: https://hunter.io/api-documentation/v2#email-count
-    type: Documentation
-  - url: openapi/hunter-email-count-api-openapi.yml
-    type: OpenAPI
-  description: Free, unauthenticated endpoint returning the total number of email
-    addresses Hunter has indexed for a domain or company, broken down by personal/generic,
-    department, and seniority. Does not consume credits.
-- aid: hunter-io:hunter-discover-api
-  name: Hunter Discover API
-  tags:
-  - Discover
-  - Prospecting
-  - Lead Generation
-  humanURL: https://hunter.io/api-documentation/v2#discover
-  properties:
-  - url: https://hunter.io/api-documentation/v2#discover
-    type: Documentation
-  - url: openapi/hunter-discover-api-openapi.yml
-    type: OpenAPI
-  description: Find companies matching a target customer profile using a natural-language
-    query or structured filters across industry, headcount, location, technology stack,
-    funding, and keywords. Powers Hunter's prospecting workflows and feeds Domain
-    Search and Email Finder. Premium filters (similar_to, technology, funding, year_founded)
-    require a higher plan.
-- aid: hunter-io:hunter-enrichment-api
-  name: Hunter Enrichment API
-  tags:
-  - Enrichment
-  - Person
-  - Company
-  humanURL: https://hunter.io/api-documentation/v2#enrichment
-  properties:
-  - url: https://hunter.io/api-documentation/v2#enrichment
-    type: Documentation
-  - url: openapi/hunter-enrichment-api-openapi.yml
-    type: OpenAPI
-  description: Person, company, and combined enrichment. Turn an email or LinkedIn
-    handle into a rich person profile (name, role, seniority, social handles, geo),
-    turn a domain into a company profile (industry, location, technology stack, funding,
-    metrics), or combine both in a single call. Supports a `clearbit_format=true`
-    flag for drop-in Clearbit migration.
-- aid: hunter-io:hunter-account-api
+- aid: hunter-io:hunter-io-account-api
   name: Hunter Account API
+  description: Account metadata and usage counters.
+  humanURL: https://hunter.io/api-documentation/v2#domain-search
   tags:
   - Account
-  - Usage
-  - FinOps
-  humanURL: https://hunter.io/api-documentation/v2#account
   properties:
-  - url: https://hunter.io/api-documentation/v2#account
-    type: Documentation
-  - url: openapi/hunter-account-api-openapi.yml
-    type: OpenAPI
-  description: Returns information about the authenticated Hunter account, including
-    plan name and level, credit reset date, team id, and per-meter usage counters
-    (searches, verifications, credits) with used/available splits. Useful for FinOps
-    and pre-flight quota checks.
-- aid: hunter-io:hunter-leads-api
+  - type: OpenAPI
+    url: openapi/hunter-io-account-api-openapi.yml
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#domain-search
+  - type: JSONSchema
+    url: json-schema/hunter-email-schema.json
+  - type: JSONLD
+    url: json-ld/hunter-io-context.jsonld
+  - type: Examples
+    url: examples/hunter-domain-search-example.json
+  - type: GraphQL
+    url: graphql/hunter-io-graphql.md
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-finder
+  - type: Examples
+    url: examples/hunter-email-finder-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-verifier
+  - type: JSONSchema
+    url: json-schema/hunter-verification-schema.json
+  - type: Examples
+    url: examples/hunter-email-verifier-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-count
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#discover
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#enrichment
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#account
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#leads
+  - type: JSONSchema
+    url: json-schema/hunter-lead-schema.json
+- aid: hunter-io:hunter-io-discover-api
+  name: Hunter Discover API
+  description: Company discovery and prospecting.
+  humanURL: https://hunter.io/api-documentation/v2#domain-search
+  tags:
+  - Discover
+  properties:
+  - type: OpenAPI
+    url: openapi/hunter-io-discover-api-openapi.yml
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#domain-search
+  - type: JSONSchema
+    url: json-schema/hunter-email-schema.json
+  - type: JSONLD
+    url: json-ld/hunter-io-context.jsonld
+  - type: Examples
+    url: examples/hunter-domain-search-example.json
+  - type: GraphQL
+    url: graphql/hunter-io-graphql.md
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-finder
+  - type: Examples
+    url: examples/hunter-email-finder-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-verifier
+  - type: JSONSchema
+    url: json-schema/hunter-verification-schema.json
+  - type: Examples
+    url: examples/hunter-email-verifier-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-count
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#discover
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#enrichment
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#account
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#leads
+  - type: JSONSchema
+    url: json-schema/hunter-lead-schema.json
+- aid: hunter-io:hunter-io-domain-search-api
+  name: Hunter Domain Search API
+  description: Discover all emails for a domain or company.
+  humanURL: https://hunter.io/api-documentation/v2#domain-search
+  tags:
+  - Domain Search
+  properties:
+  - type: OpenAPI
+    url: openapi/hunter-io-domain-search-api-openapi.yml
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#domain-search
+  - type: JSONSchema
+    url: json-schema/hunter-email-schema.json
+  - type: JSONLD
+    url: json-ld/hunter-io-context.jsonld
+  - type: Examples
+    url: examples/hunter-domain-search-example.json
+  - type: GraphQL
+    url: graphql/hunter-io-graphql.md
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-finder
+  - type: Examples
+    url: examples/hunter-email-finder-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-verifier
+  - type: JSONSchema
+    url: json-schema/hunter-verification-schema.json
+  - type: Examples
+    url: examples/hunter-email-verifier-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-count
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#discover
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#enrichment
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#account
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#leads
+  - type: JSONSchema
+    url: json-schema/hunter-lead-schema.json
+- aid: hunter-io:hunter-io-email-count-api
+  name: Hunter Email Count API
+  description: Count emails for a domain.
+  humanURL: https://hunter.io/api-documentation/v2#domain-search
+  tags:
+  - Email Count
+  properties:
+  - type: OpenAPI
+    url: openapi/hunter-io-email-count-api-openapi.yml
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#domain-search
+  - type: JSONSchema
+    url: json-schema/hunter-email-schema.json
+  - type: JSONLD
+    url: json-ld/hunter-io-context.jsonld
+  - type: Examples
+    url: examples/hunter-domain-search-example.json
+  - type: GraphQL
+    url: graphql/hunter-io-graphql.md
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-finder
+  - type: Examples
+    url: examples/hunter-email-finder-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-verifier
+  - type: JSONSchema
+    url: json-schema/hunter-verification-schema.json
+  - type: Examples
+    url: examples/hunter-email-verifier-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-count
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#discover
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#enrichment
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#account
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#leads
+  - type: JSONSchema
+    url: json-schema/hunter-lead-schema.json
+- aid: hunter-io:hunter-io-email-finder-api
+  name: Hunter Email Finder API
+  description: Find the email address of a person at a company.
+  humanURL: https://hunter.io/api-documentation/v2#domain-search
+  tags:
+  - Email Finder
+  properties:
+  - type: OpenAPI
+    url: openapi/hunter-io-email-finder-api-openapi.yml
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#domain-search
+  - type: JSONSchema
+    url: json-schema/hunter-email-schema.json
+  - type: JSONLD
+    url: json-ld/hunter-io-context.jsonld
+  - type: Examples
+    url: examples/hunter-domain-search-example.json
+  - type: GraphQL
+    url: graphql/hunter-io-graphql.md
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-finder
+  - type: Examples
+    url: examples/hunter-email-finder-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-verifier
+  - type: JSONSchema
+    url: json-schema/hunter-verification-schema.json
+  - type: Examples
+    url: examples/hunter-email-verifier-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-count
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#discover
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#enrichment
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#account
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#leads
+  - type: JSONSchema
+    url: json-schema/hunter-lead-schema.json
+- aid: hunter-io:hunter-io-email-verifier-api
+  name: Hunter Email Verifier API
+  description: Verify the deliverability of an email address.
+  humanURL: https://hunter.io/api-documentation/v2#domain-search
+  tags:
+  - Email Verifier
+  properties:
+  - type: OpenAPI
+    url: openapi/hunter-io-email-verifier-api-openapi.yml
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#domain-search
+  - type: JSONSchema
+    url: json-schema/hunter-email-schema.json
+  - type: JSONLD
+    url: json-ld/hunter-io-context.jsonld
+  - type: Examples
+    url: examples/hunter-domain-search-example.json
+  - type: GraphQL
+    url: graphql/hunter-io-graphql.md
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-finder
+  - type: Examples
+    url: examples/hunter-email-finder-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-verifier
+  - type: JSONSchema
+    url: json-schema/hunter-verification-schema.json
+  - type: Examples
+    url: examples/hunter-email-verifier-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-count
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#discover
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#enrichment
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#account
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#leads
+  - type: JSONSchema
+    url: json-schema/hunter-lead-schema.json
+- aid: hunter-io:hunter-io-enrichment-api
+  name: Hunter Enrichment API
+  description: Person, company, and combined enrichment.
+  humanURL: https://hunter.io/api-documentation/v2#domain-search
+  tags:
+  - Enrichment
+  properties:
+  - type: OpenAPI
+    url: openapi/hunter-io-enrichment-api-openapi.yml
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#domain-search
+  - type: JSONSchema
+    url: json-schema/hunter-email-schema.json
+  - type: JSONLD
+    url: json-ld/hunter-io-context.jsonld
+  - type: Examples
+    url: examples/hunter-domain-search-example.json
+  - type: GraphQL
+    url: graphql/hunter-io-graphql.md
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-finder
+  - type: Examples
+    url: examples/hunter-email-finder-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-verifier
+  - type: JSONSchema
+    url: json-schema/hunter-verification-schema.json
+  - type: Examples
+    url: examples/hunter-email-verifier-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-count
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#discover
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#enrichment
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#account
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#leads
+  - type: JSONSchema
+    url: json-schema/hunter-lead-schema.json
+- aid: hunter-io:hunter-io-leads-api
   name: Hunter Leads API
+  description: Lead management.
+  humanURL: https://hunter.io/api-documentation/v2#domain-search
   tags:
   - Leads
-  - CRM
-  - Campaigns
-  humanURL: https://hunter.io/api-documentation/v2#leads
   properties:
-  - url: https://hunter.io/api-documentation/v2#leads
-    type: Documentation
-  - url: openapi/hunter-leads-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/hunter-lead-schema.json
-    type: JSONSchema
-  description: Manage leads saved in your Hunter account. Full CRUD plus upsert and
-    filtered list, with pagination, query search, leads-list scoping, verification
-    and sending-status filters, and custom attributes. Leads power Hunter's Campaigns
-    surface and integrate with Hunter Discover and Email Finder. Lead operations do
-    not consume credits.
+  - type: OpenAPI
+    url: openapi/hunter-io-leads-api-openapi.yml
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#domain-search
+  - type: JSONSchema
+    url: json-schema/hunter-email-schema.json
+  - type: JSONLD
+    url: json-ld/hunter-io-context.jsonld
+  - type: Examples
+    url: examples/hunter-domain-search-example.json
+  - type: GraphQL
+    url: graphql/hunter-io-graphql.md
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-finder
+  - type: Examples
+    url: examples/hunter-email-finder-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-verifier
+  - type: JSONSchema
+    url: json-schema/hunter-verification-schema.json
+  - type: Examples
+    url: examples/hunter-email-verifier-example.json
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#email-count
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#discover
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#enrichment
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#account
+  - type: Documentation
+    url: https://hunter.io/api-documentation/v2#leads
+  - type: JSONSchema
+    url: json-schema/hunter-lead-schema.json
 name: Hunter
 tags:
 - Email Finder
@@ -158,7 +340,20 @@ tags:
 - Sales
 - Marketing
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/hunter-io.png
 access: 3rd-Party
 common:
 - type: AgenticAccess
