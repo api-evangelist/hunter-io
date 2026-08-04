@@ -1,0 +1,191 @@
+openapi: 3.1.0
+info:
+  title: Hunter Domain Search API
+  description: >
+    Returns all email addresses found on the internet using a given domain name or
+    company name, along with sources for each, confidence scores, departments,
+    seniority levels, and verification status. The Domain Search is Hunter's
+    flagship endpoint and powers the public domain search tool on hunter.io.
+  version: v2
+  contact:
+    name: Hunter Support
+    url: https://hunter.io/contact
+  license:
+    name: Hunter Terms of Service
+    url: https://hunter.io/terms
+servers:
+  - url: https://api.hunter.io/v2
+    description: Production
+security:
+  - ApiKeyQuery: []
+  - ApiKeyHeader: []
+  - BearerAuth: []
+tags:
+  - name: Domain Search
+    description: Discover all emails for a domain or company.
+paths:
+  /domain-search:
+    get:
+      summary: Hunter Search Domain Emails
+      description: >
+        Search for all email addresses corresponding to a given domain or company,
+        including the discovered email pattern, organization metadata, and per-email
+        confidence scores and verification status.
+      operationId: domainSearch
+      tags:
+        - Domain Search
+      parameters:
+        - name: domain
+          in: query
+          description: The domain name from which you want to find email addresses.
+          schema: { type: string, example: stripe.com }
+        - name: company
+          in: query
+          description: The company name from which you want to find email addresses.
+          schema: { type: string }
+        - name: limit
+          in: query
+          description: Maximum number of email addresses returned (1-100, default 10).
+          schema: { type: integer, default: 10, minimum: 1, maximum: 100 }
+        - name: offset
+          in: query
+          description: The number of email addresses to skip.
+          schema: { type: integer, default: 0 }
+        - name: type
+          in: query
+          description: Restrict to personal or generic email addresses.
+          schema: { type: string, enum: [personal, generic] }
+        - name: seniority
+          in: query
+          description: Comma-separated seniority levels (junior, senior, executive).
+          schema: { type: string }
+        - name: department
+          in: query
+          description: Comma-separated departments (executive, it, finance, management, sales, legal, support, hr, marketing, communication, education, design, health, operations).
+          schema: { type: string }
+        - name: required_field
+          in: query
+          description: Comma-separated list of fields that must be present in each returned email.
+          schema: { type: string }
+        - $ref: '#/components/parameters/ApiKeyQuery'
+      responses:
+        '200':
+          description: A list of emails for the domain.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DomainSearchResponse'
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+components:
+  securitySchemes:
+    ApiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+    BearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    ApiKeyQuery:
+      name: api_key
+      in: query
+      required: true
+      description: Your Hunter API key.
+      schema: { type: string }
+  schemas:
+    DomainSearchResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            domain: { type: string }
+            disposable: { type: boolean }
+            webmail: { type: boolean }
+            accept_all: { type: boolean }
+            pattern: { type: string, example: '{first}.{last}' }
+            organization: { type: string }
+            description: { type: string }
+            industry: { type: string }
+            twitter: { type: string }
+            facebook: { type: string }
+            linkedin: { type: string }
+            instagram: { type: string }
+            youtube: { type: string }
+            technologies: { type: array, items: { type: string } }
+            country: { type: string }
+            state: { type: string }
+            city: { type: string }
+            postal_code: { type: string }
+            street: { type: string }
+            headcount: { type: string }
+            company_type: { type: string }
+            emails:
+              type: array
+              items: { $ref: '#/components/schemas/Email' }
+        meta:
+          $ref: '#/components/schemas/Meta'
+    Email:
+      type: object
+      properties:
+        value: { type: string, format: email }
+        type: { type: string, enum: [personal, generic] }
+        confidence: { type: integer, minimum: 0, maximum: 100 }
+        first_name: { type: string }
+        last_name: { type: string }
+        position: { type: string }
+        seniority: { type: string }
+        department: { type: string }
+        linkedin: { type: string }
+        twitter: { type: string }
+        phone_number: { type: string }
+        verification:
+          type: object
+          properties:
+            date: { type: string, format: date-time }
+            status: { type: string, enum: [valid, invalid, accept_all, webmail, disposable, unknown] }
+        sources:
+          type: array
+          items:
+            type: object
+            properties:
+              domain: { type: string }
+              uri: { type: string }
+              extracted_on: { type: string, format: date }
+              last_seen_on: { type: string, format: date }
+              still_on_page: { type: boolean }
+    Meta:
+      type: object
+      properties:
+        results: { type: integer }
+        limit: { type: integer }
+        offset: { type: integer }
+        params:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              code: { type: integer }
+              details: { type: string }
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }

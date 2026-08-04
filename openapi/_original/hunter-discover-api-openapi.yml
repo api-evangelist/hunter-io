@@ -1,0 +1,172 @@
+openapi: 3.1.0
+info:
+  title: Hunter Discover API
+  description: >
+    Find companies that match a target customer profile using natural-language
+    queries or structured filters across industry, headcount, location, technology,
+    funding, and keywords. The Discover API powers Hunter's prospecting workflows
+    and feeds directly into Domain Search and Email Finder.
+  version: v2
+  contact:
+    name: Hunter Support
+    url: https://hunter.io/contact
+servers:
+  - url: https://api.hunter.io/v2
+    description: Production
+security:
+  - ApiKeyQuery: []
+  - ApiKeyHeader: []
+  - BearerAuth: []
+tags:
+  - name: Discover
+    description: Company discovery and prospecting.
+paths:
+  /discover:
+    post:
+      summary: Hunter Discover Companies
+      description: >
+        Search Hunter's company database via natural-language `query` or structured
+        filters (industry, headcount, location, technology, funding, keywords).
+        Returns matching companies with email-count summaries so you can prioritize
+        targets before running Domain Search.
+      operationId: discoverCompanies
+      tags:
+        - Discover
+      parameters:
+        - $ref: '#/components/parameters/ApiKeyQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoverRequest'
+      responses:
+        '200':
+          description: Companies matching the criteria.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoverResponse'
+        '400':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+components:
+  securitySchemes:
+    ApiKeyQuery: { type: apiKey, in: query, name: api_key }
+    ApiKeyHeader: { type: apiKey, in: header, name: X-API-KEY }
+    BearerAuth: { type: http, scheme: bearer }
+  parameters:
+    ApiKeyQuery:
+      name: api_key
+      in: query
+      required: true
+      description: Your Hunter API key.
+      schema: { type: string }
+  schemas:
+    DiscoverRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          description: Natural-language description of the target company set.
+        organization:
+          type: object
+          properties:
+            domain: { type: array, items: { type: string } }
+            name: { type: array, items: { type: string } }
+        similar_to:
+          type: string
+          description: Premium-only. Domain to find lookalike companies from.
+        headquarters_location:
+          type: object
+          properties:
+            include:
+              type: object
+              properties:
+                continent: { type: array, items: { type: string } }
+                country: { type: array, items: { type: string } }
+                state: { type: array, items: { type: string } }
+                city: { type: array, items: { type: string } }
+            exclude:
+              type: object
+              properties:
+                country: { type: array, items: { type: string } }
+        industry:
+          type: object
+          properties:
+            include: { type: array, items: { type: string } }
+            exclude: { type: array, items: { type: string } }
+        headcount:
+          type: array
+          items: { type: string, enum: ['1-10','11-50','51-200','201-500','501-1000','1001-5000','5001-10000','10001+'] }
+        company_type:
+          type: array
+          items: { type: string, enum: [educational, government, nonprofit, partnership, privately_held, public_company, self_employed, self_owned] }
+        year_founded:
+          type: object
+          properties:
+            min: { type: integer }
+            max: { type: integer }
+        keywords:
+          type: object
+          properties:
+            include: { type: array, items: { type: string } }
+            exclude: { type: array, items: { type: string } }
+            match: { type: string, enum: [any, all] }
+        technology:
+          type: object
+          properties:
+            include: { type: array, items: { type: string } }
+            exclude: { type: array, items: { type: string } }
+        funding:
+          type: object
+          properties:
+            stage: { type: array, items: { type: string } }
+            min_amount: { type: integer }
+            max_amount: { type: integer }
+        limit: { type: integer, default: 100, maximum: 100 }
+        offset: { type: integer, default: 0, maximum: 10000 }
+    DiscoverResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              domain: { type: string }
+              organization: { type: string }
+              industry: { type: string }
+              headcount: { type: string }
+              country: { type: string }
+              emails_count:
+                type: object
+                properties:
+                  total: { type: integer }
+                  personal: { type: integer }
+                  generic: { type: integer }
+        meta:
+          type: object
+          properties:
+            results: { type: integer }
+            filters:
+              type: object
+              additionalProperties: true
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              code: { type: integer }
+              details: { type: string }
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }

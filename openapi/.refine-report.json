@@ -1,0 +1,28 @@
+{
+  "provider": "hunter-io",
+  "sources": [
+    "hunter-io-account-api-openapi.yml",
+    "hunter-io-discover-api-openapi.yml",
+    "hunter-io-domain-search-api-openapi.yml",
+    "hunter-io-email-count-api-openapi.yml",
+    "hunter-io-email-finder-api-openapi.yml",
+    "hunter-io-email-verifier-api-openapi.yml",
+    "hunter-io-enrichment-api-openapi.yml",
+    "hunter-io-leads-api-openapi.yml"
+  ],
+  "outputs": [
+    "hunter-io-account-api-openapi.yml",
+    "hunter-io-discover-api-openapi.yml",
+    "hunter-io-domain-search-api-openapi.yml",
+    "hunter-io-email-count-api-openapi.yml",
+    "hunter-io-email-finder-api-openapi.yml",
+    "hunter-io-email-verifier-api-openapi.yml",
+    "hunter-io-enrichment-api-openapi.yml",
+    "hunter-io-leads-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

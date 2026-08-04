@@ -1,0 +1,93 @@
+openapi: 3.1.0
+info:
+  title: Hunter Email Count API
+  description: >
+    Returns the total number of email addresses Hunter has indexed for a given
+    domain or company, broken down by personal/generic, department, and seniority.
+    This endpoint is free and does not consume Hunter credits.
+  version: v2
+  contact:
+    name: Hunter Support
+    url: https://hunter.io/contact
+servers:
+  - url: https://api.hunter.io/v2
+    description: Production
+security: []
+tags:
+  - name: Email Count
+    description: Count emails for a domain.
+paths:
+  /email-count:
+    get:
+      summary: Hunter Count Emails For Domain
+      description: >
+        Returns the total number of email addresses found by Hunter for a domain
+        or a company, with breakdowns by department and seniority. No API key
+        required; no credit consumed.
+      operationId: emailCount
+      tags:
+        - Email Count
+      parameters:
+        - name: domain
+          in: query
+          description: Domain name to count emails for.
+          schema: { type: string, example: stripe.com }
+        - name: company
+          in: query
+          description: Company name (used when domain not provided).
+          schema: { type: string }
+        - name: type
+          in: query
+          description: Limit to personal or generic emails.
+          schema: { type: string, enum: [personal, generic] }
+      responses:
+        '200':
+          description: Email count.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailCountResponse'
+        '400':
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    EmailCountResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            total: { type: integer }
+            personal_emails: { type: integer }
+            generic_emails: { type: integer }
+            department:
+              type: object
+              additionalProperties:
+                type: integer
+            seniority:
+              type: object
+              additionalProperties:
+                type: integer
+        meta:
+          type: object
+          properties:
+            params:
+              type: object
+              additionalProperties: true
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              code: { type: integer }
+              details: { type: string }
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }

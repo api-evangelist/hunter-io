@@ -1,0 +1,240 @@
+openapi: 3.1.0
+info:
+  title: Hunter Leads API
+  description: >
+    Manage leads stored in your Hunter account. Create, retrieve, update, upsert,
+    and delete leads, and filter by list, verification status, sending status, and
+    custom attributes. Leads power Hunter's Campaigns and integrate with Hunter
+    Discover and Email Finder.
+  version: v2
+  contact:
+    name: Hunter Support
+    url: https://hunter.io/contact
+servers:
+  - url: https://api.hunter.io/v2
+    description: Production
+security:
+  - ApiKeyQuery: []
+  - ApiKeyHeader: []
+  - BearerAuth: []
+tags:
+  - name: Leads
+    description: Lead management.
+paths:
+  /leads:
+    get:
+      summary: Hunter List Leads
+      description: List leads with optional filters and pagination.
+      operationId: listLeads
+      tags: [Leads]
+      parameters:
+        - name: leads_list_id
+          in: query
+          schema: { type: integer }
+        - name: email
+          in: query
+          schema: { type: string, format: email }
+        - name: first_name
+          in: query
+          schema: { type: string }
+        - name: last_name
+          in: query
+          schema: { type: string }
+        - name: company
+          in: query
+          schema: { type: string }
+        - name: sync_status
+          in: query
+          schema: { type: string, enum: [pending, error, success] }
+        - name: verification_status
+          in: query
+          schema: { type: string }
+        - name: query
+          in: query
+          description: Free-text search across name and email.
+          schema: { type: string }
+        - name: limit
+          in: query
+          schema: { type: integer, default: 20, minimum: 1, maximum: 1000 }
+        - name: offset
+          in: query
+          schema: { type: integer, default: 0, maximum: 100000 }
+        - $ref: '#/components/parameters/ApiKeyQuery'
+      responses:
+        '200':
+          description: A page of leads.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LeadList' }
+    post:
+      summary: Hunter Create Lead
+      description: Add a new lead.
+      operationId: createLead
+      tags: [Leads]
+      parameters:
+        - $ref: '#/components/parameters/ApiKeyQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LeadInput' }
+      responses:
+        '201':
+          description: Created lead.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LeadResponse' }
+    put:
+      summary: Hunter Upsert Lead
+      description: Create or update a lead by email match.
+      operationId: upsertLead
+      tags: [Leads]
+      parameters:
+        - $ref: '#/components/parameters/ApiKeyQuery'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LeadInput' }
+      responses:
+        '200':
+          description: Upserted lead.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LeadResponse' }
+  /leads/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer }
+      - $ref: '#/components/parameters/ApiKeyQuery'
+    get:
+      summary: Hunter Get Lead
+      description: Retrieve a single lead by id.
+      operationId: getLead
+      tags: [Leads]
+      responses:
+        '200':
+          description: Lead detail.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LeadResponse' }
+        '404': { $ref: '#/components/responses/Error' }
+    patch:
+      summary: Hunter Update Lead
+      description: Update lead attributes.
+      operationId: updateLead
+      tags: [Leads]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LeadInput' }
+      responses:
+        '200':
+          description: Updated lead.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LeadResponse' }
+    delete:
+      summary: Hunter Delete Lead
+      description: Delete a lead.
+      operationId: deleteLead
+      tags: [Leads]
+      responses:
+        '204':
+          description: Deleted.
+components:
+  securitySchemes:
+    ApiKeyQuery: { type: apiKey, in: query, name: api_key }
+    ApiKeyHeader: { type: apiKey, in: header, name: X-API-KEY }
+    BearerAuth: { type: http, scheme: bearer }
+  parameters:
+    ApiKeyQuery:
+      name: api_key
+      in: query
+      required: true
+      description: Your Hunter API key.
+      schema: { type: string }
+  schemas:
+    LeadInput:
+      type: object
+      required: [email]
+      properties:
+        email: { type: string, format: email }
+        first_name: { type: string }
+        last_name: { type: string }
+        position: { type: string }
+        company: { type: string }
+        company_industry: { type: string }
+        company_size: { type: string }
+        confidence_score: { type: integer, minimum: 0, maximum: 100 }
+        website: { type: string, format: uri }
+        country_code: { type: string }
+        linkedin_url: { type: string, format: uri }
+        phone_number: { type: string }
+        twitter: { type: string }
+        notes: { type: string }
+        source: { type: string }
+        leads_list_id: { type: integer }
+        leads_list_ids: { type: array, items: { type: integer } }
+        custom_attributes:
+          type: object
+          additionalProperties: { type: string }
+    Lead:
+      allOf:
+        - $ref: '#/components/schemas/LeadInput'
+        - type: object
+          properties:
+            id: { type: integer }
+            sync_status: { type: string }
+            sending_status: { type: string }
+            verification:
+              type: object
+              properties:
+                status: { type: string }
+                date: { type: string, format: date-time }
+            leads_list:
+              type: object
+              properties:
+                id: { type: integer }
+                name: { type: string }
+            created_at: { type: string, format: date-time }
+            last_activity_at: { type: string, format: date-time }
+            last_contacted_at: { type: string, format: date-time }
+    LeadList:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            leads:
+              type: array
+              items: { $ref: '#/components/schemas/Lead' }
+        meta:
+          type: object
+          properties:
+            count: { type: integer }
+            total: { type: integer }
+    LeadResponse:
+      type: object
+      properties:
+        data: { $ref: '#/components/schemas/Lead' }
+    Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              code: { type: integer }
+              details: { type: string }
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
