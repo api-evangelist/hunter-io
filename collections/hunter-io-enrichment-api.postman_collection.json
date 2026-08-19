@@ -1,0 +1,762 @@
+{
+  "item": [
+    {
+      "id": "56cdaf00-7e48-4499-a7a4-95e3ea22dbd1",
+      "name": "Enrichment",
+      "description": {
+        "content": "Person, company, and combined enrichment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "476a4bac-cdc1-478f-bfb8-9ff1f0f1669c",
+          "name": "Hunter Enrich Person",
+          "request": {
+            "name": "Hunter Enrich Person",
+            "description": {
+              "content": "Return a person profile for an email address or LinkedIn handle, including name, employment, geo, time zone, social handles, and last-seen activity.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "people",
+                "find"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<email>"
+                },
+                {
+                  "disabled": false,
+                  "key": "linkedin_handle",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "clearbit_format",
+                  "value": "<boolean>",
+                  "description": "When true, response is returned in Clearbit-compatible shape for drop-in migration."
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c5d9ff0-f64f-46fc-a01c-4a196d7c49f4",
+              "name": "Person profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"name\": {\n      \"fullName\": \"string\",\n      \"givenName\": \"string\",\n      \"familyName\": \"string\"\n    },\n    \"email\": \"AcKMoaMS@suKNRvQyVIvSmoGMJlRmqRtnChXYo.fq\",\n    \"location\": \"string\",\n    \"timeZone\": \"string\",\n    \"geo\": {\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country\": \"string\",\n      \"lat\": 4650.958136933723,\n      \"lng\": 1028.9480317695431\n    },\n    \"employment\": {\n      \"domain\": \"string\",\n      \"name\": \"string\",\n      \"title\": \"string\",\n      \"role\": \"string\",\n      \"seniority\": \"string\"\n    },\n    \"facebook\": {\n      \"handle\": \"string\"\n    },\n    \"github\": {\n      \"handle\": \"string\"\n    },\n    \"twitter\": {\n      \"handle\": \"string\"\n    },\n    \"linkedin\": {\n      \"handle\": \"string\"\n    },\n    \"gravatar\": {\n      \"hash\": \"string\"\n    },\n    \"emailProvider\": \"string\",\n    \"phone\": \"string\",\n    \"activeAt\": \"1989-07-08T15:37:11.281Z\",\n    \"inactiveAt\": \"1951-07-17T01:39:28.633Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b4018aa-81de-4981-9de4-e939fe28b5a4",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 4893,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 9556,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "704ea9e4-0caa-456a-a542-af7a0e2e9a46",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 5313,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 2301,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "991c3544-4757-4344-8d93-d67c078d5868",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 5313,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 2301,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6fef67e4-3a01-4ab2-892f-8142bf807684",
+          "name": "Hunter Enrich Company",
+          "request": {
+            "name": "Hunter Enrich Company",
+            "description": {
+              "content": "Return a company profile for a domain, including industry, location, technologies, metrics (employees, traffic rank, market cap), funding rounds, and social handles.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "companies",
+                "find"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "clearbit_format",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "53c925e9-2c7e-4aae-8db5-f23e5d5bdc7c",
+              "name": "Company profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"legalName\": \"string\",\n    \"domain\": \"string\",\n    \"domainAliases\": [\n      \"string\",\n      \"string\"\n    ],\n    \"site\": {\n      \"phoneNumbers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"emailAddresses\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"category\": {\n      \"sector\": \"string\",\n      \"industry\": \"string\",\n      \"industryGroup\": \"string\",\n      \"naicsCode\": \"string\",\n      \"sicCode\": \"string\",\n      \"gicsCode\": \"string\"\n    },\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"description\": \"string\",\n    \"foundedYear\": 5702,\n    \"location\": \"string\",\n    \"timeZone\": \"string\",\n    \"geo\": {\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country\": \"string\"\n    },\n    \"logo\": \"string\",\n    \"facebook\": {\n      \"handle\": \"string\"\n    },\n    \"linkedin\": {\n      \"handle\": \"string\"\n    },\n    \"twitter\": {\n      \"handle\": \"string\"\n    },\n    \"crunchbase\": {\n      \"handle\": \"string\"\n    },\n    \"instagram\": {\n      \"handle\": \"string\"\n    },\n    \"type\": \"string\",\n    \"ticker\": \"string\",\n    \"metrics\": {\n      \"alexaUsRank\": 9152,\n      \"alexaGlobalRank\": 4988,\n      \"trafficRank\": \"string\",\n      \"employees\": 978,\n      \"employeesRange\": \"string\",\n      \"marketCap\": 9199,\n      \"raised\": 1631,\n      \"annualRevenue\": 6610\n    },\n    \"tech\": [\n      \"string\",\n      \"string\"\n    ],\n    \"techCategories\": [\n      \"string\",\n      \"string\"\n    ],\n    \"fundingRounds\": [\n      {\n        \"amount\": 7554,\n        \"currency\": \"string\",\n        \"series\": \"string\",\n        \"announcedDate\": \"1948-10-29\"\n      },\n      {\n        \"amount\": 5568,\n        \"currency\": \"string\",\n        \"series\": \"string\",\n        \"announcedDate\": \"2011-07-23\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a55aa51e-cd37-444c-a541-86c48e481a26",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 5313,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 2301,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa902b1a-5fc0-4a51-b50f-45b80adad2f7",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 5313,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 2301,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "115a7b4b-6ffb-41bd-8e68-0f058319c531",
+          "name": "Hunter Enrich Person And Company",
+          "request": {
+            "name": "Hunter Enrich Person And Company",
+            "description": {
+              "content": "Combined enrichment. Returns both `person` and `company` blocks for an email address in a single call.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "combined",
+                "find"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<email>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "clearbit_format",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3cc624c8-629f-4788-bcfd-020eb5545d96",
+              "name": "Combined person + company profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"person\": {\n      \"id\": \"string\",\n      \"name\": {\n        \"fullName\": \"string\",\n        \"givenName\": \"string\",\n        \"familyName\": \"string\"\n      },\n      \"email\": \"4Iu@UfDpwwCLXrMcFBxiZZM.bgy\",\n      \"location\": \"string\",\n      \"timeZone\": \"string\",\n      \"geo\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country\": \"string\",\n        \"lat\": 478.4138229640078,\n        \"lng\": 4048.726189438988\n      },\n      \"employment\": {\n        \"domain\": \"string\",\n        \"name\": \"string\",\n        \"title\": \"string\",\n        \"role\": \"string\",\n        \"seniority\": \"string\"\n      },\n      \"facebook\": {\n        \"handle\": \"string\"\n      },\n      \"github\": {\n        \"handle\": \"string\"\n      },\n      \"twitter\": {\n        \"handle\": \"string\"\n      },\n      \"linkedin\": {\n        \"handle\": \"string\"\n      },\n      \"gravatar\": {\n        \"hash\": \"string\"\n      },\n      \"emailProvider\": \"string\",\n      \"phone\": \"string\",\n      \"activeAt\": \"1985-08-22T14:41:32.444Z\",\n      \"inactiveAt\": \"1948-02-14T18:29:30.766Z\"\n    },\n    \"company\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"legalName\": \"string\",\n      \"domain\": \"string\",\n      \"domainAliases\": [\n        \"string\",\n        \"string\"\n      ],\n      \"site\": {\n        \"phoneNumbers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"emailAddresses\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"category\": {\n        \"sector\": \"string\",\n        \"industry\": \"string\",\n        \"industryGroup\": \"string\",\n        \"naicsCode\": \"string\",\n        \"sicCode\": \"string\",\n        \"gicsCode\": \"string\"\n      },\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"foundedYear\": 3356,\n      \"location\": \"string\",\n      \"timeZone\": \"string\",\n      \"geo\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country\": \"string\"\n      },\n      \"logo\": \"string\",\n      \"facebook\": {\n        \"handle\": \"string\"\n      },\n      \"linkedin\": {\n        \"handle\": \"string\"\n      },\n      \"twitter\": {\n        \"handle\": \"string\"\n      },\n      \"crunchbase\": {\n        \"handle\": \"string\"\n      },\n      \"instagram\": {\n        \"handle\": \"string\"\n      },\n      \"type\": \"string\",\n      \"ticker\": \"string\",\n      \"metrics\": {\n        \"alexaUsRank\": 4925,\n        \"alexaGlobalRank\": 2396,\n        \"trafficRank\": \"string\",\n        \"employees\": 1605,\n        \"employeesRange\": \"string\",\n        \"marketCap\": 1526,\n        \"raised\": 1915,\n        \"annualRevenue\": 4332\n      },\n      \"tech\": [\n        \"string\",\n        \"string\"\n      ],\n      \"techCategories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"fundingRounds\": [\n        {\n          \"amount\": 7209,\n          \"currency\": \"string\",\n          \"series\": \"string\",\n          \"announcedDate\": \"1990-03-31\"\n        },\n        {\n          \"amount\": 6248,\n          \"currency\": \"string\",\n          \"series\": \"string\",\n          \"announcedDate\": \"2011-05-23\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69b6bb94-9009-47d9-b20b-90efa797b3bd",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 5313,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 2301,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09acba3f-818c-4b2e-a1c5-13413f781fd7",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "clearbit_format",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 5313,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 2301,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hunter.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ec3d0e0e-2a8c-4e82-9971-ecfa2fedee35",
+    "name": "Hunter Account Enrichment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Returns information about your Hunter account: plan name and level, reset date for credits, team identifier, and per-meter usage counters (searches, verifications, credits).\n\n\nContact Support:\n Name: Hunter Support",
+      "type": "text/plain"
+    }
+  }
+}

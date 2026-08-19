@@ -1,0 +1,179 @@
+{
+  "item": [
+    {
+      "id": "a44c4eb2-fb40-4d1d-a602-7292bd34bae2",
+      "name": "Account",
+      "description": {
+        "content": "Account metadata and usage counters.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0d9497e3-edc9-4c48-82d1-db0241e2fff4",
+          "name": "Hunter Get Account",
+          "request": {
+            "name": "Hunter Get Account",
+            "description": {
+              "content": "Returns the authenticated account's plan, reset date, team id, and a `requests` block with `used`/`available` counters for credits, searches, and verifications.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34aff046-8642-47bf-8054-5d098145171c",
+              "name": "Account information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"FEWeLIaq4@kshpRMWJbpJr.nlne\",\n    \"plan_name\": \"string\",\n    \"plan_level\": 2021,\n    \"reset_date\": \"1968-10-06\",\n    \"team_id\": 2566,\n    \"calls\": {\n      \"used\": 4741,\n      \"available\": 5272\n    },\n    \"requests\": {\n      \"searches\": {\n        \"used\": 6712,\n        \"available\": 6238\n      },\n      \"verifications\": {\n        \"used\": 8376,\n        \"available\": 3049\n      },\n      \"credits\": {\n        \"used\": 6614,\n        \"available\": 208\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ff5f307-ccd9-46ea-a4a4-168b3230f3c2",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 4769,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 6186,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hunter.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b499b362-355e-40db-af69-dcce43f97d61",
+    "name": "Hunter Account API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Returns information about your Hunter account: plan name and level, reset date for credits, team identifier, and per-meter usage counters (searches, verifications, credits).\n\n\nContact Support:\n Name: Hunter Support",
+      "type": "text/plain"
+    }
+  }
+}

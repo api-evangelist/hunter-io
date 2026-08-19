@@ -1,0 +1,324 @@
+{
+  "item": [
+    {
+      "id": "695c8584-3562-4823-8cec-4e87e61f5daa",
+      "name": "Email Verifier",
+      "description": {
+        "content": "Verify the deliverability of an email address.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0363388e-3ffe-43e7-856c-b8d0008026ad",
+          "name": "Hunter Verify Email",
+          "request": {
+            "name": "Hunter Verify Email",
+            "description": {
+              "content": "Verifies an email address against MX, SMTP, regex, gibberish, disposable, webmail, accept-all, block, and Hunter database checks. Returns a status, score, and supporting flags. Responds 202 while verification is still in flight; retry the same call to get the final result.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "email-verifier"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<email>",
+                  "description": "(Required) The email address to verify."
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81619a58-94c1-4f46-ba5c-f71a81fd4abe",
+              "name": "Verification result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-verifier"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "ada.lovelace@stripe.com"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"invalid\",\n    \"result\": \"string\",\n    \"score\": 72,\n    \"email\": \"QsvL-GzPOLsXj@wloLKnKPfqVoqfq.amh\",\n    \"regexp\": true,\n    \"gibberish\": true,\n    \"disposable\": false,\n    \"webmail\": false,\n    \"mx_records\": true,\n    \"smtp_server\": false,\n    \"smtp_check\": true,\n    \"accept_all\": true,\n    \"block\": false,\n    \"sources\": [\n      {\n        \"domain\": \"string\",\n        \"uri\": \"string\",\n        \"extracted_on\": \"1994-01-19\",\n        \"last_seen_on\": \"2018-02-18\",\n        \"still_on_page\": false\n      },\n      {\n        \"domain\": \"string\",\n        \"uri\": \"string\",\n        \"extracted_on\": \"1980-05-17\",\n        \"last_seen_on\": \"1954-04-29\",\n        \"still_on_page\": false\n      }\n    ]\n  },\n  \"meta\": {\n    \"params\": {\n      \"key_0\": \"string\",\n      \"key_1\": 4849,\n      \"key_2\": 9249.776194427328,\n      \"key_3\": 7751\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a27bba1-1bea-49e3-adf5-022c1bde78de",
+              "name": "Verification still processing; retry the same request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-verifier"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "ada.lovelace@stripe.com"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a830fefe-07c4-48c3-aacf-b242cc795d8b",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-verifier"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "ada.lovelace@stripe.com"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 6483,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 8807,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f13bdfe3-e70b-4e68-8717-d277024dabf3",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-verifier"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "ada.lovelace@stripe.com"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 9682,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 7856,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb052633-ceae-4eac-a8d2-563a300c60e2",
+              "name": "Personal-data restriction prevents verification.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-verifier"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "ada.lovelace@stripe.com"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "code": 451,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hunter.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "19dffe9b-adf7-4fb5-a6c1-6669396fa314",
+    "name": "Hunter Account Email Verifier API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Returns information about your Hunter account: plan name and level, reset date for credits, team identifier, and per-meter usage counters (searches, verifications, credits).\n\n\nContact Support:\n Name: Hunter Support",
+      "type": "text/plain"
+    }
+  }
+}

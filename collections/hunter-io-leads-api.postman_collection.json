@@ -1,0 +1,814 @@
+{
+  "item": [
+    {
+      "id": "a674e593-d435-4665-a21e-8584036b0f5f",
+      "name": "Leads",
+      "description": {
+        "content": "Lead management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f59463a8-e61f-409c-afd8-cde5fe47b1a0",
+          "name": "Hunter List Leads",
+          "request": {
+            "name": "Hunter List Leads",
+            "description": {
+              "content": "List leads with optional filters and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "leads_list_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<email>"
+                },
+                {
+                  "disabled": false,
+                  "key": "first_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "company",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sync_status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "verification_status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Free-text search across name and email."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cbc01f2e-4f49-4124-a9dc-40b969f9da33",
+              "name": "A page of leads.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "leads_list_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "first_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sync_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "verification_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"leads\": [\n      {\n        \"email\": \"iPOJ59Qj@llRJkIPi.papf\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"position\": \"string\",\n        \"company\": \"string\",\n        \"company_industry\": \"string\",\n        \"company_size\": \"string\",\n        \"confidence_score\": 79,\n        \"website\": \"http://yKjcPCfhljItvxMjG.bkpdiHY\",\n        \"country_code\": \"string\",\n        \"linkedin_url\": \"https://QV.srrndHSX2OhFrXik4Nlbk1c8qa-vjdszHDIB5whoCEur1-g0I,5+MuM5BPMQi6,KaixbAA8G9fn7\",\n        \"phone_number\": \"string\",\n        \"twitter\": \"string\",\n        \"notes\": \"string\",\n        \"source\": \"string\",\n        \"leads_list_id\": 7103,\n        \"leads_list_ids\": [\n          1373,\n          1707\n        ],\n        \"custom_attributes\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"id\": 7804,\n        \"sync_status\": \"string\",\n        \"sending_status\": \"string\",\n        \"verification\": {\n          \"status\": \"string\",\n          \"date\": \"1970-11-01T16:14:10.210Z\"\n        },\n        \"leads_list\": {\n          \"id\": 5565,\n          \"name\": \"string\"\n        },\n        \"created_at\": \"2020-08-12T19:40:57.235Z\",\n        \"last_activity_at\": \"1960-06-03T02:15:04.479Z\",\n        \"last_contacted_at\": \"1959-05-30T01:52:41.421Z\"\n      },\n      {\n        \"email\": \"XaJqtIlO@zQbOfuLcszhQoWqTUdi.jbj\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"position\": \"string\",\n        \"company\": \"string\",\n        \"company_industry\": \"string\",\n        \"company_size\": \"string\",\n        \"confidence_score\": 47,\n        \"website\": \"https://zXGxEDqsbjxsTccFvnBMSaDCYRwWsZ.lkgbj6tQAHbea4ITjPE2qIyHho,O+nPJN0OYFulmogNPKxwnOmO-5-ZXK19qiwF,\",\n        \"country_code\": \"string\",\n        \"linkedin_url\": \"https://SJweXZMqK.yvgRmFcVFnlpPzJ3wJpsor5HgLmjTymWHqfvgTB\",\n        \"phone_number\": \"string\",\n        \"twitter\": \"string\",\n        \"notes\": \"string\",\n        \"source\": \"string\",\n        \"leads_list_id\": 8904,\n        \"leads_list_ids\": [\n          8650,\n          5212\n        ],\n        \"custom_attributes\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"id\": 3,\n        \"sync_status\": \"string\",\n        \"sending_status\": \"string\",\n        \"verification\": {\n          \"status\": \"string\",\n          \"date\": \"1979-02-02T05:30:02.174Z\"\n        },\n        \"leads_list\": {\n          \"id\": 746,\n          \"name\": \"string\"\n        },\n        \"created_at\": \"2020-07-01T22:11:57.471Z\",\n        \"last_activity_at\": \"1973-07-23T09:56:26.108Z\",\n        \"last_contacted_at\": \"2016-05-15T22:35:34.627Z\"\n      }\n    ]\n  },\n  \"meta\": {\n    \"count\": 6247,\n    \"total\": 6653\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44f57786-d41f-4fd4-8400-21297cb138b3",
+          "name": "Hunter Create Lead",
+          "request": {
+            "name": "Hunter Create Lead",
+            "description": {
+              "content": "Add a new lead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"position\": \"<string>\",\n  \"company\": \"<string>\",\n  \"company_industry\": \"<string>\",\n  \"company_size\": \"<string>\",\n  \"confidence_score\": \"<integer>\",\n  \"website\": \"<uri>\",\n  \"country_code\": \"<string>\",\n  \"linkedin_url\": \"<uri>\",\n  \"phone_number\": \"<string>\",\n  \"twitter\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"source\": \"<string>\",\n  \"leads_list_id\": \"<integer>\",\n  \"leads_list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"custom_attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "196d67b7-58b5-4522-9ee4-02528bcd38a0",
+              "name": "Created lead.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"position\": \"<string>\",\n  \"company\": \"<string>\",\n  \"company_industry\": \"<string>\",\n  \"company_size\": \"<string>\",\n  \"confidence_score\": \"<integer>\",\n  \"website\": \"<uri>\",\n  \"country_code\": \"<string>\",\n  \"linkedin_url\": \"<uri>\",\n  \"phone_number\": \"<string>\",\n  \"twitter\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"source\": \"<string>\",\n  \"leads_list_id\": \"<integer>\",\n  \"leads_list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"custom_attributes\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"email\": \"l2GgxDQum@rmRMSKNFuvTszIbew.gk\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"position\": \"string\",\n    \"company\": \"string\",\n    \"company_industry\": \"string\",\n    \"company_size\": \"string\",\n    \"confidence_score\": 54,\n    \"website\": \"http://YDHhbVhZdiF.fxcndZEi\",\n    \"country_code\": \"string\",\n    \"linkedin_url\": \"http://EnPRYJmfp.eiwsJdWBqq7X3dWYHvp1sa+tWmkSXgTicaI-lCjb-pkXj7GDIYUDWCGYQmfa\",\n    \"phone_number\": \"string\",\n    \"twitter\": \"string\",\n    \"notes\": \"string\",\n    \"source\": \"string\",\n    \"leads_list_id\": 7032,\n    \"leads_list_ids\": [\n      2746,\n      4133\n    ],\n    \"custom_attributes\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"id\": 3086,\n    \"sync_status\": \"string\",\n    \"sending_status\": \"string\",\n    \"verification\": {\n      \"status\": \"string\",\n      \"date\": \"1948-07-20T22:46:17.759Z\"\n    },\n    \"leads_list\": {\n      \"id\": 2407,\n      \"name\": \"string\"\n    },\n    \"created_at\": \"1994-07-29T20:06:21.642Z\",\n    \"last_activity_at\": \"1994-12-05T11:43:57.215Z\",\n    \"last_contacted_at\": \"2017-09-19T08:52:50.996Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a913e10-213e-4aef-bafa-3ed7fd287c93",
+          "name": "Hunter Upsert Lead",
+          "request": {
+            "name": "Hunter Upsert Lead",
+            "description": {
+              "content": "Create or update a lead by email match.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"position\": \"<string>\",\n  \"company\": \"<string>\",\n  \"company_industry\": \"<string>\",\n  \"company_size\": \"<string>\",\n  \"confidence_score\": \"<integer>\",\n  \"website\": \"<uri>\",\n  \"country_code\": \"<string>\",\n  \"linkedin_url\": \"<uri>\",\n  \"phone_number\": \"<string>\",\n  \"twitter\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"source\": \"<string>\",\n  \"leads_list_id\": \"<integer>\",\n  \"leads_list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"custom_attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c49cea4c-cfc2-4bf5-9ae4-717f2694087b",
+              "name": "Upserted lead.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"position\": \"<string>\",\n  \"company\": \"<string>\",\n  \"company_industry\": \"<string>\",\n  \"company_size\": \"<string>\",\n  \"confidence_score\": \"<integer>\",\n  \"website\": \"<uri>\",\n  \"country_code\": \"<string>\",\n  \"linkedin_url\": \"<uri>\",\n  \"phone_number\": \"<string>\",\n  \"twitter\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"source\": \"<string>\",\n  \"leads_list_id\": \"<integer>\",\n  \"leads_list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"custom_attributes\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"email\": \"l2GgxDQum@rmRMSKNFuvTszIbew.gk\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"position\": \"string\",\n    \"company\": \"string\",\n    \"company_industry\": \"string\",\n    \"company_size\": \"string\",\n    \"confidence_score\": 54,\n    \"website\": \"http://YDHhbVhZdiF.fxcndZEi\",\n    \"country_code\": \"string\",\n    \"linkedin_url\": \"http://EnPRYJmfp.eiwsJdWBqq7X3dWYHvp1sa+tWmkSXgTicaI-lCjb-pkXj7GDIYUDWCGYQmfa\",\n    \"phone_number\": \"string\",\n    \"twitter\": \"string\",\n    \"notes\": \"string\",\n    \"source\": \"string\",\n    \"leads_list_id\": 7032,\n    \"leads_list_ids\": [\n      2746,\n      4133\n    ],\n    \"custom_attributes\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"id\": 3086,\n    \"sync_status\": \"string\",\n    \"sending_status\": \"string\",\n    \"verification\": {\n      \"status\": \"string\",\n      \"date\": \"1948-07-20T22:46:17.759Z\"\n    },\n    \"leads_list\": {\n      \"id\": 2407,\n      \"name\": \"string\"\n    },\n    \"created_at\": \"1994-07-29T20:06:21.642Z\",\n    \"last_activity_at\": \"1994-12-05T11:43:57.215Z\",\n    \"last_contacted_at\": \"2017-09-19T08:52:50.996Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbb9b691-6359-4b77-831d-298416553ce4",
+          "name": "Hunter Get Lead",
+          "request": {
+            "name": "Hunter Get Lead",
+            "description": {
+              "content": "Retrieve a single lead by id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leads",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bf5dbdc1-c7cd-49cb-a7f8-ff19089d0db8",
+              "name": "Lead detail.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"email\": \"l2GgxDQum@rmRMSKNFuvTszIbew.gk\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"position\": \"string\",\n    \"company\": \"string\",\n    \"company_industry\": \"string\",\n    \"company_size\": \"string\",\n    \"confidence_score\": 54,\n    \"website\": \"http://YDHhbVhZdiF.fxcndZEi\",\n    \"country_code\": \"string\",\n    \"linkedin_url\": \"http://EnPRYJmfp.eiwsJdWBqq7X3dWYHvp1sa+tWmkSXgTicaI-lCjb-pkXj7GDIYUDWCGYQmfa\",\n    \"phone_number\": \"string\",\n    \"twitter\": \"string\",\n    \"notes\": \"string\",\n    \"source\": \"string\",\n    \"leads_list_id\": 7032,\n    \"leads_list_ids\": [\n      2746,\n      4133\n    ],\n    \"custom_attributes\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"id\": 3086,\n    \"sync_status\": \"string\",\n    \"sending_status\": \"string\",\n    \"verification\": {\n      \"status\": \"string\",\n      \"date\": \"1948-07-20T22:46:17.759Z\"\n    },\n    \"leads_list\": {\n      \"id\": 2407,\n      \"name\": \"string\"\n    },\n    \"created_at\": \"1994-07-29T20:06:21.642Z\",\n    \"last_activity_at\": \"1994-12-05T11:43:57.215Z\",\n    \"last_contacted_at\": \"2017-09-19T08:52:50.996Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f063eef-be0c-4ac5-97f7-29b7942bef54",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 3378,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 2716,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "426a64d4-344a-4e3c-bd13-a406b6b1d2fe",
+          "name": "Hunter Update Lead",
+          "request": {
+            "name": "Hunter Update Lead",
+            "description": {
+              "content": "Update lead attributes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leads",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"position\": \"<string>\",\n  \"company\": \"<string>\",\n  \"company_industry\": \"<string>\",\n  \"company_size\": \"<string>\",\n  \"confidence_score\": \"<integer>\",\n  \"website\": \"<uri>\",\n  \"country_code\": \"<string>\",\n  \"linkedin_url\": \"<uri>\",\n  \"phone_number\": \"<string>\",\n  \"twitter\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"source\": \"<string>\",\n  \"leads_list_id\": \"<integer>\",\n  \"leads_list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"custom_attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad60371d-a3dd-47db-9bbc-8bb0700a831c",
+              "name": "Updated lead.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"position\": \"<string>\",\n  \"company\": \"<string>\",\n  \"company_industry\": \"<string>\",\n  \"company_size\": \"<string>\",\n  \"confidence_score\": \"<integer>\",\n  \"website\": \"<uri>\",\n  \"country_code\": \"<string>\",\n  \"linkedin_url\": \"<uri>\",\n  \"phone_number\": \"<string>\",\n  \"twitter\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"source\": \"<string>\",\n  \"leads_list_id\": \"<integer>\",\n  \"leads_list_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"custom_attributes\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"email\": \"l2GgxDQum@rmRMSKNFuvTszIbew.gk\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"position\": \"string\",\n    \"company\": \"string\",\n    \"company_industry\": \"string\",\n    \"company_size\": \"string\",\n    \"confidence_score\": 54,\n    \"website\": \"http://YDHhbVhZdiF.fxcndZEi\",\n    \"country_code\": \"string\",\n    \"linkedin_url\": \"http://EnPRYJmfp.eiwsJdWBqq7X3dWYHvp1sa+tWmkSXgTicaI-lCjb-pkXj7GDIYUDWCGYQmfa\",\n    \"phone_number\": \"string\",\n    \"twitter\": \"string\",\n    \"notes\": \"string\",\n    \"source\": \"string\",\n    \"leads_list_id\": 7032,\n    \"leads_list_ids\": [\n      2746,\n      4133\n    ],\n    \"custom_attributes\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"id\": 3086,\n    \"sync_status\": \"string\",\n    \"sending_status\": \"string\",\n    \"verification\": {\n      \"status\": \"string\",\n      \"date\": \"1948-07-20T22:46:17.759Z\"\n    },\n    \"leads_list\": {\n      \"id\": 2407,\n      \"name\": \"string\"\n    },\n    \"created_at\": \"1994-07-29T20:06:21.642Z\",\n    \"last_activity_at\": \"1994-12-05T11:43:57.215Z\",\n    \"last_contacted_at\": \"2017-09-19T08:52:50.996Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87ce9d61-d544-442c-8ab9-c7b5f7a4e546",
+          "name": "Hunter Delete Lead",
+          "request": {
+            "name": "Hunter Delete Lead",
+            "description": {
+              "content": "Delete a lead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leads",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b8d1a81-1ae9-45dc-89d8-c288e241b367",
+              "name": "Deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hunter.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "57d7175a-41b6-407e-ae86-8315ef17eac1",
+    "name": "Hunter Account Leads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Returns information about your Hunter account: plan name and level, reset date for credits, team identifier, and per-meter usage counters (searches, verifications, credits).\n\n\nContact Support:\n Name: Hunter Support",
+      "type": "text/plain"
+    }
+  }
+}

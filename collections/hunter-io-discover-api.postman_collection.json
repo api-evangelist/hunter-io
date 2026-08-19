@@ -1,0 +1,260 @@
+{
+  "item": [
+    {
+      "id": "50fcc0d3-7b82-4821-94c5-6ebdf0615758",
+      "name": "Discover",
+      "description": {
+        "content": "Company discovery and prospecting.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef3b4f19-65f6-460e-9fa8-7438a2c21ba0",
+          "name": "Hunter Discover Companies",
+          "request": {
+            "name": "Hunter Discover Companies",
+            "description": {
+              "content": "Search Hunter's company database via natural-language `query` or structured filters (industry, headcount, location, technology, funding, keywords). Returns matching companies with email-count summaries so you can prioritize targets before running Domain Search.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discover"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"organization\": {\n    \"domain\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"similar_to\": \"<string>\",\n  \"headquarters_location\": {\n    \"include\": {\n      \"continent\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"country\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"state\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"city\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"exclude\": {\n      \"country\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"industry\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"headcount\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"company_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"year_founded\": {\n    \"min\": \"<integer>\",\n    \"max\": \"<integer>\"\n  },\n  \"keywords\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"match\": \"<string>\"\n  },\n  \"technology\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"funding\": {\n    \"stage\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"min_amount\": \"<integer>\",\n    \"max_amount\": \"<integer>\"\n  },\n  \"limit\": 100,\n  \"offset\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cdfab283-3105-48a0-99d5-f5344bd2d738",
+              "name": "Companies matching the criteria.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discover"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"organization\": {\n    \"domain\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"similar_to\": \"<string>\",\n  \"headquarters_location\": {\n    \"include\": {\n      \"continent\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"country\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"state\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"city\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"exclude\": {\n      \"country\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"industry\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"headcount\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"company_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"year_founded\": {\n    \"min\": \"<integer>\",\n    \"max\": \"<integer>\"\n  },\n  \"keywords\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"match\": \"<string>\"\n  },\n  \"technology\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"funding\": {\n    \"stage\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"min_amount\": \"<integer>\",\n    \"max_amount\": \"<integer>\"\n  },\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"domain\": \"string\",\n      \"organization\": \"string\",\n      \"industry\": \"string\",\n      \"headcount\": \"string\",\n      \"country\": \"string\",\n      \"emails_count\": {\n        \"total\": 4457,\n        \"personal\": 3209,\n        \"generic\": 4221\n      }\n    },\n    {\n      \"domain\": \"string\",\n      \"organization\": \"string\",\n      \"industry\": \"string\",\n      \"headcount\": \"string\",\n      \"country\": \"string\",\n      \"emails_count\": {\n        \"total\": 2212,\n        \"personal\": 2234,\n        \"generic\": 5692\n      }\n    }\n  ],\n  \"meta\": {\n    \"results\": 9012,\n    \"filters\": {\n      \"key_0\": 411\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cda0ac21-b4c1-4148-905b-efc786a9022a",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discover"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"organization\": {\n    \"domain\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"similar_to\": \"<string>\",\n  \"headquarters_location\": {\n    \"include\": {\n      \"continent\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"country\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"state\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"city\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"exclude\": {\n      \"country\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"industry\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"headcount\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"company_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"year_founded\": {\n    \"min\": \"<integer>\",\n    \"max\": \"<integer>\"\n  },\n  \"keywords\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"match\": \"<string>\"\n  },\n  \"technology\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"funding\": {\n    \"stage\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"min_amount\": \"<integer>\",\n    \"max_amount\": \"<integer>\"\n  },\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 1699,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 6096,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e19a867a-9a2c-4883-bdb0-94c1e09f9945",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discover"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"organization\": {\n    \"domain\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"similar_to\": \"<string>\",\n  \"headquarters_location\": {\n    \"include\": {\n      \"continent\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"country\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"state\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"city\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"exclude\": {\n      \"country\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"industry\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"headcount\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"company_type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"year_founded\": {\n    \"min\": \"<integer>\",\n    \"max\": \"<integer>\"\n  },\n  \"keywords\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"match\": \"<string>\"\n  },\n  \"technology\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"funding\": {\n    \"stage\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"min_amount\": \"<integer>\",\n    \"max_amount\": \"<integer>\"\n  },\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 5563,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 3884,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hunter.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f2035ba9-b58f-4e54-a427-b1828de07919",
+    "name": "Hunter Account Discover API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Returns information about your Hunter account: plan name and level, reset date for credits, team identifier, and per-meter usage counters (searches, verifications, credits).\n\n\nContact Support:\n Name: Hunter Support",
+      "type": "text/plain"
+    }
+  }
+}

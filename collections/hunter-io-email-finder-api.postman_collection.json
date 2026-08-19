@@ -1,0 +1,487 @@
+{
+  "item": [
+    {
+      "id": "1babbdca-e0da-4c23-b1d6-0eb10dbd3497",
+      "name": "Email Finder",
+      "description": {
+        "content": "Find the email address of a person at a company.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e9858bb9-6197-4658-be52-5ec81a8ffe95",
+          "name": "Hunter Find Email",
+          "request": {
+            "name": "Hunter Find Email",
+            "description": {
+              "content": "Generates or retrieves the most likely email address from a domain or company name and a person's first and last name (or full name, or LinkedIn handle). Returns score, sources, position, and verification metadata.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "email-finder"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "Domain name of the company."
+                },
+                {
+                  "disabled": false,
+                  "key": "company",
+                  "value": "<string>",
+                  "description": "Company name (used when domain is not provided)."
+                },
+                {
+                  "disabled": false,
+                  "key": "first_name",
+                  "value": "<string>",
+                  "description": "First name of the person."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_name",
+                  "value": "<string>",
+                  "description": "Last name of the person."
+                },
+                {
+                  "disabled": false,
+                  "key": "full_name",
+                  "value": "<string>",
+                  "description": "Full name of the person (alternative to first/last)."
+                },
+                {
+                  "disabled": false,
+                  "key": "linkedin_handle",
+                  "value": "<string>",
+                  "description": "LinkedIn handle (e.g., the slug after `/in/`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_duration",
+                  "value": "10",
+                  "description": "Maximum duration of the request in seconds (3-20, default 10)."
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) Your Hunter API key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3680f0c9-35fc-4dc9-9dd3-18751577d37a",
+              "name": "The best-guess email for the person.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-finder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "first_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_duration",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"ryrfn6yu3pgD@JTz.mjfh\",\n    \"score\": 3,\n    \"domain\": \"string\",\n    \"accept_all\": false,\n    \"position\": \"string\",\n    \"twitter\": \"string\",\n    \"linkedin_url\": \"string\",\n    \"phone_number\": \"string\",\n    \"company\": \"string\",\n    \"sources\": [\n      {\n        \"domain\": \"string\",\n        \"uri\": \"string\",\n        \"extracted_on\": \"1966-08-13\",\n        \"last_seen_on\": \"2014-09-06\",\n        \"still_on_page\": false\n      },\n      {\n        \"domain\": \"string\",\n        \"uri\": \"string\",\n        \"extracted_on\": \"2024-01-15\",\n        \"last_seen_on\": \"1997-01-14\",\n        \"still_on_page\": false\n      }\n    ],\n    \"verification\": {\n      \"date\": \"1985-11-04T08:52:31.964Z\",\n      \"status\": \"unknown\"\n    }\n  },\n  \"meta\": {\n    \"params\": {\n      \"key_0\": \"string\",\n      \"key_1\": 5573\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01623a68-1d42-40c7-ba1e-c2aa5258f3ac",
+              "name": "Request still processing; retry with the same parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-finder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "first_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_duration",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5ddd3cc5-9d77-479a-be46-d4612491690f",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-finder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "first_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_duration",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 4479,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 4864,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e59c73b2-89e8-4eca-8a47-ee6aaa6d2012",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-finder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "first_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_duration",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 9704,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 3399,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a301dd70-187a-4b62-b08f-b3519cc95bc2",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-finder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "stripe.com"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "first_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "linkedin_handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_duration",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"id\": \"string\",\n      \"code\": 9704,\n      \"details\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"code\": 3399,\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hunter.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d5a9c5fe-325f-4d81-bc44-60ccaf5f7dda",
+    "name": "Hunter Account Email Finder API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Returns information about your Hunter account: plan name and level, reset date for credits, team identifier, and per-meter usage counters (searches, verifications, credits).\n\n\nContact Support:\n Name: Hunter Support",
+      "type": "text/plain"
+    }
+  }
+}
