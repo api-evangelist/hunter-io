@@ -14,13 +14,13 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: emailFinderApi
-  url: ../openapi/hunter-email-finder-api-openapi.yml
+  url: ../openapi/hunter-io-email-finder-api-openapi.yml
   type: openapi
 - name: emailVerifierApi
-  url: ../openapi/hunter-email-verifier-api-openapi.yml
+  url: ../openapi/hunter-io-email-verifier-api-openapi.yml
   type: openapi
 - name: enrichmentApi
-  url: ../openapi/hunter-enrichment-api-openapi.yml
+  url: ../openapi/hunter-io-enrichment-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: author-finder

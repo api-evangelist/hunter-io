@@ -11,11 +11,11 @@ info:
     keeps bounce rates low. Each request inlines the api_key query parameter.
   version: 1.0.0
 sourceDescriptions:
-- name: leadsApi
-  url: ../openapi/hunter-leads-api-openapi.yml
-  type: openapi
 - name: emailVerifierApi
-  url: ../openapi/hunter-email-verifier-api-openapi.yml
+  url: ../openapi/hunter-io-email-verifier-api-openapi.yml
+  type: openapi
+- name: leadsApi
+  url: ../openapi/hunter-io-leads-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: reverify-lead

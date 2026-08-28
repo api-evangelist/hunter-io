@@ -15,13 +15,13 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: domainSearchApi
-  url: ../openapi/hunter-domain-search-api-openapi.yml
+  url: ../openapi/hunter-io-domain-search-api-openapi.yml
   type: openapi
 - name: emailFinderApi
-  url: ../openapi/hunter-email-finder-api-openapi.yml
+  url: ../openapi/hunter-io-email-finder-api-openapi.yml
   type: openapi
 - name: emailVerifierApi
-  url: ../openapi/hunter-email-verifier-api-openapi.yml
+  url: ../openapi/hunter-io-email-verifier-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: domain-to-verified-email

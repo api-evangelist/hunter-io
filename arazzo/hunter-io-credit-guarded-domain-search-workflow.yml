@@ -13,10 +13,10 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: accountApi
-  url: ../openapi/hunter-account-api-openapi.yml
+  url: ../openapi/hunter-io-account-api-openapi.yml
   type: openapi
 - name: domainSearchApi
-  url: ../openapi/hunter-domain-search-api-openapi.yml
+  url: ../openapi/hunter-io-domain-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: credit-guarded-domain-search

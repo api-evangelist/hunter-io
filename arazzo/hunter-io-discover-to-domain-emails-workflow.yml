@@ -13,10 +13,10 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: discoverApi
-  url: ../openapi/hunter-discover-api-openapi.yml
+  url: ../openapi/hunter-io-discover-api-openapi.yml
   type: openapi
 - name: domainSearchApi
-  url: ../openapi/hunter-domain-search-api-openapi.yml
+  url: ../openapi/hunter-io-domain-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: discover-to-domain-emails

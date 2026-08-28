@@ -12,11 +12,11 @@ info:
     Domain Search inlines the api_key query parameter.
   version: 1.0.0
 sourceDescriptions:
-- name: emailCountApi
-  url: ../openapi/hunter-email-count-api-openapi.yml
-  type: openapi
 - name: domainSearchApi
-  url: ../openapi/hunter-domain-search-api-openapi.yml
+  url: ../openapi/hunter-io-domain-search-api-openapi.yml
+  type: openapi
+- name: emailCountApi
+  url: ../openapi/hunter-io-email-count-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: count-gated-domain-search

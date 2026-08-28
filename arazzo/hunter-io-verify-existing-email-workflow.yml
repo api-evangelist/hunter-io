@@ -14,10 +14,10 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: emailVerifierApi
-  url: ../openapi/hunter-email-verifier-api-openapi.yml
+  url: ../openapi/hunter-io-email-verifier-api-openapi.yml
   type: openapi
 - name: leadsApi
-  url: ../openapi/hunter-leads-api-openapi.yml
+  url: ../openapi/hunter-io-leads-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: verify-existing-email

@@ -13,10 +13,10 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: enrichmentApi
-  url: ../openapi/hunter-enrichment-api-openapi.yml
+  url: ../openapi/hunter-io-enrichment-api-openapi.yml
   type: openapi
 - name: leadsApi
-  url: ../openapi/hunter-leads-api-openapi.yml
+  url: ../openapi/hunter-io-leads-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: enrich-email-to-lead
